@@ -8,7 +8,7 @@ First install dependencies:
 npm install
 ```
 
-To run in hot module reloading mode:
+To run development enviroment:
 
 ```sh
 npm start
@@ -17,13 +17,7 @@ npm start
 To create a production build:
 
 ```sh
-npm run build-prod
-```
-
-## Running
-
-```sh
-node dist/bundle.js
+npm run build
 ```
 
 ## Testing
@@ -37,4 +31,3 @@ npm test
 ## Credits
 
 Made with [createapp.dev](https://createapp.dev/)
-

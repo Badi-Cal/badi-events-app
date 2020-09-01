@@ -7,10 +7,9 @@
     "badi",
     "calendar"
   ],
-  "author": "ken rogers",
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
   "scripts": {
-    "clean": "rm dist/bundle.js",
+    "clean": "rm -rf dist/ && node_modules/",
     "start": "parcel app/index.html",
     "build": "parcel build app/index.html --public-url ./",
     "test": "jest"
