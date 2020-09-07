@@ -1,24 +1,33 @@
-import $ from 'jquery';
-import _ from 'underscore';
-import Calendar from './cal';
-import {View} from 'backbone';
-
+/* eslint-disable no-unused-vars */
 /**
- * Custom View to handle adding and editing events. 
- * 
- * Then pass to Fullcalendar to render.
- * 
+ * @fileoverview Custom View to handle adding and editing events. 
  * @see https://backbonejs.org/#View
  */
+
+import Backbone from 'backbone';
+
+const { View } = Backbone;
+
 export var AppView = View.extend({
+
+  /**
+   * Init calendar and add events
+   *  
+   * @param {Object} options 
+   */
   initialize: function(options) {
     this.listenTo(this.collection, 'reset', this.addAll);
 
-    this.calendar = Calendar(this.el);
+    this.calendar = options.calendar;
 
     this.addAll();
   },
 
+  /**
+   * Renders calendar
+   * 
+   * @returns Instance of calendar
+   */
   render: function() {
     this.calendar.render();
     return this;

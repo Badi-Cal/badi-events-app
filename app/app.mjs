@@ -1,20 +1,13 @@
-import $ from 'jquery';
-import _ from 'underscore';
-import {Model, Collection} from 'backbone';
-import {LocalStorage} from 'backbone.localstorage';
+import { AppView } from './main/view';
+import Events from './main/model';
+import Calendar from './main/cal';
 
-var Event = Model.extend({
-  // TODO: configure REST requests
-});
-
-var Events = Collection.extend({
-  model: Event,
-  // Save all events events-backbone namespace
-  localStorage: new LocalStorage("events-backbone"),
-});
+import 'bootstrap/dist/css/bootstrap.css';
+import '@fortawesome/fontawesome-free/css/all.css';
+import './styles/styles.css'; // our app's CSS
 
 // Create our collection of events
-export default new Events([
+var events = new Events([
   {
     title: 'All Day Event',
     start: '2018-01-01',
@@ -70,3 +63,13 @@ export default new Events([
     start: '2018-01-28'
   }
 ]);
+
+var element = document.getElementById('app');
+var fullCal = new Calendar(element);
+
+// let backbone handle adding events
+new AppView({
+  el: element,
+  collection: events,
+  calendar: fullCal
+}).render();

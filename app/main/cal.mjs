@@ -5,6 +5,14 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
 
+/**
+ * Instantiate full calendar on DOM Element
+ *
+ * @see https://fullcalendar.io/docs
+ * 
+ * @param {Element} element
+ * 
+ */
 export default function(element) {
     return new Calendar(element, {
         plugins: [ interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin, bootstrapPlugin ],
