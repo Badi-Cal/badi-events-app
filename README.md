@@ -1,33 +1,53 @@
-# Badi calendar
+# [Badi calendar](http://badí.com/)
 
-## Building and running on localhost
+Events app for Badi calendar
 
-First install dependencies:
+## Getting started
 
-```sh
+### Prerequisites
+
+- [Node.js](https://nodejs.org/en/) version ^14.7
+
+### Installation
+
+Make sure you have Node.js and NPM installed by running:
+
+```
+node --version && npm --version
+```
+
+Then install dependencies:
+
+```
 npm install
 ```
 
 To run development enviroment:
 
-```sh
+```
 npm start
 ```
 
 To create a production build:
 
-```sh
+```
 npm run build
 ```
 
 ## Testing
 
-To run unit tests:
+The testing suite uses [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/) BDD style assertions.
 
-```sh
+You can define tests by creating files named `{name}.test.js` in the `test/tests` directory.
+
+Run all tests with:
+
+```
 npm test
 ```
 
-## Credits
+## License
 
-Made with [createapp.dev](https://createapp.dev/)
+ [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+* **[GPL-3.0 license](https://www.gnu.org/licenses/gpl-3.0)**
