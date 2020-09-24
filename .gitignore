@@ -1,17 +1,14 @@
-
-.cache/
-coverage/
-dist/*
-!dist/index.html
+# Node
 node_modules/
-*.log
-.parcel-cache/
 
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+# eslint
+.eslintcache
+
+# parcel
+dist/*
+.parcel-cache/
+.cache/
+
+# logs
+*.log
+
