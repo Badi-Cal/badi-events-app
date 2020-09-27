@@ -1,5 +1,5 @@
 {
-  "name": "badi-events",
+  "name": "@badi-events/app",
   "version": "0.1.0",
   "description": "Events app for Badi calendar",
   "keywords": [
@@ -9,10 +9,16 @@
   ],
   "license": "GPL-3.0-or-later",
   "scripts": {
-    "clean": "rm -rf dist/ && node_modules/",
+    "clean": "rm -rf dist/ .parcel-cache && rm -rf node_modules/",
+    "prestart": "npm run --silent lint",
     "start": "parcel app/index.html",
     "build": "parcel build app/index.html --public-url ./",
-    "test": "jest"
+    "lint": "eslint --cache --ext .js,.mjs app/",
+    "pretest": "npm run --silent lint",
+    "test": "npm explore @badi-events/test -- npm run --silent start"
+  },
+  "engines": {
+    "node": ">=14.9.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
@@ -31,9 +37,14 @@
   "devDependencies": {
     "@babel/core": "^7.11.4",
     "@babel/preset-env": "^7.11.0",
+    "@badi-events/test": "file:test",
+    "@parcel/validator-eslint": "^2.0.0-alpha.3",
     "autoprefixer": "^9.8.6",
-    "babel-jest": "^26.3.0",
-    "jest": "^26.4.2",
+    "eslint": "^7.8.1",
+    "eslint-import-resolver-node": "^0.3.4",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-mocha": "^8.0.0",
+    "eslint-plugin-promise": "^4.2.1",
     "parcel": "^2.0.0-beta.1",
     "postcss-nested": "^4.2.3",
     "postcss-nested-ancestors": "^2.0.0",
