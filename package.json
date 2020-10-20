@@ -35,19 +35,19 @@
     "jquery": "^3.5.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.4",
-    "@babel/preset-env": "^7.11.0",
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
     "@badi-events/test": "file:test",
     "@parcel/validator-eslint": "^2.0.0-alpha.3",
     "autoprefixer": "^9.8.6",
-    "eslint": "^7.8.1",
+    "eslint": "^7.11.0",
     "eslint-import-resolver-node": "^0.3.4",
-    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-mocha": "^8.0.0",
     "eslint-plugin-promise": "^4.2.1",
-    "parcel": "^2.0.0-beta.1",
+    "parcel": "^2.0.0-nightly.426",
     "postcss-nested": "^4.2.3",
     "postcss-nested-ancestors": "^2.0.0",
-    "sass": "^1.26.10"
+    "sass": "^1.27.0"
   }
 }
