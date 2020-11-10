@@ -8,6 +8,10 @@ Events app for Badi calendar
 
 - [Node.js](https://nodejs.org/en/) version ^14.7
 
+#### Using NVM
+
+If you use [NVM](https://github.com/nvm-sh/nvm), the `/.nvmrc` file will set your Node version with `nvm use`.
+
 ### Installation
 
 Make sure you have Node.js and NPM installed by running:
