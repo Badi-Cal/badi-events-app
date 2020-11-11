@@ -46,6 +46,7 @@
     "eslint-plugin-mocha": "^8.0.0",
     "eslint-plugin-promise": "^4.2.1",
     "parcel": "^2.0.0-nightly.426",
+    "postcss": "^8.1.6",
     "postcss-nested": "^4.2.3",
     "postcss-nested-ancestors": "^2.0.0",
     "sass": "^1.27.0"
