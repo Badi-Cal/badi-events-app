@@ -1,0 +1,54 @@
+---
+
+- hosts: badiCal
+
+  vars:
+    - homeDir: /usr/local/Badi-Cal
+    - appDir: badi-events-app
+    - repo: badi-events-app
+    - account: Badi-Cal
+
+  tasks:
+    - name: Create APP Directory
+      become: yes
+      file:
+        path: "{{ homeDir }}/{{ appDir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Copy Private Key
+      become: yes
+      copy:
+        src: "{{ privateKey }}"
+        dest: "{{ homeDir }}/id_rsa"
+        mode: "0600"
+
+    - name: Git Clone Repository
+      become: yes
+      git:
+        repo: "git@github.com:{{ account }}/{{ repo }}.git"
+        dest: "{{ homeDir }}/{{ appDir }}"
+        update: yes
+        force: yes
+        accept_hostkey: yes
+        key_file: "{{ homeDir }}/id_rsa"
+          #register: git_finished
+
+    - name: Running NPM install
+      become: yes
+      npm:
+        path: "{{ homeDir }}/{{ appDir }}"
+          #register: npm_finished
+          #when: git_finished.changed
+
+    - name: Build App
+      become: yes
+      shell: npm run build
+      args:
+        chdir: "{{ homeDir }}/{{ appDir }}"
+
+    - name: Remove Private Key
+      become: yes
+      file:
+        path: "{{ homeDir }}/id_rsa"
+        state: absent
