@@ -22,3 +22,14 @@ jobs:
     - run: npm test
       env:
         CI: true
+  deployAnsible:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Ansible
+      run: |
+        sudo apt update -y
+        sudo apt install software-properties-common -y
+        sudo apt-add-repository --yes --update ppa:ansible/ansible
+        sudo apt install ansible -y
