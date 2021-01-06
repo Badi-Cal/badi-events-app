@@ -30,12 +30,19 @@ jobs:
     - name: Install Ansible
       env:
         DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        GROUP_VARS: ${{ secrets.GROUP_VARS }}
+        HOSTS: ${{ secrets.HOSTS }}
       run: |
         sudo apt update -y
         sudo apt install software-properties-common -y
         sudo apt-add-repository --yes --update ppa:ansible/ansible
         sudo apt install ansible -y
-        sudo useradd -m deploy
-        sudo mkdir -p /home/deploy/.ssh
-        echo "$DEPLOY_SSH_KEY" > /home/deploy/.ssh/id_rsa
-        ls -lah /home/deploy/.ssh
+        cd config
+        echo "$DEPLOY_SSH_KEY" > id_rsa
+        chmod go-rwx id_rsa
+        eval "$(ssh-agent -s)"
+        ssh-add id_rsa
+        mkdir ~/.ssh
+        python set_up_keys.py
+        python make_hosts.py
+        ansible-playbook playbooks/deploy.yml
