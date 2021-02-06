@@ -30,7 +30,6 @@ jobs:
     - name: Install Ansible
       env:
         DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
-        GROUP_VARS: ${{ secrets.GROUP_VARS }}
         HOSTS: ${{ secrets.HOSTS }}
       run: |
         sudo apt update -y
