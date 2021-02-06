@@ -1,6 +1,6 @@
 ---
 
-- hosts: badiCalBadiEventsApp
+- hosts: badiCal
 
   vars:
     - homeDir: /usr/local/Badi-Cal
