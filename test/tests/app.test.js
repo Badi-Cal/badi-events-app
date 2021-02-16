@@ -2,7 +2,6 @@ import 'chai/register-expect.js';
 
 import {AppView} from '../../app/main/view';
 import Events from '../../app/main/model';
-import Calendar from '../../app/main/cal';
 
 import events from '../fixtures/events.fixture.js';
 
