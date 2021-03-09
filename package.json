@@ -31,7 +31,7 @@
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@badi-events/test": "file:test",
-    "@parcel/config-default": "^2.0.0-nightly.562",
+    "@parcel/config-default": "^2.0.0-nightly.621",
     "autoprefixer": "^9.8.6",
     "eslint": "^7.11.0",
     "eslint-import-resolver-node": "^0.3.4",
