@@ -8,6 +8,7 @@
     "calendar"
   ],
   "license": "GPL-3.0-or-later",
+  "type": "module",
   "scripts": {
     "clean": "rm -rf dist/ .parcel-cache && rm -rf node_modules/",
     "prestart": "npm run --silent lint",

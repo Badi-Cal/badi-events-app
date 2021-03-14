@@ -2,20 +2,16 @@
  * @fileoverview Custom View to handle adding and editing events. 
  * @see https://backbonejs.org/#View
  */
-
 import $ from 'jquery';
 import Backbone from 'backbone';
-import 'bootstrap/js/src/popover';
+/*eslint no-unused-vars: ["error", { "varsIgnorePattern": "_" }]*/
+import * as _ from 'bootstrap/js/src/popover';
 
 import _template from '../../lib/template';
 
 const { View } = Backbone;
 
 export var AppView = View.extend({
-
-  // intended to be loosely translateable to mustache easily
-  quicktmpl: _template( $('#tmpl').get(0).innerHTML ),
-
   events: {
     'click .js-cal-prev': 'calPrev',
     'click .js-cal-next': 'calNext',
@@ -38,7 +34,7 @@ export var AppView = View.extend({
    * @returns Instance of calendar
    */
   render: function() {
-    this.$el.html( this.quicktmpl( this.options ));
+    this.$el.html( _template( $('#tmpl').get(0).innerHTML )( this.options ));
       // potential optimization (untested), this object could be keyed into a dictionary 
       // on the dateclass string; the object would need to be reset and the first entry 
       // would have to be made here
