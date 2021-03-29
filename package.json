@@ -33,7 +33,7 @@
     "@badi-events/test": "file:test",
     "@parcel/config-default": "^2.0.0-nightly.562",
     "autoprefixer": "^10.2.5",
-    "eslint": "^7.22.0",
+    "eslint": "^7.23.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-mocha": "^8.1.0",
