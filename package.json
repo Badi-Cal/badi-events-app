@@ -28,7 +28,7 @@
     "popper.js": "^1.16.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.10",
+    "@babel/core": "^7.13.13",
     "@babel/preset-env": "^7.13.12",
     "@badi-events/test": "file:test",
     "@parcel/config-default": "^2.0.0-nightly.562",
