@@ -10,8 +10,8 @@ import Mocha from 'mocha/lib/mocha.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// const tsLibPath = path.resolve(__dirname, "../node_modules/@fullcalendar/core/node_modules/tslib/tslib.es6.js");
-// const tsLibLink = path.resolve(__dirname, "../node_modules/@fullcalendar/core/node_modules/tslib/tslib.es6.mjs");
+const tsLibPath = path.resolve(__dirname, "../node_modules/@fullcalendar/core/node_modules/tslib/tslib.es6.js");
+const tsLibLink = path.resolve(__dirname, "../node_modules/@fullcalendar/core/node_modules/tslib/tslib.es6.mjs");
 const testDir = path.resolve(__dirname, "tests/")
 
 // Instantiate a Mocha with options
@@ -56,13 +56,14 @@ async function linkFiles() {
 }
 
 function setUpMocha () {
-  return Promise.all([ addFiles(testDir) ]);
+  return Promise.all([ addFiles(testDir), linkFiles() ]);
 }
 
 // loads test files asynchronously, then runs root suite
 setUpMocha()
   .then( () => mocha.loadFilesAsync() )
   .then( () => mocha.run( failures => process.exitCode = failures ? 1 : 0) )
+  .then( () => fs.unlink( tsLibLink ))
   .catch( (error) => {
     console.error('\n' + (error.stack || `Error: ${error.message || error}`));
     process.exitCode = 1;
