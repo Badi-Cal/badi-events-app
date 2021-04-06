@@ -1,9 +1,11 @@
 name: Node.js CI
 
-on: [push]
+on:
+  push:
+    branches: [ master ]
 
 jobs:
-  build:
+  build-test-deploy:
 
     runs-on: ubuntu-latest
 
@@ -23,7 +25,7 @@ jobs:
       env:
         CI: true
   deployAnsible:
-    needs: build
+    needs: build-test-deploy
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
