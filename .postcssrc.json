@@ -1,7 +1,0 @@
-{
-  "plugins": {
-    "postcss-nested-ancestors": {},
-    "postcss-nested": {},
-    "autoprefixer": {}
-  }
-}
