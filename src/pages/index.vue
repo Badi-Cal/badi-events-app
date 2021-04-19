@@ -13,13 +13,13 @@
           <daykeep-calendar
             :event-array="eventArray"
             :sunday-first-day-of-week="false"
-            NOcalendar-locale="fr"
-            NOcalendar-timezone="America/Los_Angeles"
+            calendar-locale="en"
+            calendar-timezone="America/New_York"
             NOevent-ref="MYCALENDAR"
             :allow-editing="true"
             agenda-style="block"
             :render-html="true"
-            :NOstart-date="new Date(2019, 1, 4)"
+            :start-date="new Date()"
           />
         </q-card-section>
       </q-card>
