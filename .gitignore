@@ -4,11 +4,12 @@ node_modules/
 # eslint
 .eslintcache
 
-# parcel
-dist/*
-.parcel-cache/
-.cache/
+# quasar
+/.quasar
 
 # logs
 *.log
 
+# env
+.env
+.env.dev
