@@ -38,6 +38,29 @@ To create a production build:
 npm run build
 ```
 
+## Using a Docker context
+
+There is a [Dockerfile](https://docs.docker.com/get-docker/) that can be used to simulate a production-like environment.
+A helper script is provided to make the process more stream-lined.
+
+```shell
+./docker.sh build # builds the docker image
+./docker.sh start # creates a docker container to run in background
+npm run build
+```
+
+The Docker image merely houses the serving of built files, but does not automatically build the application.
+If you want the Docker environment to build the app as well:
+
+```shell
+./docker.sh enter
+> npm run build
+# or
+> npm start
+```
+
+You can run `./docker.sh help` to see more options.
+
 ## Testing
 
 The testing suite uses [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/) BDD style assertions.
