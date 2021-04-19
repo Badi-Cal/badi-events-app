@@ -33,8 +33,10 @@
   },
   "dependencies": {
     "@daykeep/calendar-core": "^1.0.0",
+    "@quasar/extras": "^1.10.3",
     "lodash.has": "^4.5.2",
-    "luxon": "^1.17.2"
+    "luxon": "^1.17.2",
+    "quasar": "^1.15.10"
   },
   "devDependencies": {
     "@quasar/app": "^1.0.4",
