@@ -7,10 +7,10 @@ module.exports = function (ctx) {
     boot: [],
     plugins: [],
     sourceFiles: {
-      rootComponent: 'demo/App.vue',
-      router: 'demo/router/index.js',
+      rootComponent: 'src/App.vue',
+      router: 'src/router/index.js',
       // store: 'src/store/index.js',
-      indexHtmlTemplate: 'demo/index.template.html',
+      indexHtmlTemplate: 'src/index.template.html'
     },
     css: [
       'app.styl'
@@ -27,7 +27,11 @@ module.exports = function (ctx) {
       // 'eva-icons'
     ],
     // framework: 'all', // --- includes everything; for dev only!
-    framework: {},
+    framework: {
+      plugins: [
+        'Notify'
+      ]
+    },
     supportIE: false,
     build: {
       publicPath: '/daykeep-calendar-quasar',
@@ -42,16 +46,16 @@ module.exports = function (ctx) {
         })
         cfg.resolve.alias = {
           ...cfg.resolve.alias,
-          src: path.resolve(__dirname, './demo'),
+          src: path.resolve(__dirname, './src'),
           components: path.resolve(__dirname, './component'),
-          layouts: path.resolve(__dirname, './demo/layouts'),
-          pages: path.resolve(__dirname, './demo/pages'),
-          assets: path.resolve(__dirname, './demo/assets'),
-          boot: path.resolve(__dirname, './demo/boot')
+          layouts: path.resolve(__dirname, './src/layouts'),
+          pages: path.resolve(__dirname, './src/pages'),
+          assets: path.resolve(__dirname, './src/assets'),
+          boot: path.resolve(__dirname, './src/boot')
         }
         cfg.plugins.push(
           new CopyPlugin([
-            { from: 'demo/statics', to: 'statics' }
+            { from: 'src/statics', to: 'statics' }
           ])
         )
       }
