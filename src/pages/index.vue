@@ -49,7 +49,7 @@
     },
     data () {
       return {
-        eventArray: null,
+        eventArray: [],
         showCards: ['fullCalendar']
       }
     },
