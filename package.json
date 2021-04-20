@@ -1,23 +1,23 @@
 {
-  "name": "@daykeep/calendar-quasar",
-  "version": "1.0.0-beta.3",
-  "productName": "Daykeep Calendar for Quasar",
-  "description": "A full display calendar for the Quasar Vue.js framework",
+  "name": "@badi-events/app",
+  "version": "1.0.0",
+  "productName": "Badí events calendar",
+  "description": "Events calendar app for the Badí calendar",
   "keywords": [
     "vue",
     "quasar",
     "quasar-framework",
-    "calendar"
+    "calendar",
+    "Badí calendar"
   ],
-  "bugs": "https://github.com/stormseed/daykeep-calendar-quasar/issues",
+  "bugs": "https://github.com/Badi-Cal/badi-events-app.git/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/stormseed/daykeep-calendar-quasar.git"
+    "url": "https://github.com/Badi-Cal/badi-events-app.git"
   },
-  "homepage": "https://github.com/stormseed/daykeep-calendar-quasar",
+  "homepage": "http://badí.com/",
   "author": "Chris Benjamin <cbenjamin@stormseed.com>",
-  "license": "MIT",
-  "main": "component/index.js",
+  "license": "GPL-3.0-or-later",
   "files": [
     "component",
     "readme.md",
@@ -34,6 +34,7 @@
   "dependencies": {
     "@daykeep/calendar-core": "^1.0.0",
     "@quasar/extras": "^1.10.3",
+    "axios": "^0.21.1",
     "lodash.has": "^4.5.2",
     "luxon": "^1.17.2",
     "quasar": "^1.15.10"
