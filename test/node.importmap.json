@@ -1,5 +1,0 @@
-{
-  "imports": {
-    "tslib": "../node_modules/@fullcalendar/core/node_modules/tslib/tslib.es6.mjs"
-  }
-}

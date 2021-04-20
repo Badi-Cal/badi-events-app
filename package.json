@@ -1,54 +1,72 @@
 {
   "name": "@badi-events/app",
-  "version": "0.1.0",
-  "description": "Events app for Badi calendar",
+  "version": "1.0.0",
+  "productName": "Badí events calendar",
+  "description": "Events calendar app for the Badí calendar",
   "keywords": [
-    "events",
-    "badi",
-    "calendar"
+    "vue",
+    "quasar",
+    "quasar-framework",
+    "calendar",
+    "Badí calendar"
   ],
-  "license": "GPL-3.0-or-later",
-  "scripts": {
-    "clean": "rm -rf dist/ .parcel-cache && rm -rf node_modules/",
-    "prestart": "npm run --silent lint",
-    "start": "parcel app/index.html",
-    "build": "parcel build app/index.html --public-url ./",
-    "lint": "eslint --cache --ext .js,.mjs app/",
-    "pretest": "npm run --silent lint",
-    "test": "npm explore @badi-events/test -- npm run --silent start"
+  "bugs": "https://github.com/Badi-Cal/badi-events-app.git/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Badi-Cal/badi-events-app.git"
   },
-  "engines": {
-    "node": ">=14.9.0"
+  "homepage": "http://badí.com/",
+  "author": "Chris Benjamin <cbenjamin@stormseed.com>",
+  "license": "GPL-3.0-or-later",
+  "files": [
+    "component",
+    "readme.md",
+    "LICENSE",
+    "package.json"
+  ],
+  "scripts": {
+    "lint": "eslint --ext .js,.vue src",
+    "pretest": "npm run --silent lint",
+    "test": "echo \"No test specified\" && exit 0",
+    "dev": "quasar dev",
+    "build": "quasar build",
+    "build:pwa": "quasar build -m pwa"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.3",
-    "@fullcalendar/bootstrap": "^5.3.0",
-    "@fullcalendar/core": "^5.3.0",
-    "@fullcalendar/daygrid": "^5.3.0",
-    "@fullcalendar/interaction": "^5.3.0",
-    "@fullcalendar/list": "^5.3.0",
-    "@fullcalendar/timegrid": "^5.3.0",
-    "@popperjs/core": "^2.9.2",
-    "backbone": "^1.4.0",
-    "backbone.localstorage": "^2.0.2",
-    "bootstrap": "^4.6.0",
-    "jquery": "^3.5.1"
+    "@daykeep/calendar-core": "^1.0.0",
+    "@quasar/extras": "^1.10.3",
+    "axios": "^0.21.1",
+    "lodash.has": "^4.5.2",
+    "luxon": "^1.17.2",
+    "quasar": "^1.15.10"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.14",
-    "@babel/preset-env": "^7.13.12",
-    "@badi-events/test": "file:test",
-    "@parcel/config-default": "^2.0.0-nightly.562",
-    "autoprefixer": "^10.2.5",
-    "eslint": "^7.23.0",
-    "eslint-import-resolver-node": "^0.3.4",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-mocha": "^8.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "parcel": "^2.0.0-nightly.560",
-    "postcss": "^8.2.9",
-    "postcss-nested": "^5.0.5",
-    "postcss-nested-ancestors": "^2.0.0",
-    "sass": "^1.32.8"
+    "@quasar/app": "^1.0.4",
+    "@quasar/quasar-app-extension-dotenv": "^1.0.0-beta.10",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "babel-eslint": "^10.0.1",
+    "copy-webpack-plugin": "^5.0.3",
+    "debug": "^4.1.1",
+    "eslint": "^5.10.0",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-vue": "^5.0.0",
+    "strip-ansi": "=3.0.1"
+  },
+  "peerDependencies": {
+    "@quasar/extras": "^1.2.0",
+    "quasar": "^1.0.5"
+  },
+  "engines": {
+    "node": ">= 8.9.0",
+    "npm": ">= 5.6.0",
+    "yarn": ">= 1.6.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 10"
+  ],
+  "resolutions": {
+    "ajv": "6.8.1"
   }
 }
