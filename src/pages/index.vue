@@ -37,9 +37,8 @@
     DaykeepCalendar
   } from '../../component/quasar'
   import {
-    MoveDates,
-    sampleEventArray
-  } from '@daykeep/calendar-core/demo'
+    api
+  } from '../../boot/axios'
   export default {
     name: 'PageIndex',
     components: {
@@ -48,17 +47,31 @@
       QCardSection,
       DaykeepCalendar
     },
-    mixins: [ MoveDates ],
     data () {
       return {
-        eventArray: sampleEventArray, // in page-code-mixins/sample-data.js
+        eventArray: null,
         showCards: ['fullCalendar']
       }
     },
     computed: {},
-    methods: {},
+    methods: {
+      loadData () {
+        api.get('/eventitems.json')
+          .then((response) => {
+            this.eventArray = response.data
+          })
+          .catch(() => {
+            this.$q.notify({
+              color: 'negative',
+              position: 'top',
+              message: 'Loading failed',
+              icon: 'report_problem'
+            })
+          })
+      }
+    },
     created () {
-      this.moveSampleDatesAhead()
+      this.loadData()
     }
   }
 </script>
