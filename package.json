@@ -49,6 +49,6 @@
     "postcss": "^8.2.9",
     "postcss-nested": "^5.0.5",
     "postcss-nested-ancestors": "^2.0.0",
-    "sass": "^1.32.8"
+    "sass": "^1.32.11"
   }
 }
