@@ -1,0 +1,56 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  reviewers:
+  - dmcblue
+  ignore:
+  - dependency-name: "@parcel/config-default"
+    versions:
+    - 2.0.0-nightly.621
+    - 2.0.0-nightly.622
+    - 2.0.0-nightly.625
+    - 2.0.0-nightly.628
+    - 2.0.0-nightly.629
+    - 2.0.0-nightly.630
+    - 2.0.0-nightly.632
+    - 2.0.0-nightly.633
+    - 2.0.0-nightly.634
+    - 2.0.0-nightly.636
+    - 2.0.0-nightly.637
+    - 2.0.0-nightly.638
+    - 2.0.0-nightly.639
+    - 2.0.0-nightly.641
+    - 2.0.0-nightly.642
+    - 2.0.0-nightly.643
+  - dependency-name: parcel
+    versions:
+    - 2.0.0-nightly.619
+    - 2.0.0-nightly.620
+    - 2.0.0-nightly.623
+    - 2.0.0-nightly.626
+    - 2.0.0-nightly.627
+    - 2.0.0-nightly.628
+    - 2.0.0-nightly.630
+    - 2.0.0-nightly.631
+    - 2.0.0-nightly.632
+    - 2.0.0-nightly.634
+    - 2.0.0-nightly.635
+    - 2.0.0-nightly.636
+    - 2.0.0-nightly.637
+    - 2.0.0-nightly.639
+    - 2.0.0-nightly.640
+    - 2.0.0-nightly.641
+  - dependency-name: y18n
+    versions:
+    - 4.0.1
+    - 4.0.2
+  - dependency-name: "@babel/core"
+    versions:
+    - 7.13.13
+  - dependency-name: eslint
+    versions:
+    - 7.21.0
