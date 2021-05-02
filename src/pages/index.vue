@@ -38,7 +38,7 @@
   } from '../../component/quasar'
   import {
     api
-  } from '../../boot/axios'
+  } from 'boot/axios'
   export default {
     name: 'PageIndex',
     components: {
