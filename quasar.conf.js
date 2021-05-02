@@ -16,7 +16,10 @@ module.exports = function (ctx) {
       // 'component/calendar/styles-common/app.styl',
       // 'component/calendar/styles-common/calendar.vars.styl'
     ],
-    animations: 'all',
+    animations: [
+      'fadeInLeft',
+      'fadeOutLeft'
+    ],
     extras: [
       'roboto-font',
       'material-icons' // optional, you are not bound to it

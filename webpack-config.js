@@ -7,16 +7,8 @@ module.exports = function (cfg) {
     {
       enforce: 'pre',
       test: /\.(js|vue)$/,
-      loader: 'eslint-loader',
+      use: 'eslint-loader',
       exclude: /(node_modules|quasar)/
-    },
-    {
-      test: /\.styl$/,
-      loader: 'stylus-loader', // compiles Styl to CSS
-      include: [
-        path.resolve(__dirname, './src/css'),
-        path.resolve(__dirname, './component/calendar/styles-common')
-      ]
     }
   )
   cfg.resolve.alias = {
@@ -26,7 +18,8 @@ module.exports = function (cfg) {
     layouts: path.resolve(__dirname, './src/layouts'),
     pages: path.resolve(__dirname, './src/pages'),
     assets: path.resolve(__dirname, './src/assets'),
-    boot: path.resolve(__dirname, './boot')
+    boot: path.resolve(__dirname, './boot'),
+    templates: path.resolve(__dirname, './component/calendar/templates')
   }
   cfg.plugins.push(
     new CopyPlugin([
