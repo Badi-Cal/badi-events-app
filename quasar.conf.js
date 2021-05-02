@@ -1,6 +1,5 @@
 // Configuration for your app
-const path = require('path')
-const CopyPlugin = require('copy-webpack-plugin')
+const extendWebpack = require('./webpack-config.js')
 
 module.exports = function (ctx) {
   return {
@@ -35,28 +34,7 @@ module.exports = function (ctx) {
     supportIE: false,
     build: {
       scopeHoisting: true,
-      extendWebpack (cfg) {
-        cfg.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules|quasar)/
-        })
-        cfg.resolve.alias = {
-          ...cfg.resolve.alias,
-          src: path.resolve(__dirname, './src'),
-          components: path.resolve(__dirname, './component'),
-          layouts: path.resolve(__dirname, './src/layouts'),
-          pages: path.resolve(__dirname, './src/pages'),
-          assets: path.resolve(__dirname, './src/assets'),
-          boot: path.resolve(__dirname, './src/boot')
-        }
-        cfg.plugins.push(
-          new CopyPlugin([
-            { from: 'src/statics', to: 'statics' }
-          ])
-        )
-      }
+      extendWebpack
     },
     devServer: {
       // https: true,
