@@ -1,10 +1,13 @@
 // common templates
 import {
+  CalendarAgendaInner,
   CalendarAgendaEvent,
   CalendarAllDayEvents,
   CalendarDayColumn,
   CalendarDayLabels,
   CalendarEvent,
+  CalendarMonthInner,
+  CalendarMultiDayContent,
   CalendarTimeLabelColumn
 } from '@daykeep/calendar-core'
 
@@ -17,12 +20,15 @@ import CalendarMonth from './CalendarMonth'
 import CalendarMultiDay from './CalendarMultiDay'
 
 export {
+  CalendarAgendaInner,
   CalendarAgenda,
   CalendarAgendaEvent,
   CalendarAllDayEvents,
   CalendarDayColumn,
   CalendarDayLabels,
   CalendarEvent,
+  CalendarMonthInner,
+  CalendarMultiDayContent,
   CalendarTimeLabelColumn,
   Calendar,
   CalendarEventDetail,
