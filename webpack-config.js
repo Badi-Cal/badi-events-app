@@ -8,7 +8,7 @@ module.exports = function (cfg) {
       enforce: 'pre',
       test: /\.(js|vue)$/,
       use: 'eslint-loader',
-      exclude: /(node_modules|quasar)/
+      exclude: /(node_modules|quasar|\.storybook)/
     }
   )
   cfg.resolve.alias = {
