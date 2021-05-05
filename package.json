@@ -27,12 +27,14 @@
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
     "pretest": "npm run --silent lint",
-    "test": "echo \"No test specified\" && exit 0",
+    "test": "npm run test:e2e",
     "dev": "quasar dev",
     "build": "quasar build",
     "build:pwa": "quasar build -m pwa",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "test:e2e": "cross-env E2E_TEST=true start-test \"quasar dev -p 1863\" http-get://localhost:1863 \"cypress open\"",
+    "test:e2e:ci": "cross-env E2E_TEST=true start-test \"quasar dev -p 1863\" http-get://localhost:1863 \"cypress run\""
   },
   "dependencies": {
     "@daykeep/calendar-core": "^1.0.0",
@@ -46,6 +48,7 @@
     "@babel/core": "^7.14.0",
     "@quasar/app": "^1.0.4",
     "@quasar/quasar-app-extension-dotenv": "^1.0.0-beta.10",
+    "@quasar/quasar-app-extension-testing-e2e-cypress": "^3.1.0",
     "@storybook/addon-actions": "^6.2.9",
     "@storybook/addon-controls": "^6.2.9",
     "@storybook/addon-links": "^6.2.9",
@@ -63,7 +66,8 @@
     "strip-ansi": "=3.0.1",
     "style-loader": "^2.0.0",
     "stylus-loader": "^3.0.2",
-    "vue-loader": "^15.9.6"
+    "vue-loader": "^15.9.6",
+    "eslint-plugin-cypress": "^2.11.1"
   },
   "peerDependencies": {
     "@quasar/extras": "^1.2.0",
