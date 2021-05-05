@@ -16,6 +16,7 @@
     >
       <template v-slot:headernav="navVal">
         <calendar-header-nav
+          :[`data-cy`]=" 'calendar-header' "
           :time-period-unit="navVal.timePeriodUnit"
           :time-period-amount="1"
           :move-time-period-emit="navVal.eventRef + ':navMovePeriod'"
