@@ -40,6 +40,7 @@
     "@daykeep/calendar-core": "^1.0.0",
     "@quasar/extras": "^1.10.3",
     "axios": "^0.21.1",
+    "badidate": "^3.0.2",
     "lodash.has": "^4.5.2",
     "luxon": "^1.17.2",
     "quasar": "^1.15.10"
