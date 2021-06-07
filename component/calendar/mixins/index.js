@@ -2,7 +2,8 @@ import {
   CalendarEventMixin,
   CalendarMixin,
   CalendarParentComponentMixin,
-  EventPropsMixin
+  EventPropsMixin,
+  CalendarBadiMixin
 } from './code'
 import {
   CalendarTemplateMixin,
@@ -26,6 +27,7 @@ export {
   CalendarMixin,
   CalendarParentComponentMixin,
   EventPropsMixin,
+  CalendarBadiMixin,
   CalendarTemplateMixin,
   CalendarAgendaTemplateMixin,
   CalendarAgendaEventTemplateMixin,

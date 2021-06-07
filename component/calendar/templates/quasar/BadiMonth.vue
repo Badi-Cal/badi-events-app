@@ -49,7 +49,7 @@
     CalendarMonthTemplateMixin,
     CalendarMonthInner
   } from '@daykeep/calendar-core'
-  import BadiMixin from 'mixins/code/CalendarBadiMixin'
+  import { CalendarBadiMixin } from 'mixins'
   import CalendarHeaderNav from './CalendarHeaderNav'
   import CalendarEventDetail from './CalendarEventDetail'
 
@@ -65,7 +65,7 @@
       CalendarMixin,
       CalendarEventMixin,
       CalendarMonthTemplateMixin,
-      BadiMixin
+      CalendarBadiMixin
     ]
   }
 </script>
