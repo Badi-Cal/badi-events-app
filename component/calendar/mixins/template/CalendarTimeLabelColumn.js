@@ -1,5 +1,6 @@
 import DateTime from 'luxon/src/datetime'
 
+// eslint-disable-next-line no-unused-vars
 const debug = require('debug')('calendar:CalendarTimeLabelColumn')
 
 export default {
