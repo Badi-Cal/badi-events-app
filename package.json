@@ -25,7 +25,7 @@
     "package.json"
   ],
   "scripts": {
-    "lint": "eslint --ext .js,.vue src",
+    "lint": "eslint --ext .js,.vue src component",
     "pretest": "npm run --silent lint",
     "test": "npm run test:e2e",
     "dev": "quasar dev",
