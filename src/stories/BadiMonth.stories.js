@@ -1,16 +1,17 @@
-import { CalendarMonth } from 'templates/quasar'
+/* eslint-disable-next-line */
+import { BadiMonth } from 'templates/quasar'
 import { sampleEventArray, MoveDates } from '@daykeep/calendar-core/demo/'
 
 // 👇 This default export determines where your story goes in the story list
 export default {
-  title: 'Calendar/Month/Gregorian',
-  component: CalendarMonth
+  title: 'Calendar/Month/Badi',
+  component: BadiMonth
 }
 
 // 👇 We create a “template” of how args map to rendering
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  components: { CalendarMonth },
+  components: { BadiMonth },
   data () {
     return {
       eventArray: sampleEventArray
@@ -21,10 +22,10 @@ const Template = (args, { argTypes }) => ({
   },
   mixins: [ MoveDates ],
   template: `
-    <calendar-month
+    <badi-month
       :start-date="new Date()"
       :event-array="eventArray"
-      :sunday-first-day-of-week="true"
+      :sunday-first-day-of-week="false"
       :allow-editing="false"
       :render-html="true"
       :calendar-locale="calendarLocale"
