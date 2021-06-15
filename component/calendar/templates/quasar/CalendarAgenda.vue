@@ -53,7 +53,9 @@
     CalendarMixin,
     CalendarEventMixin,
     CalendarParentComponentMixin,
-    CalendarAgendaTemplateMixin,
+    CalendarAgendaTemplateMixin
+  } from 'mixins'
+  import {
     CalendarAgendaInner
   } from '@daykeep/calendar-core'
   import CalendarHeaderNav from './CalendarHeaderNav'

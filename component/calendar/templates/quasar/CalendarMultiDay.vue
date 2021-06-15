@@ -87,16 +87,18 @@
 
 <script>
   import {
-    // mixins
-    CalendarMixin,
-    CalendarEventMixin,
-    CalendarParentComponentMixin,
-    CalendarMultiDayTemplateMixin,
     // components
     CalendarDayLabels,
     CalendarAllDayEvents,
     CalendarMultiDayContent
   } from '@daykeep/calendar-core'
+  import {
+    // mixins
+    CalendarMixin,
+    CalendarEventMixin,
+    CalendarParentComponentMixin,
+    CalendarMultiDayTemplateMixin
+  } from 'mixins'
   import CalendarHeaderNav from './CalendarHeaderNav'
   import CalendarEventDetail from './CalendarEventDetail'
   import { QScrollArea } from 'quasar'

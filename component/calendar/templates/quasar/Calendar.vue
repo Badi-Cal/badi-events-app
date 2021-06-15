@@ -139,7 +139,7 @@
     CalendarEventMixin,
     CalendarParentComponentMixin,
     CalendarTemplateMixin
-  } from '@daykeep/calendar-core'
+  } from 'mixins'
   import CalendarMonth from './CalendarMonth'
   import CalendarMultiDay from './CalendarMultiDay'
   import CalendarAgenda from './CalendarAgenda'

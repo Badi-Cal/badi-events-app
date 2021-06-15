@@ -42,12 +42,14 @@
 
 <script>
   import {
+    CalendarMonthInner
+  } from '@daykeep/calendar-core'
+  import {
     CalendarMixin,
     CalendarEventMixin,
     CalendarParentComponentMixin,
-    CalendarMonthTemplateMixin,
-    CalendarMonthInner
-  } from '@daykeep/calendar-core'
+    CalendarMonthTemplateMixin
+  } from 'mixins'
   import CalendarHeaderNav from './CalendarHeaderNav'
   import CalendarEventDetail from './CalendarEventDetail'
 
