@@ -1,3 +1,6 @@
+/**
+ * @fileoverview Shared data and methods across all calendar components
+ */
 import dashHas from 'lodash.has'
 import DateTime from 'luxon/src/datetime'
 // const debug = require('debug')('calendar:CalendarMixin')
