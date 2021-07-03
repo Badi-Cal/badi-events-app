@@ -1,50 +1,74 @@
-import { createWrapper, shallowMount } from '@vue/test-utils'
+import { createWrapper, shallowMount, mount } from '@vue/test-utils'
 import Vue from 'vue'
 import { DaykeepCalendar } from '../../../component/quasar'
 import Quasar from '../utils'
 
-describe('Mounted Calendar', () => {
+import DateTime from 'luxon/src/datetime'
+
+describe('Calendar', () => {
   // set up Quasar and Vue
   Quasar()
   const LocalVue = Vue.extend()
 
-  let spyEventsHandling,
-    wrapper
+  describe('component mounted', () => {
+    let spyEventsHandling,
+      wrapper
 
-  const buildWrapper = (options = {}) => {
-    const vm0 = new LocalVue({
-      extends: DaykeepCalendar
+    const buildWrapper = (options = {}) => {
+      const vm0 = new LocalVue({
+        extends: DaykeepCalendar
+      })
+      spyEventsHandling = jest.spyOn(vm0, 'setupEventsHandling')
+      vm0.$mount()
+      wrapper = createWrapper(vm0, {
+        options
+      })
+    }
+
+    beforeEach(() => {
+      buildWrapper()
     })
-    spyEventsHandling = jest.spyOn(vm0, 'setupEventsHandling')
-    vm0.$mount()
-    wrapper = createWrapper(vm0, {
-      options
+
+    afterEach(() => {
+    // IMPORTANT: Clean up the component instance
+      wrapper.destroy()
+      spyEventsHandling.mockRestore()
     })
-  }
 
-  beforeEach(() => {
-    buildWrapper()
+    it('should be a Vue instance', () => {
+      const instance = wrapper.findComponent(DaykeepCalendar)
+      expect(instance.exists()).toBe(true)
+    })
+
+    it('should set up event handling', () => {
+      const vm = wrapper.vm
+      expect(typeof vm.setupEventsHandling).toBe('function')
+      expect(spyEventsHandling).toBeCalledTimes(1)
+    })
   })
 
-  afterEach(() => {
-    // IMPORTANT: Clean up the component instance and axios mock adapter
-    wrapper.destroy()
-    spyEventsHandling.mockRestore()
-  })
+  describe('component data object', () => {
+    let wrapper
+    beforeEach(() => {
+      wrapper = shallowMount(DaykeepCalendar, {
+        LocalVue,
+        propsData: {
+          startDate: new Date()
+        }
+      })
+    })
 
-  it('should be a Vue instance', () => {
-    const instance = wrapper.findComponent(DaykeepCalendar)
-    expect(instance.exists()).toBe(true)
-  })
+    afterEach(() => {
+      wrapper.destroy()
+    })
 
-  it('set up event handling', () => {
-    const vm = wrapper.vm
-    expect(typeof vm.setupEventsHandling).toBe('function')
-    expect(spyEventsHandling).toBeCalledTimes(1)
-  })
+    it('should create correct working date', () => {
+      const vm = wrapper.vm
+      expect(vm.$data.workingDate instanceof Date).toBe(true)
+      expect(vm.workingDateTime instanceof DateTime).toBe(true)
 
-  it('set the correct working date', () => {
-    const vm = wrapper.vm
-    expect(typeof vm.$data.workingDate).toBe('Date')
+      const date = DateTime.fromJSDate(new Date())
+      expect(vm.workingDateTime.toLocaleString()).toBe(date.toLocaleString())
+    })
   })
 })
