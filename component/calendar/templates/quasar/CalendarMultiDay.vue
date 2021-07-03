@@ -96,7 +96,7 @@
     // mixins
     CalendarMixin,
     CalendarEventMixin,
-    CalendarParentComponentMixin,
+    CalendarPropsMixin,
     CalendarMultiDayTemplateMixin
   } from 'mixins'
   import CalendarHeaderNav from './CalendarHeaderNav'
@@ -106,9 +106,9 @@
   export default {
     name: 'CalendarMultiDay',
     mixins: [
-      CalendarParentComponentMixin,
       CalendarMixin,
       CalendarEventMixin,
+      CalendarPropsMixin,
       CalendarMultiDayTemplateMixin
     ],
     components: {

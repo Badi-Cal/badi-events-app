@@ -43,7 +43,7 @@
       <q-tab-panel name="tab-month" class="calendar-tab-panel-month">
         <calendar-month
           :ref="'month-' + thisRefName"
-          :start-date="workingDate"
+          :start-date="workingDateTime"
           :parsed-events="parsed"
           :event-ref="eventRef"
           :full-component-ref="eventRef"
@@ -58,7 +58,7 @@
       <q-tab-panel name="tab-week-component" class="calendar-tab-panel-week">
         <calendar-multi-day
           :ref="'week-' + thisRefName"
-          :start-date="workingDate"
+          :start-date="workingDateTime"
           :parsed-events="parsed"
           :num-days="7"
           :nav-days="7"
@@ -77,7 +77,7 @@
       <q-tab-panel name="tab-days-component" class="calendar-tab-panel-week">
         <calendar-multi-day
           :ref="'days-' + thisRefName"
-          :start-date="workingDate"
+          :start-date="workingDateTime"
           :parsed-events="parsed"
           :num-days="3"
           :nav-days="1"
@@ -96,7 +96,7 @@
       <q-tab-panel name="tab-single-day-component" class="calendar-tab-panel-week">
         <calendar-multi-day
           :ref="'day-' + thisRefName"
-          :start-date="workingDate"
+          :start-date="workingDateTime"
           :parsed-events="parsed"
           :num-days="1"
           :nav-days="1"
@@ -115,7 +115,7 @@
       <q-tab-panel name="tab-agenda" class="calendar-tab-panel-agenda">
         <calendar-agenda
           :ref="'agenda-' + thisRefName"
-          :start-date="workingDate"
+          :start-date="workingDateTime"
           :parsed-events="parsed"
           :num-days="28"
           :event-ref="eventRef"
@@ -137,7 +137,7 @@
   import {
     CalendarMixin,
     CalendarEventMixin,
-    CalendarParentComponentMixin,
+    CalendarPropsMixin,
     CalendarTemplateMixin
   } from 'mixins'
   import CalendarMonth from './CalendarMonth'
@@ -154,9 +154,9 @@
   export default {
     name: 'Calendar',
     mixins: [
-      CalendarParentComponentMixin,
       CalendarMixin,
       CalendarEventMixin,
+      CalendarPropsMixin,
       CalendarTemplateMixin
     ],
     components: {

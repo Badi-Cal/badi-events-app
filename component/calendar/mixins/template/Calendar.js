@@ -1,11 +1,9 @@
+import dashHas from 'lodash.has'
+
 const debug = require('debug')('calendar:Calendar')
 
 export default {
   props: {
-    startDate: {
-      type: [Object, Date],
-      default: () => { return new Date() }
-    },
     tabLabels: {
       type: Object,
       default: () => {
@@ -23,14 +21,19 @@ export default {
     return {
       dayCellHeight: 5,
       dayCellHeightUnit: 'rem',
-      workingDate: new Date(),
       parsed: {
         byAllDayStartDate: {},
         byStartDate: {},
         byId: {}
       },
       currentTab: 'tab-month',
-      thisRefName: this.createRandomString()
+      thisRefName: this.createRandomString(),
+      workingDate: this.startDate
+    }
+  },
+  computed: {
+    workingDateTime () {
+      return this.makeDT(this.workingDate)
     }
   },
   methods: {
@@ -47,6 +50,14 @@ export default {
         'update-event-' + this.eventRef,
         this.handleEventUpdate
       )
+      this.$root.$on(
+        'move-time-period-' + this.eventref,
+        this.moveTimePeriod
+      )
+      this.$root.$on(
+        'set-time-period-' + this.eventref,
+        this.setTimePeriod
+      )
     },
     calPackageMoveTimePeriod: function (params) {
       this.moveTimePeriod(params)
@@ -56,16 +67,41 @@ export default {
       )
     },
     switchToSingleDay: function (params) {
-      this.setTimePeriod(params)
+      debug('switchToSingleDay triggered with %s', params)
+
+      this.workingDate = params.dateObject
       this.currentTab = 'tab-single-day-component'
     },
     doUpdate: function () {
       this.mountSetDate()
+    },
+    moveTimePeriod: function (params) {
+      debug('moveTimePeriod triggered with %s', params)
+
+      if (dashHas(params, 'absolute')) {
+        this.workingDate = this.makeDT(params.absolute)
+      }
+      else if (dashHas(this, 'workingDate')) {
+        let paramObj = {}
+        paramObj[params.unitType] = params.amount
+        debug('this.workingDate = %s', this.workingDate)
+        this.workingDate = this.workingDate.plus(paramObj)
+      }
+      else if (dashHas(this.$parent, 'workingDate')) {
+        let paramObj = {}
+        paramObj[params.unitType] = params.amount
+        this.workingDate = this.$parent.workingDate.plus(paramObj)
+      }
+      else {
+        let paramObj = {}
+        paramObj[params.unitType] = params.amount
+        debug('this.workingDate = %s', this.workingDate)
+        this.workingDate = this.workingDate.plus(paramObj)
+      }
     }
   },
   mounted () {
     debug('Component mounted')
-    this.mountSetDate()
     this.parseEventList()
     this.setupEventsHandling()
   },

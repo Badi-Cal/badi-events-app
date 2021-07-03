@@ -1,13 +1,13 @@
 import CalendarEventMixin from './CalendarEventMixin'
 import CalendarMixin from './CalendarMixin'
-import CalendarParentComponentMixin from './CalendarParentComponentMixin'
 import EventPropsMixin from './EventPropsMixin'
 import CalendarBadiMixin from './CalendarBadiMixin'
+import CalendarPropsMixin from './CalendarPropsMixin'
 
 export {
   CalendarEventMixin,
   CalendarMixin,
-  CalendarParentComponentMixin,
   EventPropsMixin,
-  CalendarBadiMixin
+  CalendarBadiMixin,
+  CalendarPropsMixin
 }

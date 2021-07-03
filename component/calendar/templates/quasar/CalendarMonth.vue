@@ -47,7 +47,7 @@
   import {
     CalendarMixin,
     CalendarEventMixin,
-    CalendarParentComponentMixin,
+    CalendarPropsMixin,
     CalendarMonthTemplateMixin
   } from 'mixins'
   import CalendarHeaderNav from './CalendarHeaderNav'
@@ -61,9 +61,9 @@
       CalendarMonthInner
     },
     mixins: [
-      CalendarParentComponentMixin,
       CalendarMixin,
       CalendarEventMixin,
+      CalendarPropsMixin,
       CalendarMonthTemplateMixin
     ]
   }

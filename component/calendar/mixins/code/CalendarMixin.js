@@ -1,8 +1,10 @@
 /**
- * @fileoverview Shared data and methods across all calendar components
+ * @fileoverview Shared methods across all calendar components
  */
+
 import dashHas from 'lodash.has'
 import DateTime from 'luxon/src/datetime'
+
 // const debug = require('debug')('calendar:CalendarMixin')
 export default {
   computed: {},
@@ -10,6 +12,15 @@ export default {
     handleStartChange: function (val, oldVal) {
       this.doUpdate()
     },
+    /**
+     * Converts a JavaScript Date object to a Luxon DateTime
+     * object
+     *
+     * @param {Date} dateObject
+     * @param {string} adjustTimezone
+     *
+     * @returns {DateTime} A Luxon DateTime object
+     */
     makeDT: function (dateObject, adjustTimezone) {
       if (typeof dateObject === 'undefined') {
         return null
@@ -276,7 +287,11 @@ export default {
       }
     },
     mountSetDate: function () {
-      this.workingDate = this.makeDT(this.startDate)
+      let newDate = this.makeDT(this.startDate)
+      this.$emit(
+        'set-working-date-' + this.eventRef,
+        newDate
+      )
     },
     decimalAdjust: function (type, value, exp) {
       // from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor

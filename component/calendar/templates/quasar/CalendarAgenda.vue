@@ -52,7 +52,7 @@
   import {
     CalendarMixin,
     CalendarEventMixin,
-    CalendarParentComponentMixin,
+    CalendarPropsMixin,
     CalendarAgendaTemplateMixin
   } from 'mixins'
   import {
@@ -64,9 +64,9 @@
   export default {
     name: 'CalendarAgenda',
     mixins: [
-      CalendarParentComponentMixin,
       CalendarMixin,
       CalendarEventMixin,
+      CalendarPropsMixin,
       CalendarAgendaTemplateMixin
     ],
     components: {

@@ -1,4 +1,7 @@
-// this file contains shared properties for Calendar, CalendarAgenda, CalendarMonth and CalendarMultiday
+/**
+ * @fileoverview shared properties for Calendar,
+ * CalendarAgenda, CalendarMonth and CalendarMultiday
+ */
 import DateTime from 'luxon/src/datetime'
 export default {
   props: {
