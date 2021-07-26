@@ -7,7 +7,6 @@ export default {
     return {
       dayCellHeight: 5,
       dayCellHeightUnit: 'rem',
-      workingDate: new Date(),
       weekArray: [],
       parsed: this.getDefaultParsed(),
       eventDetailEventObject: {},
@@ -80,13 +79,12 @@ export default {
     },
     generateCalendarCellArray: function () {
       this.weekArray = this.getCalendarCellArray(
-        this.makeDT(this.workingDate).month,
-        this.makeDT(this.workingDate).year
+        this.makeDT(this.startDate).month,
+        this.makeDT(this.startDate).year
       )
       return this.weekArray
     },
     handleNavMove: function (params) {
-      this.moveTimePeriod(params)
       this.$emit(
         this.eventRef + ':navMovePeriod',
         // {

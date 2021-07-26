@@ -42,16 +42,15 @@
 
 <script>
   import {
-    CalendarMonthInner
-  } from '@daykeep/calendar-core'
-  import {
     CalendarMixin,
     CalendarEventMixin,
     CalendarPropsMixin,
     CalendarMonthTemplateMixin
   } from 'mixins'
-  import CalendarHeaderNav from './CalendarHeaderNav'
-  import CalendarEventDetail from './CalendarEventDetail'
+
+  import CalendarMonthInner from './CalendarMonthInner.vue'
+  import CalendarHeaderNav from './CalendarHeaderNav.vue'
+  import CalendarEventDetail from './CalendarEventDetail.vue'
 
   export default {
     name: 'CalendarMonth',

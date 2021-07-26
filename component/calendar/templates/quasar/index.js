@@ -6,7 +6,6 @@ import {
   CalendarDayColumn,
   CalendarDayLabels,
   CalendarEvent,
-  CalendarMonthInner,
   CalendarMultiDayContent,
   CalendarTimeLabelColumn
 } from '@daykeep/calendar-core'
@@ -18,6 +17,7 @@ import CalendarEventDetail from './CalendarEventDetail'
 import CalendarHeaderNav from './CalendarHeaderNav'
 import CalendarMonth from './CalendarMonth'
 import CalendarMultiDay from './CalendarMultiDay'
+import CalendarMonthInner from './CalendarMonthInner'
 import BadiMonth from './BadiMonth'
 
 export {
