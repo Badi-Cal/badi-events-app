@@ -218,30 +218,6 @@ export default {
         .replace(' ', '')
         .toLowerCase()
     },
-    moveTimePeriod: function (params) {
-      console.debug('moveTimePeriod triggered, params = ', params)
-      if (dashHas(params, 'absolute')) {
-        this.workingDate = this.makeDT(params.absolute)
-      }
-      else if (dashHas(this, 'workingDate')) {
-        let paramObj = {}
-        paramObj[params.unitType] = params.amount
-        console.debug('this.workingDate = ', this.workingDate)
-        this.workingDate = this.workingDate.plus(paramObj)
-      }
-      else if (dashHas(this.$parent, 'workingDate')) {
-        let paramObj = {}
-        paramObj[params.unitType] = params.amount
-        // console.debug('this.workingDate = ', this.workingDate)
-        this.workingDate = this.$parent.workingDate.plus(paramObj)
-      }
-      else {
-        let paramObj = {}
-        paramObj[params.unitType] = params.amount
-        console.debug('this.workingDate = ', this.workingDate)
-        this.workingDate = this.workingDate.plus(paramObj)
-      }
-    },
     setTimePeriod: function (params) {
       this.workingDate = params.dateObject
     },
