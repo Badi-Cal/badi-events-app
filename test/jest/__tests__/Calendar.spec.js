@@ -71,4 +71,36 @@ describe('Calendar', () => {
       expect(vm.workingDateTime.toLocaleString()).toBe(date.toLocaleString())
     })
   })
+
+  describe('component methods', () => {
+    let wrapper
+    beforeEach(() => {
+      wrapper = shallowMount(DaykeepCalendar, {
+        LocalVue,
+        propsData: {
+          startDate: new Date()
+        }
+      })
+    })
+
+    afterEach(() => {
+      wrapper.destroy()
+    })
+
+    it('moveTimePeriod - should set the workingDateTime computed property', () => {
+      const vm = wrapper.vm
+      const fixture = {
+        unitType: 'month',
+        amount: 1
+      }
+      let paramObj = {}
+      paramObj[fixture.unitType] = fixture.amount
+
+      const testDate = DateTime.fromJSDate(vm.$props.startDate).plus(paramObj)
+      vm.moveTimePeriod(fixture)
+
+      expect(vm.$data.workingDate.toLocaleString()).toBe(testDate.toLocaleString())
+      expect(vm.workingDateTime.toLocaleString()).toBe(testDate.toLocaleString())
+    })
+  })
 })

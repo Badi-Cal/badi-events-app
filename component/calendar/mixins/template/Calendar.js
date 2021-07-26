@@ -1,4 +1,5 @@
 import dashHas from 'lodash.has'
+import DateTime from 'luxon/src/datetime'
 
 const debug = require('debug')('calendar:Calendar')
 
@@ -75,28 +76,32 @@ export default {
     doUpdate: function () {
       this.mountSetDate()
     },
+    /**
+     * Adds time unit to workingDate data property
+     *
+     * @param {Object} params A Luxon Duration Object
+     * @param {str} params.unitType The unit of time
+     * @param {int} params.amount The time period quantity
+     *
+     */
     moveTimePeriod: function (params) {
       debug('moveTimePeriod triggered with %s', params)
 
-      if (dashHas(params, 'absolute')) {
-        this.workingDate = this.makeDT(params.absolute)
+      let dateObject = this.workingDate
+
+      // first convert to Luxon DateTime
+      if (dateObject instanceof Date) {
+        dateObject = DateTime.fromJSDate(dateObject)
       }
-      else if (dashHas(this, 'workingDate')) {
+
+      if (dashHas(this, 'workingDate')) {
         let paramObj = {}
         paramObj[params.unitType] = params.amount
         debug('this.workingDate = %s', this.workingDate)
-        this.workingDate = this.workingDate.plus(paramObj)
-      }
-      else if (dashHas(this.$parent, 'workingDate')) {
-        let paramObj = {}
-        paramObj[params.unitType] = params.amount
-        this.workingDate = this.$parent.workingDate.plus(paramObj)
+        this.workingDate = dateObject.plus(paramObj)
       }
       else {
-        let paramObj = {}
-        paramObj[params.unitType] = params.amount
-        debug('this.workingDate = %s', this.workingDate)
-        this.workingDate = this.workingDate.plus(paramObj)
+        debug('this.workingDate not on %s object', this)
       }
     }
   },
