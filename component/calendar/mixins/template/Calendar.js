@@ -1,5 +1,6 @@
 import dashHas from 'lodash.has'
 import DateTime from 'luxon/src/datetime'
+import { BadiDate } from 'badidate'
 
 const debug = require('debug')('calendar:Calendar')
 
@@ -35,6 +36,9 @@ export default {
   computed: {
     workingDateTime () {
       return this.makeDT(this.workingDate)
+    },
+    workingDateBadi: function () {
+      return new BadiDate(this.workingDateTime)
     }
   },
   methods: {

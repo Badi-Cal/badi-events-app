@@ -4,6 +4,7 @@ import { DaykeepCalendar } from '../../../component/quasar'
 import Quasar from '../utils'
 
 import DateTime from 'luxon/src/datetime'
+import { BadiDate } from 'badidate'
 
 describe('Calendar', () => {
   // set up Quasar and Vue
@@ -69,6 +70,16 @@ describe('Calendar', () => {
 
       const date = DateTime.fromJSDate(new Date())
       expect(vm.workingDateTime.toLocaleString()).toBe(date.toLocaleString())
+    })
+
+    it('should create correct Badi date', () => {
+      const vm = wrapper.vm
+      expect(vm.workingDateTime instanceof DateTime).toBe(true)
+
+      const datetime = DateTime.fromJSDate(new Date())
+      const myBadiDate = new BadiDate(datetime)
+
+      expect(vm.workingDateBadi.format()).toBe(myBadiDate.format())
     })
   })
 
