@@ -75,7 +75,7 @@ export default {
   },
   mounted () {
     debug('Component mounted')
-    this.mountSetDate()
+    this.doUpdate()
   },
   watch: {
     startDate: 'handleStartChange'

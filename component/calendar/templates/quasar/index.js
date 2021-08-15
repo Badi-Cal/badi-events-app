@@ -4,7 +4,6 @@ import {
   CalendarAgendaEvent,
   CalendarAllDayEvents,
   CalendarDayColumn,
-  CalendarDayLabels,
   CalendarEvent,
   CalendarMultiDayContent,
   CalendarTimeLabelColumn
@@ -26,7 +25,6 @@ export {
   CalendarAgendaEvent,
   CalendarAllDayEvents,
   CalendarDayColumn,
-  CalendarDayLabels,
   CalendarEvent,
   CalendarMonthInner,
   CalendarMultiDayContent,

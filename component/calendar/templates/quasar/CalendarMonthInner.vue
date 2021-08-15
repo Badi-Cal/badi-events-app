@@ -132,18 +132,17 @@
     CalendarMonthInnerTemplateMixin
   } from 'mixins'
   import {
-    CalendarEvent,
-    CalendarDayLabels
+    CalendarEvent
   } from 'templates/quasar'
+  import {
+    CalendarDayLabels
+  } from 'templates/common'
 
   export default {
     name: 'CalendarMonthInner',
     components: {
       CalendarEvent,
       CalendarDayLabels
-      // CalendarHeaderNav,
-      // CalendarEventDetail,
-      // QBtn
     },
     mixins: [
       CalendarPropsMixin,
