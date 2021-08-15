@@ -1,6 +1,6 @@
 import DateTime from 'luxon/src/datetime'
 
-const debug = require('debug')('calendar:CalendarMonthInner')
+const debug = require('debug')('calendar:BadiMonthInner')
 
 export default {
   methods: {

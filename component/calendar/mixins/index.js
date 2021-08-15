@@ -3,7 +3,9 @@ import {
   CalendarMixin,
   EventPropsMixin,
   CalendarBadiMixin,
-  CalendarPropsMixin
+  CalendarPropsMixin,
+  CalendarMonthMixin,
+  MonthInnerMixin
 } from './code'
 import {
   CalendarTemplateMixin,
@@ -15,7 +17,6 @@ import {
   CalendarEventTemplateMixin,
   CalendarEventDetailTemplateMixin,
   CalendarHeaderNavTemplateMixin,
-  CalendarMonthTemplateMixin,
   CalendarMonthInnerTemplateMixin,
   CalendarMultiDayTemplateMixin,
   CalendarMultiDayContentTemplateMixin,
@@ -23,9 +24,11 @@ import {
 } from './template'
 
 export {
+  MonthInnerMixin,
   CalendarPropsMixin,
   CalendarEventMixin,
   CalendarMixin,
+  CalendarMonthMixin,
   EventPropsMixin,
   CalendarBadiMixin,
   CalendarTemplateMixin,
@@ -37,7 +40,6 @@ export {
   CalendarEventTemplateMixin,
   CalendarEventDetailTemplateMixin,
   CalendarHeaderNavTemplateMixin,
-  CalendarMonthTemplateMixin,
   CalendarMonthInnerTemplateMixin,
   CalendarMultiDayTemplateMixin,
   CalendarMultiDayContentTemplateMixin,

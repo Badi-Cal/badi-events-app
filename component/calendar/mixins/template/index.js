@@ -7,7 +7,6 @@ import CalendarDayLabelsTemplateMixin from './CalendarDayLabels'
 import CalendarEventTemplateMixin from './CalendarEvent'
 import CalendarEventDetailTemplateMixin from './CalendarEventDetail'
 import CalendarHeaderNavTemplateMixin from './CalendarHeaderNav'
-import CalendarMonthTemplateMixin from './CalendarMonth'
 import CalendarMonthInnerTemplateMixin from './CalendarMonthInner'
 import CalendarMultiDayTemplateMixin from './CalendarMultiDay'
 import CalendarMultiDayContentTemplateMixin from './CalendarMultiDayContent'
@@ -23,7 +22,6 @@ export {
   CalendarEventTemplateMixin,
   CalendarEventDetailTemplateMixin,
   CalendarHeaderNavTemplateMixin,
-  CalendarMonthTemplateMixin,
   CalendarMonthInnerTemplateMixin,
   CalendarMultiDayTemplateMixin,
   CalendarMultiDayContentTemplateMixin,

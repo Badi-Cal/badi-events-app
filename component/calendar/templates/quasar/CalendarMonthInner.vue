@@ -1,14 +1,5 @@
 <template>
   <div class="calendar-month">
-
-    <!-- calendar header -->
-<!--    <calendar-header-nav-->
-<!--      time-period-unit="month"-->
-<!--      :time-period-amount="1"-->
-<!--      :move-time-period-emit="eventRef + ':navMovePeriod'"-->
-<!--    >-->
-<!--      {{ formatDate(workingDate, 'MMMM yyyy') }}-->
-<!--    </calendar-header-nav>-->
     <slot
       name="headernav"
       :working-date="startDate"
@@ -99,17 +90,6 @@
         </div>
       </div>
     </div>
-
-<!--    <calendar-event-detail-->
-<!--      ref="defaultEventDetail"-->
-<!--      v-if="!preventEventDetail"-->
-<!--      :event-object="eventDetailEventObject"-->
-<!--      :calendar-locale="calendarLocale"-->
-<!--      :calendar-timezone="calendarTimezone"-->
-<!--      :event-ref="eventRef"-->
-<!--      :allow-editing="allowEditing"-->
-<!--      :render-html="renderHtml"-->
-<!--    />-->
     <slot
       name="eventdetail"
       targetRef="defaultEventDetail"
@@ -129,6 +109,7 @@
     CalendarMixin,
     CalendarEventMixin,
     CalendarPropsMixin,
+    MonthInnerMixin,
     CalendarMonthInnerTemplateMixin
   } from 'mixins'
   import {
@@ -148,6 +129,7 @@
       CalendarPropsMixin,
       CalendarMixin,
       CalendarEventMixin,
+      MonthInnerMixin,
       CalendarMonthInnerTemplateMixin
     ]
   }
