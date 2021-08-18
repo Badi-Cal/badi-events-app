@@ -1,9 +1,11 @@
 import { createWrapper, shallowMount, mount } from '@vue/test-utils'
 import Vue from 'vue'
-import { CalendarMonth } from 'components'
+import { CalendarMonthInner } from 'components'
 import Quasar from '../utils'
 
-describe('CalendarMonth', () => {
+import DateTime from 'luxon/src/datetime'
+
+describe('CalendarMonthInner', () => {
   // set up Quasar and Vue
   Quasar()
   const LocalVue = Vue.extend()
@@ -13,7 +15,7 @@ describe('CalendarMonth', () => {
 
     const buildWrapper = (options = {}) => {
       const vm0 = new LocalVue({
-        extends: CalendarMonth
+        extends: CalendarMonthInner
       })
       vm0.$mount()
       wrapper = createWrapper(vm0, {
@@ -31,18 +33,19 @@ describe('CalendarMonth', () => {
     })
 
     it('should be a Vue instance', () => {
-      const instance = wrapper.findComponent(CalendarMonth)
+      const instance = wrapper.findComponent(CalendarMonthInner)
       expect(instance.exists()).toBe(true)
     })
   })
 
-  describe('component prop object', () => {
+  describe('component methods', () => {
     let wrapper
+
     beforeEach(() => {
-      wrapper = shallowMount(CalendarMonth, {
+      wrapper = shallowMount(CalendarMonthInner, {
         LocalVue,
         propsData: {
-          startDate: new Date()
+          startDate: DateTime.local()
         }
       })
     })
@@ -51,9 +54,14 @@ describe('CalendarMonth', () => {
       wrapper.destroy()
     })
 
-    it('should accept valid prop types', () => {
+    it('generateCalendarCellArray - should return correct beginning of month', () => {
       const vm = wrapper.vm
-      expect(vm.$props.startDate instanceof Date).toBe(true)
+
+      const weekday = DateTime.fromJSDate(new Date()).startOf('month').weekday
+      const weekArray = vm.generateCalendarCellArray()
+
+      expect(weekArray.length).toBeGreaterThan(1)
+      expect(weekArray[0][0].dayNumber).toBe(weekday)
     })
   })
 })
