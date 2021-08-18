@@ -48,7 +48,9 @@ module.exports = {
     '^~/(.*)$': '<rootDir>/$1',
     '^src(.*)$': '<rootDir>/src/$1',
     '.*css$': '@quasar/quasar-app-extension-testing-unit-jest/stub.css',
-    '^components(.*)$': '<rootDir>/component/$1',
+    '^components(.*)$': [
+      '<rootDir>/component/calendar/templates/quasar/$1'
+    ],
     '^layouts(.*)$': '<rootDir>/src/layouts/$1',
     '^pages(.*)$': '<rootDir>/src/pages/$1',
     '^assets(.*)$': '<rootDir>/src/assets/$1',
