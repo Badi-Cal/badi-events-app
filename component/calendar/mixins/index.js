@@ -20,7 +20,8 @@ import {
   CalendarMonthInnerTemplateMixin,
   CalendarMultiDayTemplateMixin,
   CalendarMultiDayContentTemplateMixin,
-  CalendarTimeLabelTemplateMixin
+  CalendarTimeLabelTemplateMixin,
+  CalendarMonthTemplateMixin
 } from './template'
 
 export {
@@ -43,5 +44,6 @@ export {
   CalendarMonthInnerTemplateMixin,
   CalendarMultiDayTemplateMixin,
   CalendarMultiDayContentTemplateMixin,
-  CalendarTimeLabelTemplateMixin
+  CalendarTimeLabelTemplateMixin,
+  CalendarMonthTemplateMixin
 }

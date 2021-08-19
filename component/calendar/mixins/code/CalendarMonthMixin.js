@@ -1,15 +1,6 @@
-const debug = require('debug')('calendar:CalendarMonth')
 
 export default {
-  computed: {
-
-  },
-  methods: {
-
-  },
-  mounted () {
-    debug('Component mounted')
-  },
+  methods: {},
   watch: {
     eventArray: function () {
       this.getPassedInEventArray()

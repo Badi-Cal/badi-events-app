@@ -2,14 +2,9 @@
  * @fileoverview shared properties for Calendar,
  * CalendarAgenda, CalendarMonth and CalendarMultiday
  */
-import { BadiDate } from 'badidate'
 import DateTime from 'luxon/src/datetime'
 export default {
   props: {
-    startDate: {
-      type: [Object, Date, DateTime, BadiDate],
-      default: () => { return DateTime.local() }
-    },
     eventArray: {
       type: Array,
       default: () => []

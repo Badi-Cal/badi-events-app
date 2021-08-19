@@ -45,7 +45,8 @@
     CalendarMixin,
     CalendarEventMixin,
     CalendarPropsMixin,
-    CalendarMonthMixin
+    CalendarMonthMixin,
+    CalendarMonthTemplateMixin
   } from 'mixins'
 
   import CalendarMonthInner from './CalendarMonthInner.vue'
@@ -63,7 +64,8 @@
       CalendarMixin,
       CalendarEventMixin,
       CalendarPropsMixin,
-      CalendarMonthMixin
+      CalendarMonthMixin,
+      CalendarMonthTemplateMixin
     ]
   }
 </script>

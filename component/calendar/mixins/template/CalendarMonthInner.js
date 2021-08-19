@@ -1,8 +1,14 @@
-import DateTime from 'luxon/src/datetime'
+import { DateTime } from 'luxon'
 
 const debug = require('debug')('calendar:CalendarMonthInner')
 
 export default {
+  props: {
+    startDate: {
+      type: [DateTime],
+      default: () => { return DateTime.local() }
+    }
+  },
   methods: {
     /**
      * Generates cell data for a calendar month

@@ -11,6 +11,7 @@ import CalendarMonthInnerTemplateMixin from './CalendarMonthInner'
 import CalendarMultiDayTemplateMixin from './CalendarMultiDay'
 import CalendarMultiDayContentTemplateMixin from './CalendarMultiDayContent'
 import CalendarTimeLabelTemplateMixin from './CalendarTimeLabelColumn'
+import CalendarMonthTemplateMixin from './CalendarMonth'
 
 export {
   CalendarTemplateMixin,
@@ -25,5 +26,6 @@ export {
   CalendarMonthInnerTemplateMixin,
   CalendarMultiDayTemplateMixin,
   CalendarMultiDayContentTemplateMixin,
-  CalendarTimeLabelTemplateMixin
+  CalendarTimeLabelTemplateMixin,
+  CalendarMonthTemplateMixin
 }

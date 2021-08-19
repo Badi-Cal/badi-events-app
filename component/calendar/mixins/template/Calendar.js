@@ -6,6 +6,10 @@ const debug = require('debug')('calendar:Calendar')
 
 export default {
   props: {
+    startDate: {
+      type: [Date],
+      default: () => { return new Date() }
+    },
     tabLabels: {
       type: Object,
       default: () => {
