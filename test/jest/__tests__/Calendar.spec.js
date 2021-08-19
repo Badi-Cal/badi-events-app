@@ -51,7 +51,7 @@ describe('Calendar', () => {
   describe('component data object', () => {
     let wrapper
     beforeEach(() => {
-      wrapper = shallowMount(DaykeepCalendar, {
+      wrapper = mount(DaykeepCalendar, {
         LocalVue,
         propsData: {
           startDate: new Date()
@@ -86,7 +86,7 @@ describe('Calendar', () => {
   describe('component methods', () => {
     let wrapper
     beforeEach(() => {
-      wrapper = shallowMount(DaykeepCalendar, {
+      wrapper = mount(DaykeepCalendar, {
         LocalVue,
         propsData: {
           startDate: new Date()

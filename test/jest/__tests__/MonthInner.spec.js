@@ -10,34 +10,6 @@ describe('CalendarMonthInner', () => {
   Quasar()
   const LocalVue = Vue.extend()
 
-  describe('component mounted', () => {
-    let wrapper
-
-    const buildWrapper = (options = {}) => {
-      const vm0 = new LocalVue({
-        extends: CalendarMonthInner
-      })
-      vm0.$mount()
-      wrapper = createWrapper(vm0, {
-        options
-      })
-    }
-
-    beforeEach(() => {
-      buildWrapper()
-    })
-
-    afterEach(() => {
-      // IMPORTANT: Clean up the component instance
-      wrapper.destroy()
-    })
-
-    it('should be a Vue instance', () => {
-      const instance = wrapper.findComponent(CalendarMonthInner)
-      expect(instance.exists()).toBe(true)
-    })
-  })
-
   describe('component methods', () => {
     let wrapper
 

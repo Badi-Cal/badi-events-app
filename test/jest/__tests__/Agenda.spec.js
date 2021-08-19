@@ -1,9 +1,10 @@
 import { createWrapper, shallowMount, mount } from '@vue/test-utils'
+import { DateTime } from 'luxon'
 import Vue from 'vue'
 import { DaykeepCalendarAgenda } from '../../../component/quasar'
 import Quasar from '../utils'
 
-describe('Month', () => {
+describe('CalendarAgenda', () => {
   // set up Quasar and Vue
   Quasar()
   const LocalVue = Vue.extend()
@@ -13,7 +14,10 @@ describe('Month', () => {
 
     const buildWrapper = (options = {}) => {
       const vm0 = new LocalVue({
-        extends: DaykeepCalendarAgenda
+        extends: DaykeepCalendarAgenda,
+        propsData: {
+          startDate: DateTime.local()
+        }
       })
       vm0.$mount()
       wrapper = createWrapper(vm0, {
@@ -42,7 +46,7 @@ describe('Month', () => {
       wrapper = shallowMount(DaykeepCalendarAgenda, {
         LocalVue,
         propsData: {
-          startDate: new Date()
+          startDate: DateTime.local()
         }
       })
     })
@@ -53,7 +57,7 @@ describe('Month', () => {
 
     it('should accept valid prop types', () => {
       const vm = wrapper.vm
-      expect(vm.$props.startDate instanceof Date).toBe(true)
+      expect(vm.$props.startDate instanceof DateTime).toBe(true)
     })
   })
 })

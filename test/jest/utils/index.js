@@ -24,6 +24,13 @@ const mockSsrContext = () => {
 
 export default (options = {}) => {
   const app = {}
+  // handle type check warnings
+  Vue.config.warnHandler = (msg, vm, trace) => {
+    if (!(msg.includes('type check failed for prop "startDate"'))) {
+      console.error(`Warn: ${msg}\nTrace: ${trace}`)
+    }
+  }
+
   Vue.use(Quasar, { components })
   if (options) {
     const ssrContext = options.ssr ? mockSsrContext() : null
