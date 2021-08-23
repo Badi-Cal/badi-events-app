@@ -2,8 +2,10 @@
  * @fileoverview Shared methods across all calendar components
  */
 
+import { BadiDate } from 'badidate'
 import dashHas from 'lodash.has'
 import DateTime from 'luxon/src/datetime'
+import { tokensBadi, tokensLuxon } from '../../../../utils/formatter'
 
 // const debug = require('debug')('calendar:CalendarMixin')
 export default {
@@ -111,12 +113,35 @@ export default {
       cssObject['text-' + this.getEventColor(eventObject, 'textColor')] = true
       return cssObject
     },
-    formatDate: function (dateObject, formatString, usePredefined) {
+    /**
+     * Return formatted date string for BadiDate or DateTime object.
+     * @see https://moment.github.io/luxon/#/formatting?id=presets
+     *
+     * @param {BadiDate||DateTime} dateObject
+     * @param {string} format A preset formatting string
+     * @returns {string}
+     */
+    toDateFormat: function (dateObject, format) {
+      if (dateObject instanceof BadiDate) {
+        return dateObject.formatDateBadi(tokensBadi[format])
+      }
+
+      return dateObject.toLocaleString(tokensLuxon[format])
+    },
+    /**
+     * Return formatted date string Date object.
+     *
+     * @param {Object} dateObject
+     * @param {string} format A preset formatting string
+     * @param {boolean} usePredefined
+     * @returns {string}
+     */
+    formatDate: function (dateObject, format, usePredefined) {
       if (usePredefined) {
-        return this.makeDT(dateObject).toLocaleString(DateTime[formatString])
+        return this.makeDT(dateObject).toLocaleString(DateTime[format])
       }
       else {
-        return this.makeDT(dateObject).toFormat(formatString)
+        return this.makeDT(dateObject).toFormat(format)
       }
     },
     dateAdjustWeekday (thisDateObject, weekdayNum) {
@@ -254,6 +279,15 @@ export default {
       const dayNumber = this.makeDT(thisDateObject).weekday
       return (dayNumber === 6 || dayNumber === 7)
     },
+    /**
+     * Adjusts for Sunday as the first day of the week.
+     *
+     * Weeks start on Monday.
+     *
+     * @param {DateTime} thisDateObject
+     * @param {boolean} useSundayStart
+     * @returns {integer}
+     */
     getWeekNumber (thisDateObject, useSundayStart) {
       if (useSundayStart) {
         return this.makeDT(thisDateObject).plus({ days: 1 }).weekNumber
@@ -323,7 +357,23 @@ export default {
         this.makeDT(workingDate).toISODate() +
         '-hour-' +
         thisHour
+    },
+    /**
+     * Validates object is DateTime or BadiDate
+     *
+     * @param {object} dateObject
+     * @returns {boolean}
+     */
+    isCalendarDate: function (dateObject) {
+      if (dateObject instanceof DateTime) {
+        return true
+      }
+      if (dateObject instanceof BadiDate) {
+        return true
+      }
+      return false
     }
+
   },
   mounted () {}
 }
