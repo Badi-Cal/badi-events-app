@@ -2,7 +2,7 @@
   <div class="calendar-day-labels flex-row flex-no-wrap flex-justify-end">
     <div
       v-for="thisDay in weekDateArray"
-      :key="formatDate(thisDay, 'EEE')"
+      :key="toDateFormat(thisDay, 'WEEKDAY_SHORT')"
       :class="{
         'calendar-day-label': true,
         'calendar-cell': true,
@@ -15,12 +15,12 @@
       }"
       @click="handleDayClick(thisDay)"
     >
-      {{ formatDate(thisDay, 'EEE') }}
+      {{ toDateFormat(thisDay, 'WEEKDAY_SHORT') }}
       <div
         v-if="showDates"
         class="calendar-day-label-date"
       >
-        {{ formatDate(thisDay, 'd') }}
+        {{ toDateFormat(thisDay, 'DAY_NUMBER') }}
       </div>
     </div>
   </div>

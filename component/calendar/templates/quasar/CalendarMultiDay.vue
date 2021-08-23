@@ -8,7 +8,7 @@
         :move-time-period-emit="eventRef + ':navMovePeriod'"
         :calendar-locale="calendarLocale"
       >
-        {{ formatDate(workingDate, 'EEEE, MMMM d, yyyy') }}
+        {{ toDateFormat(workingDate, 'DATE_FULL') }}
       </calendar-header-nav>
     </template>
     <template v-else>

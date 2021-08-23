@@ -26,9 +26,9 @@
           :move-time-period-emit="eventRef + ':navMovePeriod'"
           :calendar-locale="calendarLocale"
         >
-          {{ formatDate(workingDate, 'EEE, MMM d')}}
+          {{ toDateFormat(workingDate, 'MONTH_SHORT_DAY')}}
           -
-          {{ formatDate(makeDT(workingDate).plus({ days: numJumpDays }), 'MMM d')}}
+          {{ toDateFormat(workingDate.plus({ days: numJumpDays }), 'MONTH_SHORT_DAY_YEAR')}}
         </calendar-header-nav>
       </template>
       <template v-slot:eventdetail="eventVal">

@@ -21,7 +21,7 @@
           :time-period-amount="1"
           :move-time-period-emit="navVal.eventRef + ':navMovePeriod'"
         >
-          {{ formatDate(navVal.workingDate, 'MMMM yyyy') }}
+          {{ toDateFormat(navVal.workingDate, 'MONTH_YEAR') }}
         </calendar-header-nav>
       </template>
       <template v-slot:eventdetail="eventVal">
