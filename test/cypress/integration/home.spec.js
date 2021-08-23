@@ -7,7 +7,9 @@ const { DateTime } = require('luxon')
 // See https://docs.cypress.io/guides/references/best-practices.html#Selecting-Elements
 
 describe('Calendar index page', () => {
-  let month
+  let month,
+    datetime,
+    year
   beforeEach(() => {
     cy.visit('/')
   })
@@ -19,9 +21,12 @@ describe('Calendar index page', () => {
   it('should expect that .calendar-header exists in DOM', () => {
     cy.dataCy('q-app').then(($app) => {
       cy.log('App container: ', $app)
-      month = DateTime.now().monthLong
+      datetime = DateTime.local()
+      month = datetime.monthLong
+      year = datetime.year
       cy.dataCy('calendar-header')
         .contains(month).should('exist')
+        .contains(year).should('exist')
     })
   })
 })
