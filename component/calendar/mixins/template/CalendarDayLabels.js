@@ -51,7 +51,6 @@ export default {
       this.doUpdate()
     },
     doUpdate: function () {
-      this.mountSetDate()
       this.buildWeekDateArray(this.numberOfDays, this.sundayFirstDayOfWeek)
     },
     isCurrentDayLabel: function (thisDay, checkMonthOnly) {
