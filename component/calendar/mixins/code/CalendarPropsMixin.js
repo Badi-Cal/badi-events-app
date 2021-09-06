@@ -2,7 +2,7 @@
  * @fileoverview shared properties for Calendar,
  * CalendarAgenda, CalendarMonth and CalendarMultiday
  */
-import DateTime from 'luxon/src/datetime'
+import { DateTime } from 'luxon'
 export default {
   props: {
     eventArray: {
