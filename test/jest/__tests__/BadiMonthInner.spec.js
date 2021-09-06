@@ -1,9 +1,10 @@
 import { createWrapper, shallowMount, mount } from '@vue/test-utils'
 import Vue from 'vue'
-import { CalendarMonthInner } from 'components'
+import { BadiMonthInner } from 'components'
 import Quasar from '../utils'
 
 import DateTime from 'luxon/src/datetime'
+import { BadiDate } from 'badidate'
 
 describe('CalendarMonthInner', () => {
   // set up Quasar and Vue
@@ -14,10 +15,10 @@ describe('CalendarMonthInner', () => {
     let wrapper
 
     beforeEach(() => {
-      wrapper = shallowMount(CalendarMonthInner, {
+      wrapper = shallowMount(BadiMonthInner, {
         LocalVue,
         propsData: {
-          startDate: DateTime.local()
+          startDate: new BadiDate(DateTime.local())
         }
       })
     })
@@ -29,15 +30,21 @@ describe('CalendarMonthInner', () => {
     it('generateCalendarCellArray - should return correct beginning of month', () => {
       const vm = wrapper.vm
 
-      const date = DateTime.now().startOf('month').setLocale('en-US')
+      const badidate = new BadiDate(DateTime.local())
+      const badidate1 = new BadiDate({
+        year: badidate.year,
+        month: badidate.month,
+        day: 1
+      })
       const dayObject = {
-        dateObject: date,
-        year: date.year,
-        month: date.month,
-        date: date.day,
-        dayName: date.toFormat('EEEE'),
-        dayNumber: date.weekday
+        dateObject: badidate1,
+        year: badidate1.year,
+        month: badidate1.month,
+        date: badidate1.day,
+        dayName: badidate1.format('WW'),
+        dayNumber: badidate1.weekday
       }
+
       const weekArray = vm.generateCalendarCellArray()
 
       expect(weekArray.length).toBeGreaterThan(1)
