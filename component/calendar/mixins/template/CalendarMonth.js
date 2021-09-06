@@ -5,7 +5,7 @@ const debug = require('debug')('calendar:CalendarMonth')
 export default {
   props: {
     startDate: {
-      type: [DateTime],
+      type: [Object, DateTime],
       default: () => { return DateTime.local() }
     }
   },

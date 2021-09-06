@@ -6,7 +6,7 @@ const debug = require('debug')('calendar:BadiMonth')
 export default {
   props: {
     startDate: {
-      type: [BadiDate],
+      type: [Object, BadiDate],
       default: () => { return new BadiDate(DateTime.local()) }
     }
   },

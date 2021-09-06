@@ -1,4 +1,4 @@
-import DateTime from 'luxon/src/datetime'
+import { DateTime } from 'luxon'
 import { BadiDate } from 'badidate'
 
 const debug = require('debug')('calendar:BadiMonthInner')
@@ -6,7 +6,7 @@ const debug = require('debug')('calendar:BadiMonthInner')
 export default {
   props: {
     startDate: {
-      type: [BadiDate],
+      type: [Object, BadiDate],
       default: () => { return new BadiDate(DateTime.local()) }
     }
   },
