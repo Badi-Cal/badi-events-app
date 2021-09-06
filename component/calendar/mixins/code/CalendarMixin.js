@@ -4,7 +4,7 @@
 
 import { BadiDate } from 'badidate'
 import dashHas from 'lodash.has'
-import DateTime from 'luxon/src/datetime'
+import { DateTime } from 'luxon'
 import { tokensBadi, tokensLuxon } from '../../../../utils/formatter'
 
 // const debug = require('debug')('calendar:CalendarMixin')
@@ -365,7 +365,7 @@ export default {
      * @returns {boolean}
      */
     isCalendarDate: function (dateObject) {
-      if (dateObject instanceof DateTime) {
+      if (DateTime.isDateTime(dateObject)) {
         return true
       }
       if (dateObject instanceof BadiDate) {
