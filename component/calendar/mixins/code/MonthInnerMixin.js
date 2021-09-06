@@ -2,8 +2,6 @@
  * @fileoverview Shared data and methods for CalendarMonthInnner, BadiMonthInner
  */
 
-import DateTime from 'luxon/src/datetime'
-
 export default {
   data () {
     return {
@@ -32,8 +30,8 @@ export default {
       )
     },
     generateCalendarCellArray: function () {
-      if (!(this.startDate instanceof DateTime)) {
-        throw new TypeError('startDate prop not DateTime')
+      if (!(this.isCalendarDate(this.startDate))) {
+        throw new TypeError('Invalid type of "startDate" prop')
       }
 
       const month = this.startDate.month
