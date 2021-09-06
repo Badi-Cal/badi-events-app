@@ -1,46 +1,46 @@
 import DateTime from 'luxon/src/datetime'
+import { BadiDate } from 'badidate'
 
 const debug = require('debug')('calendar:BadiMonthInner')
 
 export default {
+  props: {
+    startDate: {
+      type: [BadiDate],
+      default: () => { return new BadiDate(DateTime.local()) }
+    }
+  },
   methods: {
     /**
      * Generates cell data for a calendar month
      *
-     * @param {integer} monthNumber
-     * @param {integer} yearNumber
+     * @param {integer} monthNumber Badi month
+     * @param {integer} yearNumber Badi year
      *
-     * @returns {Array<DateTime>}
+     * @returns {Array<BadiDate}
      */
     getCalendarCellArray: function (monthNumber, yearNumber) {
-      let currentDay = this.makeDT(
-        DateTime.fromObject({
-          year: yearNumber,
-          month: monthNumber,
-          day: 1
-        })
-      )
-      let currentWeekOfYear = this.getWeekNumber(currentDay, this.sundayFirstDayOfWeek)
-      let weekArray = []
-      let currentWeekArray = []
-      let thisDayObject = {}
-      for (let thisDateOfMonth = 1; thisDateOfMonth <= 31; thisDateOfMonth++) {
-        currentDay = this.makeDT(
-          DateTime.fromObject({
+      let weekArray = [],
+        currentWeekArray = [],
+        thisDayObject = {},
+        currentDay = {}
+
+      for (let thisDateOfMonth = 1; thisDateOfMonth <= 19; thisDateOfMonth++) {
+        currentDay = new BadiDate(
+          {
             year: yearNumber,
             month: monthNumber,
             day: thisDateOfMonth
-          })
+          }
         )
         if (
           currentDay.year === yearNumber &&
           currentDay.month === monthNumber
         ) {
           if (
-            this.getWeekNumber(currentDay, this.sundayFirstDayOfWeek) !== currentWeekOfYear
+            this.isJalal(currentDay)
           ) {
             weekArray.push(currentWeekArray)
-            currentWeekOfYear = this.getWeekNumber(currentDay, this.sundayFirstDayOfWeek)
             currentWeekArray = []
           }
           thisDayObject = {
@@ -48,7 +48,7 @@ export default {
             year: currentDay.year,
             month: currentDay.month,
             date: currentDay.day,
-            dayName: currentDay.toFormat('EEEE'),
+            dayName: currentDay.format('WW'),
             dayNumber: currentDay.weekday
           }
           currentWeekArray.push(thisDayObject)
@@ -70,9 +70,9 @@ export default {
       const lastWeek = weekArray[weekArray.length - 1]
       let endDateObj = lastWeek[lastWeek.length - 1].dateObject
       return {
-        startDate: startDateObj.toISODate(),
-        endDate: endDateObj.toISODate(),
-        numDays: Math.ceil(endDateObj.diff(startDateObj).as('days') + 1),
+        startDate: startDateObj.format('y-mm-dd'),
+        endDate: endDateObj.format('y-mm-dd'),
+        numDays: undefined,
         viewType: this.$options.name
       }
     }

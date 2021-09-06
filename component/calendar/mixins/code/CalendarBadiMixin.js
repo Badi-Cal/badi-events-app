@@ -1,17 +1,13 @@
 /**
- * @fileoverview Shared properties for Badi templates
+ * @fileoverview Shared props and methods for Badi templates
  */
-import { BadiDate } from 'badidate'
+import { BadiDate, badiDateSettings } from 'badidate'
 
 export default {
   props: {
-    calendarName: {
-      type: String,
-      default: 'Badi'
-    },
     saturdayFirstDayOfWeek: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
   methods: {
@@ -27,18 +23,22 @@ export default {
       if (dateObject instanceof BadiDate) {
         return dateObject.format(formatString)
       }
-    }
-  },
-  computed: {
+    },
     /**
-     * Sets BadiDate object for this instance
+     * Return true if weekday of date is Jalal
      *
-     * @returns {BadiDate}
+     * @param {BadiDate} dateObject
+     * @returns {boolean}
      */
-    workingDateBadi: function () {
-      return new BadiDate(this.workingDate)
+    isJalal: function (dateObject) {
+      const dayNumber = dateObject.weekday
+      return (dayNumber === 1)
     }
   },
-  data () {},
+  created () {
+    badiDateSettings({
+      defaultLanguage: this.$props.calendarLocale
+    })
+  },
   mounted () {}
 }
