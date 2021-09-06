@@ -1,5 +1,7 @@
+/* eslint-disable new-cap */
 import { CalendarMonth } from 'templates/quasar'
 import { sampleEventArray, MoveDates } from '@daykeep/calendar-core/demo/'
+import { DateTime } from 'luxon'
 
 // 👇 This default export determines where your story goes in the story list
 export default {
@@ -22,7 +24,7 @@ const Template = (args, { argTypes }) => ({
   mixins: [ MoveDates ],
   template: `
     <calendar-month
-      :start-date="new Date()"
+      :start-date="workingDate"
       :event-array="eventArray"
       :sunday-first-day-of-week="true"
       :allow-editing="false"
@@ -36,11 +38,13 @@ const Template = (args, { argTypes }) => ({
 export const BuenosAires = Template.bind({})
 BuenosAires.args = {
   calendarLocale: 'es',
-  calendarTimezone: 'America/Argentina/Buenos_Aires'
+  calendarTimezone: 'America/Argentina/Buenos_Aires',
+  workingDate: new DateTime.local()
 }
 
 export const NewYork = Template.bind({})
 NewYork.args = {
   calendarLocale: 'en',
-  calendarTimezone: 'America/New_York'
+  calendarTimezone: 'America/New_York',
+  workingDate: new DateTime.local()
 }
