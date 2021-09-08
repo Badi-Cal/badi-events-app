@@ -8,8 +8,11 @@ const { DateTime } = require('luxon')
 
 describe('Calendar index page', () => {
   let month,
+    weekday,
+    weekend,
     datetime,
-    year
+    year,
+    today
   beforeEach(() => {
     cy.visit('/')
   })
@@ -27,6 +30,30 @@ describe('Calendar index page', () => {
       cy.dataCy('calendar-header')
         .contains(month).should('exist')
         .contains(year).should('exist')
+    })
+  })
+
+  it('should expect today to have class .calendar-day-number-current', () => {
+    cy.dataCy('calendar-content').then(($content) => {
+      cy.log('Calendar content: ', $content)
+      datetime = DateTime.local()
+      today = datetime.get('day')
+      cy.contains(today)
+        .parent()
+        .should('have.class', 'calendar-day-number-current')
+    })
+  })
+
+  it('should expect Sunday to have class .calendar-day-weekend', () => {
+    cy.dataCy('calendar-content').then(($content) => {
+      cy.log('Calendar content: ', $content)
+      datetime = DateTime.local()
+      weekday = datetime.weekday
+      weekend = datetime.plus({ days: (7 - weekday) }).get('day')
+      cy.contains(weekend)
+        .parent()
+        .parent()
+        .should('have.class', 'calendar-day-weekend')
     })
   })
 })
