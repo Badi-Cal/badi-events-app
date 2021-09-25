@@ -1,6 +1,8 @@
 import dashHas from 'lodash.has'
 import { DateTime } from 'luxon'
 import Interval from 'luxon/src/interval'
+import { BadiDate } from 'badidate'
+
 const defaultParsed = {
   byAllDayStartDate: {},
   byAllDayObject: {},
@@ -13,8 +15,17 @@ export default {
   computed: {},
   methods: {
 
+    /**
+     * Returns ISO-8601 string representation of Date
+     *
+     * @param {DateTime|BadiDate} dateObject
+     * @returns {string}
+     */
     formatToSqlDate: function (dateObject) {
-      return this.makeDT(dateObject).toISODate()
+      if (dateObject instanceof BadiDate) {
+        return dateObject.format('yy-mm-dd')
+      }
+      return dateObject.toISODate()
     },
     getEventById: function (eventId) {
       return this.parsed.byId[eventId]
@@ -23,7 +34,7 @@ export default {
       let hasAllDayEvents = this.hasAllDayEvents(thisDate)
       let hasEvents = this.hasEvents(thisDate)
       let returnArray = []
-      let sqlDate = this.makeDT(thisDate).toISODate()
+      let sqlDate = this.formatToSqlDate(thisDate)
       if (hasAllDayEvents) {
         let transferFields = ['daysFromStart', 'durationDays', 'hasNext', 'hasPrev', 'slot']
         // build temp object with slot IDs
