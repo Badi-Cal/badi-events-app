@@ -269,14 +269,38 @@ export default {
     createThisDate: function (dateNum) {
       return this.parseDateParams(dateNum)
     },
+    /**
+     * True if date is same as today
+     *
+     * @param {DateTime|BadiDate} thisDateObject
+     * @returns {boolean}
+     */
     isCurrentDate: function (thisDateObject) {
-      return DateTime.local().hasSame(
-        this.makeDT(thisDateObject),
+      const today = DateTime.local()
+
+      if (thisDateObject instanceof BadiDate) {
+        const badiDate = new BadiDate(today)
+        return badiDate.equals(thisDateObject)
+      }
+
+      return today.hasSame(
+        thisDateObject,
         'day'
       )
     },
+    /**
+     * Return true if days is weekend day.
+     *
+     * @param {DateTime|BadiDate} thisDateObject
+     * @returns {boolean}
+     */
     isWeekendDay: function (thisDateObject) {
-      const dayNumber = this.makeDT(thisDateObject).weekday
+      const dayNumber = thisDateObject.weekday
+
+      if (thisDateObject instanceof BadiDate) {
+        return (dayNumber === 1 || dayNumber === 2)
+      }
+
       return (dayNumber === 6 || dayNumber === 7)
     },
     /**
