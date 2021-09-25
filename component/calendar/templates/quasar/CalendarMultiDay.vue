@@ -88,10 +88,12 @@
 <script>
   import {
     // components
-    CalendarDayLabels,
     CalendarAllDayEvents,
     CalendarMultiDayContent
   } from '@daykeep/calendar-core'
+  import { CalendarDayLabels } from 'templates/common'
+  import CalendarHeaderNav from './CalendarHeaderNav'
+  import CalendarEventDetail from './CalendarEventDetail'
   import {
     // mixins
     CalendarMixin,
@@ -99,8 +101,6 @@
     CalendarPropsMixin,
     CalendarMultiDayTemplateMixin
   } from 'mixins'
-  import CalendarHeaderNav from './CalendarHeaderNav'
-  import CalendarEventDetail from './CalendarEventDetail'
   import { QScrollArea } from 'quasar'
 
   export default {
