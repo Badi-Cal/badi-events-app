@@ -1,3 +1,4 @@
+import { BadiDate } from 'badidate'
 import { DateTime } from 'luxon'
 
 const debug = require('debug')('calendar:CalendarDayLabels')
@@ -5,8 +6,8 @@ const debug = require('debug')('calendar:CalendarDayLabels')
 export default {
   props: {
     startDate: {
-      type: [Object, Date],
-      default: () => { return new Date() }
+      type: [Object, DateTime, BadiDate],
+      default: () => { return DateTime.local() }
     },
     numberOfDays: {
       type: Number,
@@ -34,7 +35,6 @@ export default {
     return {
       dayCellHeight: 5,
       dayCellHeightUnit: 'rem',
-      workingDate: DateTime.local(),
       weekDateArray: []
     }
   },
@@ -51,7 +51,7 @@ export default {
       this.doUpdate()
     },
     doUpdate: function () {
-      this.buildWeekDateArray(this.numberOfDays, this.sundayFirstDayOfWeek)
+      this.weekDateArray = this.buildWeekDateArray(this.numberOfDays)
     },
     isCurrentDayLabel: function (thisDay, checkMonthOnly) {
       let now = DateTime.local()

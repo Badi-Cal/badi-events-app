@@ -6,6 +6,7 @@ import { BadiDate } from 'badidate'
 import dashHas from 'lodash.has'
 import { DateTime } from 'luxon'
 import { tokensBadi, tokensLuxon } from '../../../../utils/formatter'
+import getFirstDayOfWeek from '../../../../utils/startofweek'
 
 // const debug = require('debug')('calendar:CalendarMixin')
 export default {
@@ -151,15 +152,19 @@ export default {
       if (weekdayNum < 1) {
         adjustForward = false
         weekdayNum = Math.abs(weekdayNum)
+        // never reached condition?
         if (weekdayNum === 0) {
           weekdayNum = 7
         }
       }
+
       for (let counter = 1; counter <= 7; counter++) {
         if (adjustForward) {
+          // add counter to current date object
           checkDate = thisDateObject.plus({ days: counter })
         }
         else {
+          // substract counter from current date object
           checkDate = thisDateObject.minus({ days: counter })
         }
         if (checkDate.weekday === weekdayNum) {
@@ -167,6 +172,13 @@ export default {
         }
       }
     },
+    /**
+     * Array of days in the week
+     *
+     * @param {integer} numberOfDays
+     * @param {boolean} sundayFirstDayOfWeek
+     * @returns {Array<DateTime}
+     */
     buildWeekDateArray: function (numberOfDays, sundayFirstDayOfWeek) {
       if (numberOfDays === undefined) {
         if (this.numberOfDays !== undefined) {
@@ -179,13 +191,7 @@ export default {
           numberOfDays = 7
         }
       }
-      if (this.forceStartOfWeek) {
-        this.weekDateArray = this.getForcedWeekDateArray(numberOfDays, sundayFirstDayOfWeek)
-      }
-      else {
-        this.weekDateArray = this.getWeekDateArray(numberOfDays)
-      }
-      return this.weekDateArray
+      return this.getWeekDateArray(numberOfDays)
     },
     getForcedWeekBookendDates: function (numberOfDays, sundayFirstDayOfWeek) {
       if (numberOfDays === undefined) {
@@ -193,32 +199,23 @@ export default {
       }
       if (sundayFirstDayOfWeek) {
         return {
-          first: this.dateAdjustWeekday(this.workingDate, -1).minus({ days: 1 }),
-          last: this.dateAdjustWeekday(this.workingDate, numberOfDays).minus({ days: 1 })
+          first: this.dateAdjustWeekday(this.startDate, -1).minus({ days: 1 }),
+          last: this.dateAdjustWeekday(this.startDate, numberOfDays).minus({ days: 1 })
         }
       }
       else {
         return {
-          first: this.dateAdjustWeekday(this.workingDate, -1),
-          last: this.dateAdjustWeekday(this.workingDate, numberOfDays)
+          first: this.dateAdjustWeekday(this.startDate, -1),
+          last: this.dateAdjustWeekday(this.startDate, numberOfDays)
         }
       }
     },
-    getForcedWeekDateArray: function (numberOfDays, sundayFirstDayOfWeek) {
-      let bookendDates = this.getForcedWeekBookendDates(numberOfDays, sundayFirstDayOfWeek)
-      let returnArray = []
-      for (let counter = 0; counter <= numberOfDays - 1; counter++) {
-        returnArray.push(
-          this.makeDT(bookendDates.first).plus({ days: counter })
-        )
-      }
-      return returnArray
-    },
     getWeekDateArray: function (numberOfDays) {
       let returnArray = []
+      let startOfWeek = getFirstDayOfWeek(this.startDate)
       for (let counter = 0; counter <= numberOfDays - 1; counter++) {
         returnArray.push(
-          this.makeDT(this.workingDate).plus({ days: counter })
+          startOfWeek.plus({ days: counter })
         )
       }
       return returnArray
