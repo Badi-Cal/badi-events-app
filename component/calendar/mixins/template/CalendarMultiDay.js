@@ -98,9 +98,8 @@ export default {
     },
     doUpdate: function () {
       this.mountSetDate()
-      let payload = this.getMultiDayDisplayDates(
-        this.buildWeekDateArray(this.numDays, this.sundayFirstDayOfWeek)
-      )
+      this.weekDateArray = this.buildWeekDateArray(this.numDays)
+      let payload = this.getMultiDayDisplayDates(this.weekDateArray)
       this.triggerDisplayChange(
         this.eventRef,
         payload
@@ -115,9 +114,8 @@ export default {
         this.eventRef + ':navMovePeriod',
         params
       )
-      let payload = this.getMultiDayDisplayDates(
-        this.buildWeekDateArray()
-      )
+      this.weekDateArray = this.buildWeekDateArray(this.numDays)
+      let payload = this.getMultiDayDisplayDates(this.weekDateArray)
       payload['moveUnit'] = params.unitType
       payload['moveAmount'] = params.amount
       this.triggerDisplayChange(
