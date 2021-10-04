@@ -5,7 +5,7 @@
  * @param locale
  * @returns {int}
  */
-const getFirstDayOfWeek = function (locale) {
+const getFirstWeekDay = function (locale) {
   // from http://www.unicode.org/cldr/data/common/supplemental/supplementalData.xml:supplementalData/weekData/firstDay
   const firstDay = {/* default is 1=Monday */
     'bd': 5,
@@ -98,10 +98,12 @@ const getFirstDayOfWeek = function (locale) {
  * @param {luxon.DateTime} date
  * @returns {luxon.DateTime}
  */
-export default function (date) {
-  const fd = getFirstDayOfWeek(date.locale)
+const getFirstDayOfWeek = function (date) {
+  const fd = getFirstWeekDay(date.locale)
   // convert to 0=sunday .. 6=saturday
   const day = date.weekday % 7
   const dayAdjust = day >= fd ? -day + fd : -day + fd - 7
   return date.plus({ days: dayAdjust })
 }
+
+export { getFirstDayOfWeek, getFirstWeekDay }

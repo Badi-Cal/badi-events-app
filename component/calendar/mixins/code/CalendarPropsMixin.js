@@ -29,10 +29,6 @@ export default {
       type: String,
       default: () => { return DateTime.local().zoneName }
     },
-    sundayFirstDayOfWeek: {
-      type: Boolean,
-      default: false
-    },
     allowEditing: {
       type: Boolean,
       default: false

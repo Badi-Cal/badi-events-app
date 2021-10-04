@@ -26,7 +26,7 @@ export default {
           day: 1
         })
       )
-      let currentWeekOfYear = this.getWeekNumber(currentDay, this.sundayFirstDayOfWeek)
+      let currentWeekOfYear = this.getWeekNumber(currentDay)
       let weekArray = []
       let currentWeekArray = []
       let thisDayObject = {}
@@ -43,10 +43,10 @@ export default {
           currentDay.month === monthNumber
         ) {
           if (
-            this.getWeekNumber(currentDay, this.sundayFirstDayOfWeek) !== currentWeekOfYear
+            this.getWeekNumber(currentDay) !== currentWeekOfYear
           ) {
             weekArray.push(currentWeekArray)
-            currentWeekOfYear = this.getWeekNumber(currentDay, this.sundayFirstDayOfWeek)
+            currentWeekOfYear = this.getWeekNumber(currentDay)
             currentWeekArray = []
           }
           thisDayObject = {

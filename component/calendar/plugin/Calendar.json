@@ -16,10 +16,6 @@
               "type": ["Date","DateTime"],
               "desc": "A JavaScript Date or Luxon DateTime object that passes in a starting display date for the calendar to display."
             },
-            "sundayFirstDayOfWeek": {
-              "type": "Boolean",
-              "desc": "If true this will force month and week calendars to start on a Sunday instead of the standard Monday."
-            },
             "calendarLocale": {
               "type": "String",
               "desc": "A string setting the locale. We use the Luxon package for this. This will default to the user's system setting.",

@@ -7,12 +7,11 @@
       time-period-unit="month"
     ></slot>
 
-    <div class="calendar-content">
+    <div class="calendar-content" data-cy="calendar-content">
       <calendar-day-labels
         :number-of-days="7"
         :start-date="startDate"
         :force-start-of-week="true"
-        :sunday-first-day-of-week="sundayFirstDayOfWeek"
         :calendar-locale="calendarLocale"
       />
       <div

@@ -28,7 +28,6 @@
         :start-date="workingDate"
         :force-start-of-week="forceStartOfWeek"
         :full-component-ref="fullComponentRef"
-        :sunday-first-day-of-week="sundayFirstDayOfWeek"
         :calendar-locale="calendarLocale"
       />
     </div>

@@ -22,10 +22,6 @@ export default {
       default: false
     },
     fullComponentRef: String,
-    sundayFirstDayOfWeek: {
-      type: Boolean,
-      default: false
-    },
     calendarLocale: {
       type: String,
       default: () => { return DateTime.local().locale }

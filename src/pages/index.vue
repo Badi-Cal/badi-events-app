@@ -12,8 +12,7 @@
         <q-card-section>
           <daykeep-calendar
             :event-array="eventArray"
-            :sunday-first-day-of-week="false"
-            calendar-locale="en"
+            calendar-locale="en-US"
             calendar-timezone="America/New_York"
             NOevent-ref="MYCALENDAR"
             :allow-editing="true"

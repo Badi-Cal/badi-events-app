@@ -8,7 +8,6 @@
       :prevent-event-detail="preventEventDetail"
       :calendar-locale="calendarLocale"
       :calendar-timezone="calendarTimezone"
-      :sunday-first-day-of-week="sundayFirstDayOfWeek"
       :allow-editing="allowEditing"
       :render-html="renderHtml"
       :day-display-start-hour="dayDisplayStartHour"

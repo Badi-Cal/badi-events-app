@@ -6,7 +6,7 @@ import { BadiDate } from 'badidate'
 import dashHas from 'lodash.has'
 import { DateTime } from 'luxon'
 import { tokensBadi, tokensLuxon } from '../../../../utils/formatter'
-import getFirstDayOfWeek from '../../../../utils/startofweek'
+import { getFirstDayOfWeek, getFirstWeekDay } from '../../../../utils/startofweek'
 
 // const debug = require('debug')('calendar:CalendarMixin')
 export default {
@@ -176,10 +176,9 @@ export default {
      * Array of days in the week
      *
      * @param {integer} numberOfDays
-     * @param {boolean} sundayFirstDayOfWeek
      * @returns {Array<DateTime}
      */
-    buildWeekDateArray: function (numberOfDays, sundayFirstDayOfWeek) {
+    buildWeekDateArray: function (numberOfDays) {
       if (numberOfDays === undefined) {
         if (this.numberOfDays !== undefined) {
           numberOfDays = this.numberOfDays
@@ -193,7 +192,9 @@ export default {
       }
       return this.getWeekDateArray(numberOfDays)
     },
-    getForcedWeekBookendDates: function (numberOfDays, sundayFirstDayOfWeek) {
+    getForcedWeekBookendDates: function (numberOfDays) {
+      const locale = this.startDate.locale
+      const sundayFirstDayOfWeek = getFirstWeekDay(locale)
       if (numberOfDays === undefined) {
         numberOfDays = 7
       }
@@ -306,11 +307,12 @@ export default {
      * Weeks start on Monday.
      *
      * @param {DateTime} thisDateObject
-     * @param {boolean} useSundayStart
      * @returns {integer}
      */
-    getWeekNumber (thisDateObject, useSundayStart) {
-      if (useSundayStart) {
+    getWeekNumber (thisDateObject) {
+      const locale = thisDateObject.locale
+      const useSundayStart = getFirstWeekDay(locale)
+      if (useSundayStart === 0) {
         return this.makeDT(thisDateObject).plus({ days: 1 }).weekNumber
       }
       else {
