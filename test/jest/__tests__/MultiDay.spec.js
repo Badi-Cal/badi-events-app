@@ -83,5 +83,12 @@ describe('CalendarMultiDay', () => {
       const vm = wrapper.vm
       expect(vm.$props.startDate instanceof DateTime).toBe(true)
     })
+
+    it('should make Sunday first day of the week array', () => {
+      const vm = wrapper.vm
+      const firstDate = vm.$data.weekDateArray[0]
+      expect(firstDate instanceof DateTime).toBe(true)
+      expect(firstDate.weekday).toBe(7)
+    })
   })
 })

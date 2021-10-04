@@ -24,7 +24,7 @@ describe('CalendarDayLabels', () => {
       wrapper.destroy()
     })
 
-    it('should make Sunday first day of the week', () => {
+    it('should make Sunday first day of the week array', () => {
       const vm = wrapper.vm
       const firstDate = vm.$data.weekDateArray[0]
       expect(firstDate instanceof DateTime).toBe(true)
