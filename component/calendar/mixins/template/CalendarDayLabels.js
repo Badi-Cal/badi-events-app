@@ -17,10 +17,6 @@ export default {
       type: Boolean,
       default: false
     },
-    forceStartOfWeek: {
-      type: Boolean,
-      default: false
-    },
     fullComponentRef: String,
     calendarLocale: {
       type: String,
