@@ -29,6 +29,7 @@
 <script>
   import {
     CalendarMixin,
+    CalendarBadiMixin,
     CalendarDayLabelsTemplateMixin
   } from '../../mixins'
 
@@ -36,6 +37,7 @@
     name: 'CalendarDayLabels',
     mixins: [
       CalendarMixin,
+      CalendarBadiMixin,
       CalendarDayLabelsTemplateMixin
     ]
   }

@@ -1,16 +1,9 @@
 /**
- * @fileoverview Shared props and methods for Badi templates
+ * @fileoverview Shared methods for interfacing with the BadiDate API
  */
-import { badiDateSettings } from 'badidate'
 import BadiDate from '../../../../utils/badidate'
 
 export default {
-  props: {
-    saturdayFirstDayOfWeek: {
-      type: Boolean,
-      default: true
-    }
-  },
   methods: {
     /**
      * Creates a formatted Badi date for use in the calendar.
@@ -38,11 +31,6 @@ export default {
       const dayNumber = dateObject.weekday
       return (dayNumber === 1)
     }
-  },
-  created () {
-    badiDateSettings({
-      defaultLanguage: this.$props.calendarLocale
-    })
   },
   mounted () {}
 }

@@ -133,7 +133,8 @@
     CalendarMixin,
     CalendarEventMixin,
     CalendarPropsMixin,
-    CalendarTemplateMixin
+    CalendarTemplateMixin,
+    BadiTemplateMixin
   } from 'mixins'
   import CalendarMonth from './CalendarMonth'
   import CalendarMultiDay from './CalendarMultiDay'
@@ -152,7 +153,8 @@
       CalendarMixin,
       CalendarEventMixin,
       CalendarPropsMixin,
-      CalendarTemplateMixin
+      CalendarTemplateMixin,
+      BadiTemplateMixin
     ],
     components: {
       CalendarMonth,
