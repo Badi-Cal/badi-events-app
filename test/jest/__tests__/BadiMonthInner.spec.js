@@ -27,8 +27,9 @@ describe('CalendarMonthInner', () => {
       wrapper.destroy()
     })
 
-    it('generateCalendarCellArray - should return correct beginning of month', () => {
+    it('getCalendarCellArray - should return correct beginning of month', () => {
       const vm = wrapper.vm
+      const startDate = vm.$props.startDate
 
       const badidate = new BadiDate(DateTime.local())
       const badidate1 = new BadiDate({
@@ -45,7 +46,7 @@ describe('CalendarMonthInner', () => {
         dayNumber: badidate1.weekday
       }
 
-      const weekArray = vm.generateCalendarCellArray()
+      const weekArray = vm.getCalendarCellArray(startDate.month, startDate.year)
 
       expect(weekArray.length).toBeGreaterThan(1)
       expect(weekArray[0][0]).toEqual(dayObject)

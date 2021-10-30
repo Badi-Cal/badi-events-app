@@ -26,8 +26,9 @@ describe('CalendarMonthInner', () => {
       wrapper.destroy()
     })
 
-    it('generateCalendarCellArray - should return correct beginning of month', () => {
+    it('getCalendarCellArray - should return correct beginning of month', () => {
       const vm = wrapper.vm
+      const startDate = vm.$props.startDate
 
       const date = DateTime.now().startOf('month').setLocale('en-US')
       const dayObject = {
@@ -38,7 +39,8 @@ describe('CalendarMonthInner', () => {
         dayName: date.toFormat('EEEE'),
         dayNumber: date.weekday
       }
-      const weekArray = vm.generateCalendarCellArray()
+
+      const weekArray = vm.getCalendarCellArray(startDate.month, startDate.year)
 
       expect(weekArray.length).toBeGreaterThan(1)
       expect(weekArray[0][0]).toEqual(dayObject)
