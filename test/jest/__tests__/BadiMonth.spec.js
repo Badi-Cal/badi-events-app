@@ -4,7 +4,8 @@ import { BadiMonth } from 'components'
 import Quasar from '../utils'
 
 import { DateTime } from 'luxon'
-import { BadiDate } from 'badidate'
+import BadiDate from '../../../utils/badidate'
+import { tokensBadi } from '../../../utils/formatter'
 
 describe('CalendarMonth', () => {
   // set up Quasar and Vue
@@ -32,6 +33,35 @@ describe('CalendarMonth', () => {
 
       expect(vm.startDate instanceof BadiDate).toBe(true)
       expect(vm.startDate.format()).toBe(badidate.format())
+    })
+  })
+
+  describe('component methods', () => {
+    let wrapper
+
+    beforeEach(() => {
+      wrapper = shallowMount(BadiMonth, {
+        LocalVue,
+        propsData: {
+          startDate: new BadiDate(DateTime.local())
+        }
+      })
+    })
+
+    afterEach(() => {
+      wrapper.destroy()
+    })
+
+    it('toDateFormat - should call formatDateBadi with correct token', () => {
+      const vm = wrapper.vm
+      const token = 'DAY_NUMBER'
+      const startDate = vm.$props.startDate
+      const spyformatDateBadi = jest.spyOn(vm, 'formatDateBadi')
+
+      vm.toDateFormat(startDate, token)
+      expect(spyformatDateBadi).toHaveBeenCalledWith(startDate, tokensBadi[token])
+
+      spyformatDateBadi.mockRestore()
     })
   })
 })
