@@ -4,7 +4,7 @@ import { DaykeepCalendar } from '../../../component/quasar'
 import Quasar from '../utils'
 
 import { DateTime } from 'luxon'
-import { BadiDate } from 'badidate'
+import BadiDate from '../../../utils/badidate'
 
 describe('Calendar', () => {
   // set up Quasar and Vue
