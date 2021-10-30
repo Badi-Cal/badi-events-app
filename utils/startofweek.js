@@ -99,7 +99,12 @@ const getFirstWeekDay = function (locale) {
  * @returns {luxon.DateTime}
  */
 const getFirstDayOfWeek = function (date) {
-  const fd = getFirstWeekDay(date.locale)
+  const locale = date.locale
+  if (typeof locale === 'undefined') {
+    throw new ReferenceError('"locale" is not defined')
+  }
+
+  const fd = getFirstWeekDay(locale)
   // convert to 0=sunday .. 6=saturday
   const day = date.weekday % 7
   const dayAdjust = day >= fd ? -day + fd : -day + fd - 7
