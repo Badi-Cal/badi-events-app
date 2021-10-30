@@ -1,6 +1,6 @@
 import dashHas from 'lodash.has'
 import { DateTime } from 'luxon'
-import { BadiDate } from 'badidate'
+import BadiDate from 'utils/badidate'
 
 const debug = require('debug')('calendar:Calendar')
 

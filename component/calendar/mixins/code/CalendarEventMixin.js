@@ -1,7 +1,7 @@
 import dashHas from 'lodash.has'
 import { DateTime } from 'luxon'
 import Interval from 'luxon/src/interval'
-import { BadiDate } from 'badidate'
+import BadiDate from 'utils/badidate'
 
 const defaultParsed = {
   byAllDayStartDate: {},

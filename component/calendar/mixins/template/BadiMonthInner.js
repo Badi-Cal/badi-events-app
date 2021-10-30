@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BadiDate } from 'badidate'
+import BadiDate from 'utils/badidate'
 
 const debug = require('debug')('calendar:BadiMonthInner')
 

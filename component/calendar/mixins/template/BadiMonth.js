@@ -1,4 +1,4 @@
-import { BadiDate } from 'badidate'
+import BadiDate from 'utils/badidate'
 import { DateTime } from 'luxon'
 
 const debug = require('debug')('calendar:BadiMonth')
