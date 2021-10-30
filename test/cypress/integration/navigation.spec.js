@@ -13,16 +13,29 @@ describe('Navigation header', () => {
   })
 
   it('should move time one period forward', () => {
-    const testDate = now.plus({ month: 1 }).monthLong
+    const testDate = now.plus({ month: 1 })
+    // luxon week starts on Monday
+    const testWeekEnd = testDate.endOf('month').startOf('week').minus({ days: 1 })
     cy.get('.calendar-header-right > button').click()
     cy.dataCy('calendar-header')
-      .contains(testDate).should('exist')
+      .contains(testDate.monthLong).should('exist')
+    // get first weekend day in last week of month
+    cy.dataCy('calendar-content')
+      .children().last()
+      .find('.calendar-day-weekend').first()
+      .contains(testWeekEnd.day).should('exist')
   })
 
   it('should move time one period backwards', () => {
-    const testDate = now.plus({ month: -1 }).monthLong
+    const testDate = now.plus({ month: -1 })
+    const testWeekEnd = testDate.endOf('month').startOf('week').minus({ days: 1 })
     cy.get('.calendar-header-left > button').click()
     cy.dataCy('calendar-header')
-      .contains(testDate).should('exist')
+      .contains(testDate.monthLong).should('exist')
+    // get first weekend day in last week of month
+    cy.dataCy('calendar-content')
+      .children().last()
+      .find('.calendar-day-weekend').first()
+      .contains(testWeekEnd.day).should('exist')
   })
 })
