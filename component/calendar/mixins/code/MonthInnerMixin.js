@@ -7,7 +7,6 @@ export default {
     return {
       dayCellHeight: 5,
       dayCellHeightUnit: 'rem',
-      weekArray: [],
       parsed: this.getDefaultParsed(),
       eventDetailEventObject: {},
       eventClicked: false
@@ -16,48 +15,17 @@ export default {
   computed: {
     calendarDaysAreClickable: function () {
       return (this.fullComponentRef && this.fullComponentRef.length > 0)
+    },
+    weekArray: function () {
+      return this.getCalendarCellArray(
+        this.startDate.month,
+        this.startDate.year
+      )
     }
   },
   methods: {
     monthGetDateEvents: function (dateObject) {
       return this.dateGetEvents(dateObject)
-    },
-    doUpdate: function () {
-      let payload = this.getWeekArrayDisplayDates(this.generateCalendarCellArray())
-      this.triggerDisplayChange(
-        this.eventRef,
-        payload
-      )
-    },
-    generateCalendarCellArray: function () {
-      if (!(this.isCalendarDate(this.startDate))) {
-        throw new TypeError('Invalid type of "startDate" prop')
-      }
-
-      const month = this.startDate.month
-      const year = this.startDate.year
-      this.weekArray = this.getCalendarCellArray(
-        month,
-        year
-      )
-      return this.weekArray
-    },
-    handleNavMove: function (params) {
-      this.$emit(
-        this.eventRef + ':navMovePeriod',
-        // {
-        //   unitType: params.unitType,
-        //   amount: params.amount
-        // }
-        params
-      )
-      let payload = this.getWeekArrayDisplayDates(this.generateCalendarCellArray())
-      payload['moveUnit'] = params.unitType
-      payload['moveAmount'] = params.amount
-      this.triggerDisplayChange(
-        this.eventRef,
-        payload
-      )
     },
     handleDayClick: function (dateObject) {
       // event item clicked; prevent "day" event
@@ -76,12 +44,7 @@ export default {
     }
   },
   mounted () {
-    this.doUpdate()
     this.handlePassedInEvents()
-    this.$root.$on(
-      this.eventRef + ':navMovePeriod',
-      this.handleNavMove
-    )
     this.$root.$on(
       'click-event-' + this.eventRef,
       this.handleEventDetailEvent
