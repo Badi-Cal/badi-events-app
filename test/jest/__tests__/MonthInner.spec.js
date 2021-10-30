@@ -3,7 +3,7 @@ import Vue from 'vue'
 import { CalendarMonthInner } from 'components'
 import Quasar from '../utils'
 
-import DateTime from 'luxon/src/datetime'
+import { DateTime } from 'luxon'
 
 describe('CalendarMonthInner', () => {
   // set up Quasar and Vue

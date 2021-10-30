@@ -3,8 +3,8 @@ import Vue from 'vue'
 import { BadiMonthInner } from 'components'
 import Quasar from '../utils'
 
-import DateTime from 'luxon/src/datetime'
-import { BadiDate } from 'badidate'
+import { DateTime } from 'luxon'
+import BadiDate from '../../../utils/badidate'
 
 describe('CalendarMonthInner', () => {
   // set up Quasar and Vue
