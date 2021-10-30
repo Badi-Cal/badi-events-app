@@ -56,7 +56,8 @@ module.exports = {
     '^assets(.*)$': '<rootDir>/src/assets/$1',
     '^boot(.*)$': '<rootDir>/boot/$1',
     '^templates(.*)$': '<rootDir>/component/calendar/templates/$1',
-    '^mixins(.*)$': '<rootDir>/component/calendar/mixins/$1'
+    '^mixins(.*)$': '<rootDir>/component/calendar/mixins/$1',
+    '^utils(.*)$': '<rootDir>/utils/$1'
   },
   transform: {
     '.*\\.vue$': 'vue-jest',

@@ -20,7 +20,8 @@ module.exports = function (cfg) {
     assets: path.resolve(__dirname, './src/assets'),
     boot: path.resolve(__dirname, './boot'),
     templates: path.resolve(__dirname, './component/calendar/templates'),
-    mixins: path.resolve(__dirname, './component/calendar/mixins')
+    mixins: path.resolve(__dirname, './component/calendar/mixins'),
+    utils: path.resolve(__dirname, './utils')
   }
   cfg.plugins.push(
     new CopyPlugin([
