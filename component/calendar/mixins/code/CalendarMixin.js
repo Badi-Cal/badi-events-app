@@ -2,7 +2,7 @@
  * @fileoverview Shared methods across all calendar components
  */
 
-import { BadiDate } from 'badidate'
+import BadiDate from 'utils/badidate'
 import dashHas from 'lodash.has'
 import { DateTime } from 'luxon'
 import { tokensBadi, tokensLuxon } from '../../../../utils/formatter'
@@ -124,7 +124,7 @@ export default {
      */
     toDateFormat: function (dateObject, format) {
       if (dateObject instanceof BadiDate) {
-        return dateObject.formatDateBadi(tokensBadi[format])
+        return this.formatDateBadi(dateObject, tokensBadi[format])
       }
 
       return dateObject.toLocaleString(tokensLuxon[format])

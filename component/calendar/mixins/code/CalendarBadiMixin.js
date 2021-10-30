@@ -1,7 +1,8 @@
 /**
  * @fileoverview Shared props and methods for Badi templates
  */
-import { BadiDate, badiDateSettings } from 'badidate'
+import { badiDateSettings } from 'badidate'
+import BadiDate from '../../../../utils/badidate'
 
 export default {
   props: {
@@ -22,6 +23,9 @@ export default {
     formatDateBadi: function (dateObject, formatString) {
       if (dateObject instanceof BadiDate) {
         return dateObject.format(formatString)
+      }
+      else {
+        throw TypeError('"dateObject" not instance of BadiDate')
       }
     },
     /**
