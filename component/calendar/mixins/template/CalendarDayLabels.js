@@ -46,16 +46,11 @@ export default {
       this.weekDateArray = this.buildWeekDateArray(this.numberOfDays)
     },
     isCurrentDayLabel: function (thisDay, checkMonthOnly) {
-      let now = DateTime.local()
-      thisDay = this.makeDT(thisDay)
       if (checkMonthOnly === true) {
-        return (
-          now.weekday === thisDay.weekday &&
-          now.month === thisDay.month
-        )
+        return this.isCurrenMonth(thisDay)
       }
       else {
-        return now.hasSame(thisDay, 'day')
+        return this.isCurrentDate(thisDay)
       }
     },
     handleDayClick: function (dateObject) {

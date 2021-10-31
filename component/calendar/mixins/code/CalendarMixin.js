@@ -287,6 +287,24 @@ export default {
       )
     },
     /**
+     * True if date has same month as today
+     *
+     * @param {DateTime|BadiDate} dateObject
+     * @returns {boolean}
+     */
+    isCurrentMonth: function (dateObject) {
+      let now = DateTime.local()
+
+      if (dateObject instanceof BadiDate) {
+        now = new BadiDate(now)
+      }
+
+      return (
+        now.weekday === dateObject.weekday &&
+          now.month === dateObject.month
+      )
+    },
+    /**
      * Return true if days is weekend day.
      *
      * @param {DateTime|BadiDate} thisDateObject
