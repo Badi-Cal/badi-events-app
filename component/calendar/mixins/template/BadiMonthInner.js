@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
 import BadiDate from 'utils/badidate'
+import { getFirstDayOfWeek } from '../../../../utils/startofweek'
 
 const debug = require('debug')('calendar:BadiMonthInner')
 
@@ -20,30 +21,21 @@ export default {
      * @returns {Array<BadiDate}
      */
     getCalendarCellArray: function (monthNumber, yearNumber) {
-      let weekArray = [],
-        currentWeekArray = [],
-        thisDayObject = {},
-        currentDay = {}
+      const weekArray = [new Array(7), new Array(7), new Array(7), new Array(7)]
 
-      for (let thisDateOfMonth = 1; thisDateOfMonth <= 19; thisDateOfMonth++) {
-        currentDay = new BadiDate(
-          {
-            year: yearNumber,
-            month: monthNumber,
-            day: thisDateOfMonth
-          }
-        )
-        if (
-          currentDay.year === yearNumber &&
-          currentDay.month === monthNumber
-        ) {
-          if (
-            this.isJalal(currentDay)
-          ) {
-            weekArray.push(currentWeekArray)
-            currentWeekArray = []
-          }
-          thisDayObject = {
+      // get start of month
+      const monthStartDay = new BadiDate(
+        {
+          year: yearNumber,
+          month: monthNumber,
+          day: 1
+        }
+      )
+      let currentDay = getFirstDayOfWeek(monthStartDay)
+
+      const mapArray = weekArray.map((element) => {
+        return [...element].map((element) => {
+          const day = {
             dateObject: currentDay,
             year: currentDay.year,
             month: currentDay.month,
@@ -51,13 +43,11 @@ export default {
             dayName: currentDay.format('WW'),
             dayNumber: currentDay.weekday
           }
-          currentWeekArray.push(thisDayObject)
-        }
-      }
-      if (weekArray.length > 0) {
-        weekArray.push(currentWeekArray)
-      }
-      return weekArray
+          currentDay = currentDay.plus({ days: 1 })
+          return day
+        })
+      })
+      return mapArray
     },
     /**
      * Takes a weekArray and figures out the values to send for a page display event

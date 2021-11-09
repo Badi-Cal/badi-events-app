@@ -1,7 +1,6 @@
 <template>
   <div class="calendar-month">
-    <calendar-month-inner
-      calendar-name='Badi'
+    <badi-month-inner
       :start-date="startDate"
       :event-array="eventArray"
       :parsed-events="parsedEvents"
@@ -9,7 +8,7 @@
       :prevent-event-detail="preventEventDetail"
       :calendar-locale="calendarLocale"
       :calendar-timezone="calendarTimezone"
-      :sunday-first-day-of-week='false'
+      :saturday-first-day-of-week='true'
       :allow-editing="allowEditing"
       :render-html="renderHtml"
       :day-display-start-hour="dayDisplayStartHour"
@@ -22,7 +21,7 @@
           :time-period-amount="1"
           :move-time-period-emit="navVal.eventRef + ':navMovePeriod'"
         >
-          {{ formatDateBadi(workingDateBadi, 'MM+ y') }}
+          {{ formatDateBadi(navVal.workingDate, 'MM+ yy') }}
         </calendar-header-nav>
       </template>
       <template v-slot:eventdetail="eventVal">
@@ -37,7 +36,7 @@
           :render-html="eventVal.renderHtml"
         />
       </template>
-    </calendar-month-inner>
+    </badi-month-inner>
   </div>
 </template>
 
@@ -45,11 +44,13 @@
   import {
     CalendarMixin,
     CalendarEventMixin,
-    CalendarParentComponentMixin,
-    CalendarMonthTemplateMixin,
-    CalendarMonthInner
-  } from '@daykeep/calendar-core'
-  import { CalendarBadiMixin } from 'mixins'
+    CalendarPropsMixin,
+    CalendarMonthMixin,
+    CalendarBadiMixin,
+    BadiMonthTemplate
+  } from 'mixins'
+
+  import BadiMonthInner from './BadiMonthInner.vue'
   import CalendarHeaderNav from './CalendarHeaderNav'
   import CalendarEventDetail from './CalendarEventDetail'
 
@@ -58,14 +59,15 @@
     components: {
       CalendarHeaderNav,
       CalendarEventDetail,
-      CalendarMonthInner
+      BadiMonthInner
     },
     mixins: [
-      CalendarParentComponentMixin,
       CalendarMixin,
       CalendarEventMixin,
-      CalendarMonthTemplateMixin,
-      CalendarBadiMixin
+      CalendarPropsMixin,
+      CalendarMonthMixin,
+      CalendarBadiMixin,
+      BadiMonthTemplate
     ]
   }
 </script>
