@@ -12,6 +12,9 @@ import CalendarMultiDayTemplateMixin from './CalendarMultiDay'
 import CalendarMultiDayContentTemplateMixin from './CalendarMultiDayContent'
 import CalendarTimeLabelTemplateMixin from './CalendarTimeLabelColumn'
 import CalendarMonthTemplateMixin from './CalendarMonth'
+import BadiMonthTemplate from './BadiMonth'
+import BadiMonthInnerTemplateMixin from './BadiMonthInner'
+import BadiTemplateMixin from './Badi'
 
 export {
   CalendarTemplateMixin,
@@ -27,5 +30,8 @@ export {
   CalendarMultiDayTemplateMixin,
   CalendarMultiDayContentTemplateMixin,
   CalendarTimeLabelTemplateMixin,
-  CalendarMonthTemplateMixin
+  CalendarMonthTemplateMixin,
+  BadiMonthTemplate,
+  BadiMonthInnerTemplateMixin,
+  BadiTemplateMixin
 }

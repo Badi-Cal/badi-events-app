@@ -3,7 +3,8 @@ import {
   CalendarAgenda,
   CalendarMonth,
   CalendarMultiDay,
-  BadiMonth
+  BadiMonth,
+  BadiMonthInner
 } from './calendar/templates/quasar'
 
 export {
@@ -11,5 +12,6 @@ export {
   CalendarAgenda as DaykeepCalendarAgenda,
   CalendarMonth as DaykeepCalendarMonth,
   CalendarMultiDay as DaykeepCalendarMultiDay,
-  BadiMonth as DaykeepBadiMonth
+  BadiMonth,
+  BadiMonthInner
 }
