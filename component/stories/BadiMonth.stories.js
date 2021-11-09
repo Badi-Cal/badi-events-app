@@ -2,6 +2,11 @@
 import { BadiMonth } from 'templates/quasar'
 import { sampleEventArray, MoveDates } from '@daykeep/calendar-core/demo/'
 
+import { DateTime } from 'luxon'
+import BadiDate from 'utils/badidate'
+
+const datetime = DateTime.now()
+
 // 👇 This default export determines where your story goes in the story list
 export default {
   title: 'Calendar/Month/Badi',
@@ -23,7 +28,7 @@ const Template = (args, { argTypes }) => ({
   mixins: [ MoveDates ],
   template: `
     <badi-month
-      :start-date="new Date()"
+      :start-date="workingDateBadi"
       :event-array="eventArray"
       :sunday-first-day-of-week="false"
       :allow-editing="false"
@@ -36,12 +41,14 @@ const Template = (args, { argTypes }) => ({
 
 export const BuenosAires = Template.bind({})
 BuenosAires.args = {
-  calendarLocale: 'es',
-  calendarTimezone: 'America/Argentina/Buenos_Aires'
+  calendarLocale: 'es-ar',
+  calendarTimezone: 'America/Argentina/Buenos_Aires',
+  workingDateBadi: new BadiDate(datetime)
 }
 
 export const NewYork = Template.bind({})
 NewYork.args = {
-  calendarLocale: 'en',
-  calendarTimezone: 'America/New_York'
+  calendarLocale: 'en-us',
+  calendarTimezone: 'America/New_York',
+  workingDateBadi: new BadiDate(datetime)
 }

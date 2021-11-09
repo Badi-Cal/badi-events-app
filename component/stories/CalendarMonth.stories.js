@@ -37,14 +37,14 @@ const Template = (args, { argTypes }) => ({
 
 export const BuenosAires = Template.bind({})
 BuenosAires.args = {
-  calendarLocale: 'es',
+  calendarLocale: 'es-AR',
   calendarTimezone: 'America/Argentina/Buenos_Aires',
   workingDate: new DateTime.local()
 }
 
 export const NewYork = Template.bind({})
 NewYork.args = {
-  calendarLocale: 'en',
+  calendarLocale: 'en-US',
   calendarTimezone: 'America/New_York',
   workingDate: new DateTime.local()
 }
