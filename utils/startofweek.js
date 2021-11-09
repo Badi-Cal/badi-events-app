@@ -1,3 +1,5 @@
+import BadiDate from './badidate'
+
 /**
  * Returns a zero-based index for first day of the week, as used by the specified locale
  * e.g. Sunday (returns 0), or Monday (returns 1)
@@ -95,8 +97,8 @@ const getFirstWeekDay = function (locale) {
 
 /**
  * Floors the specified date to the beginning of week
- * @param {luxon.DateTime} date
- * @returns {luxon.DateTime}
+ * @param {luxon.DateTime|BadiDate} date
+ * @returns {luxon.DateTime|BadiDate}
  */
 const getFirstDayOfWeek = function (date) {
   const locale = date.locale
@@ -105,9 +107,14 @@ const getFirstDayOfWeek = function (date) {
   }
 
   const fd = getFirstWeekDay(locale)
+
   // convert to 0=sunday .. 6=saturday
-  const day = date.weekday % 7
-  const dayAdjust = day >= fd ? -day + fd : -day + fd - 7
+  let day = date.weekday
+  if (date instanceof BadiDate) {
+    day = day - 2
+  }
+
+  const dayAdjust = day % 7 >= fd ? -day + fd : -day + fd - 7
   return date.plus({ days: dayAdjust })
 }
 

@@ -31,25 +31,25 @@ describe('CalendarMonthInner', () => {
       const vm = wrapper.vm
       const startDate = vm.$props.startDate
 
-      const badidate = new BadiDate(DateTime.local())
-      const badidate1 = new BadiDate({
-        year: badidate.year,
-        month: badidate.month,
+      const badidate = new BadiDate({
+        year: startDate.year,
+        month: startDate.month,
         day: 1
       })
       const dayObject = {
-        dateObject: badidate1,
-        year: badidate1.year,
-        month: badidate1.month,
-        date: badidate1.day,
-        dayName: badidate1.format('WW'),
-        dayNumber: badidate1.weekday
+        dateObject: badidate,
+        year: badidate.year,
+        month: badidate.month,
+        date: badidate.day,
+        dayName: badidate.format('WW'),
+        dayNumber: badidate.weekday
       }
 
       const weekArray = vm.getCalendarCellArray(startDate.month, startDate.year)
+      // weeks start on Jamal
+      const index = (badidate.weekday - 2) % 7
 
-      expect(weekArray.length).toBeGreaterThan(1)
-      expect(weekArray[0][0]).toEqual(dayObject)
+      expect(weekArray[0][index]).toEqual(dayObject)
     })
   })
 })
