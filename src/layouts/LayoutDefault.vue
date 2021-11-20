@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh lpR fFf">
     <q-header>
       <q-toolbar>
 
@@ -10,6 +10,24 @@
         <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
+    <q-drawer show-if-above v-model="drawerLeft" side="left" elevated>
+      <!-- drawer content -->
+    </q-drawer>
+    <q-drawer show-if-above v-model="drawerRight" :width="100" side="right" elevated>
+      <!-- drawer content -->
+        <q-list padding>
+          <q-item clickable v-ripple v-on:click="tabName = 'badi'">
+            <q-item-label overline>Badíʻ</q-item-label>
+            <q-item-section>
+            </q-item-section>
+          </q-item>
+          <q-item clickable v-ripple v-on:click="tabName = 'gregorian'">
+            <q-item-label overline>Gregorian</q-item-label>
+            <q-item-section>
+            </q-item-section>
+          </q-item>
+        </q-list>
+    </q-drawer>
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -23,7 +41,12 @@
     QHeader,
     QPageContainer,
     QToolbar,
-    QToolbarTitle
+    QToolbarTitle,
+    QDrawer,
+    QList,
+    QItem,
+    QItemSection,
+    QItemLabel
   } from 'quasar'
   const pckg = require('../../package.json')
   export default {
@@ -33,11 +56,18 @@
       QHeader,
       QPageContainer,
       QToolbar,
-      QToolbarTitle
+      QToolbarTitle,
+      QDrawer,
+      QList,
+      QItem,
+      QItemSection,
+      QItemLabel
     },
     data () {
       return {
-        leftDrawerOpen: false
+        drawerRight: false,
+        drawerLeft: false,
+        tabName: 'badi'
       }
     },
     computed: {
@@ -46,6 +76,11 @@
       },
       calendarAppName: () => {
         return pckg.productName
+      }
+    },
+    watch: {
+      tabName: function () {
+        this.$router.push({ path: `/calendar/${this.tabName}` })
       }
     },
     methods: {

@@ -32,6 +32,9 @@ module.exports = function (ctx) {
     framework: {
       plugins: [
         'Notify'
+      ],
+      directives: [
+        'Ripple'
       ]
     },
     supportIE: false,
