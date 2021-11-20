@@ -1,5 +1,5 @@
 <template>
-  <div class="calendar-test">
+  <div class="calendar">
     <q-tabs
       v-model="currentTab"
       class="text-primary calendar-tabs"
@@ -133,8 +133,7 @@
     CalendarMixin,
     CalendarEventMixin,
     CalendarPropsMixin,
-    CalendarTemplateMixin,
-    BadiTemplateMixin
+    CalendarTemplateMixin
   } from 'mixins'
   import CalendarMonth from './CalendarMonth'
   import CalendarMultiDay from './CalendarMultiDay'
@@ -153,8 +152,7 @@
       CalendarMixin,
       CalendarEventMixin,
       CalendarPropsMixin,
-      CalendarTemplateMixin,
-      BadiTemplateMixin
+      CalendarTemplateMixin
     ],
     components: {
       CalendarMonth,

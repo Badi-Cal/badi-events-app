@@ -19,6 +19,7 @@ import CalendarMultiDay from './CalendarMultiDay'
 import CalendarMonthInner from './CalendarMonthInner'
 import BadiMonth from './BadiMonth'
 import BadiMonthInner from './BadiMonthInner'
+import BadiCalendar from './BadiCalendar'
 
 export {
   CalendarAgendaInner,
@@ -36,5 +37,6 @@ export {
   CalendarMonth,
   CalendarMultiDay,
   BadiMonth,
-  BadiMonthInner
+  BadiMonthInner,
+  BadiCalendar
 }
