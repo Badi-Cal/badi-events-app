@@ -1,8 +1,11 @@
 import {
   CalendarEventMixin,
   CalendarMixin,
-  CalendarParentComponentMixin,
-  EventPropsMixin
+  EventPropsMixin,
+  CalendarBadiMixin,
+  CalendarPropsMixin,
+  CalendarMonthMixin,
+  MonthInnerMixin
 } from './code'
 import {
   CalendarTemplateMixin,
@@ -14,18 +17,24 @@ import {
   CalendarEventTemplateMixin,
   CalendarEventDetailTemplateMixin,
   CalendarHeaderNavTemplateMixin,
-  CalendarMonthTemplateMixin,
   CalendarMonthInnerTemplateMixin,
   CalendarMultiDayTemplateMixin,
   CalendarMultiDayContentTemplateMixin,
-  CalendarTimeLabelTemplateMixin
+  CalendarTimeLabelTemplateMixin,
+  CalendarMonthTemplateMixin,
+  BadiMonthTemplate,
+  BadiMonthInnerTemplateMixin,
+  BadiTemplateMixin
 } from './template'
 
 export {
+  MonthInnerMixin,
+  CalendarPropsMixin,
   CalendarEventMixin,
   CalendarMixin,
-  CalendarParentComponentMixin,
+  CalendarMonthMixin,
   EventPropsMixin,
+  CalendarBadiMixin,
   CalendarTemplateMixin,
   CalendarAgendaTemplateMixin,
   CalendarAgendaEventTemplateMixin,
@@ -35,9 +44,12 @@ export {
   CalendarEventTemplateMixin,
   CalendarEventDetailTemplateMixin,
   CalendarHeaderNavTemplateMixin,
-  CalendarMonthTemplateMixin,
   CalendarMonthInnerTemplateMixin,
   CalendarMultiDayTemplateMixin,
   CalendarMultiDayContentTemplateMixin,
-  CalendarTimeLabelTemplateMixin
+  CalendarTimeLabelTemplateMixin,
+  CalendarMonthTemplateMixin,
+  BadiMonthTemplate,
+  BadiMonthInnerTemplateMixin,
+  BadiTemplateMixin
 }

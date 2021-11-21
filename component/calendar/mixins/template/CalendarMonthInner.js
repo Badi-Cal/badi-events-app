@@ -1,36 +1,23 @@
-import DateTime from 'luxon/src/datetime'
+import { DateTime } from 'luxon'
 
 const debug = require('debug')('calendar:CalendarMonthInner')
 
 export default {
-  data () {
-    return {
-      dayCellHeight: 5,
-      dayCellHeightUnit: 'rem',
-      workingDate: new Date(),
-      weekArray: [],
-      parsed: this.getDefaultParsed(),
-      eventDetailEventObject: {},
-      eventClicked: false
-    }
-  },
-  computed: {
-    calendarDaysAreClickable: function () {
-      return (this.fullComponentRef && this.fullComponentRef.length > 0)
+  props: {
+    startDate: {
+      type: [Object, DateTime],
+      default: () => { return DateTime.local() }
     }
   },
   methods: {
-    monthGetDateEvents: function (dateObject) {
-      return this.dateGetEvents(dateObject)
-    },
-    doUpdate: function () {
-      this.mountSetDate()
-      let payload = this.getWeekArrayDisplayDates(this.generateCalendarCellArray())
-      this.triggerDisplayChange(
-        this.eventRef,
-        payload
-      )
-    },
+    /**
+     * Generates cell data for a calendar month
+     *
+     * @param {integer} monthNumber
+     * @param {integer} yearNumber
+     *
+     * @returns {Array<DateTime>}
+     */
     getCalendarCellArray: function (monthNumber, yearNumber) {
       let currentDay = this.makeDT(
         DateTime.fromObject({
@@ -39,7 +26,7 @@ export default {
           day: 1
         })
       )
-      let currentWeekOfYear = this.getWeekNumber(currentDay, this.sundayFirstDayOfWeek)
+      let currentWeekOfYear = this.getWeekNumber(currentDay)
       let weekArray = []
       let currentWeekArray = []
       let thisDayObject = {}
@@ -56,10 +43,10 @@ export default {
           currentDay.month === monthNumber
         ) {
           if (
-            this.getWeekNumber(currentDay, this.sundayFirstDayOfWeek) !== currentWeekOfYear
+            this.getWeekNumber(currentDay) !== currentWeekOfYear
           ) {
             weekArray.push(currentWeekArray)
-            currentWeekOfYear = this.getWeekNumber(currentDay, this.sundayFirstDayOfWeek)
+            currentWeekOfYear = this.getWeekNumber(currentDay)
             currentWeekArray = []
           }
           thisDayObject = {
@@ -78,33 +65,13 @@ export default {
       }
       return weekArray
     },
-    generateCalendarCellArray: function () {
-      this.weekArray = this.getCalendarCellArray(
-        this.makeDT(this.workingDate).month,
-        this.makeDT(this.workingDate).year
-      )
-      return this.weekArray
-    },
-    handleNavMove: function (params) {
-      this.moveTimePeriod(params)
-      this.$emit(
-        this.eventRef + ':navMovePeriod',
-        // {
-        //   unitType: params.unitType,
-        //   amount: params.amount
-        // }
-        params
-      )
-      let payload = this.getWeekArrayDisplayDates(this.generateCalendarCellArray())
-      payload['moveUnit'] = params.unitType
-      payload['moveAmount'] = params.amount
-      this.triggerDisplayChange(
-        this.eventRef,
-        payload
-      )
-    },
+    /**
+     * Takes a weekArray and figures out the values to send for a page display event
+     *
+     * @param {Array} weekArray
+     * @returns {Object}
+     */
     getWeekArrayDisplayDates: function (weekArray) {
-      // this takes a weekArray and figures out the values to send for a page display event
       let startDateObj = weekArray[0][0].dateObject
       const lastWeek = weekArray[weekArray.length - 1]
       let endDateObj = lastWeek[lastWeek.length - 1].dateObject
@@ -114,49 +81,9 @@ export default {
         numDays: Math.ceil(endDateObj.diff(startDateObj).as('days') + 1),
         viewType: this.$options.name
       }
-    },
-    handleDayClick: function (dateObject) {
-      // event item clicked; prevent "day" event
-      if (this.eventClicked) {
-        this.eventClicked = false
-        return
-      }
-      if (this.fullComponentRef) {
-        this.fullMoveToDay(dateObject)
-      }
-      this.handleNavMove({ absolute: dateObject })
-      this.triggerDayClick(dateObject, this.eventRef)
-    },
-    handleCalendarEventClick: function () {
-      this.eventClicked = true
     }
   },
   mounted () {
     debug('Component mounted')
-    this.doUpdate()
-    this.handlePassedInEvents()
-    this.$root.$on(
-      this.eventRef + ':navMovePeriod',
-      this.handleNavMove
-    )
-    this.$root.$on(
-      'click-event-' + this.eventRef,
-      this.handleEventDetailEvent
-    )
-    this.$root.$on(
-      'update-event-' + this.eventRef,
-      this.handleEventUpdate
-    )
-  },
-  watch: {
-    startDate: function () {
-      this.handleStartChange()
-    },
-    eventArray: function () {
-      this.getPassedInEventArray()
-    },
-    parsedEvents: function () {
-      this.getPassedInParsedEvents()
-    }
   }
 }

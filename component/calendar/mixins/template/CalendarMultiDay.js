@@ -1,10 +1,13 @@
-// import {animScrollTo} from "quasar/src/utils/scroll";
+import { DateTime } from 'luxon'
 
 const debug = require('debug')('calendar:CalendarMultiDay')
-// const { getScrollTarget, setScrollPosition } = scroll
 
 export default {
   props: {
+    startDate: {
+      type: [DateTime],
+      default: () => { return DateTime.local() }
+    },
     numDays: {
       type: Number,
       default: 7
@@ -42,7 +45,7 @@ export default {
   },
   data () {
     return {
-      workingDate: new Date(),
+      workingDate: this.startDate,
       weekDateArray: [],
       parsed: this.getDefaultParsed(),
       thisNavRef: this.createNewNavEventName(),
@@ -95,9 +98,8 @@ export default {
     },
     doUpdate: function () {
       this.mountSetDate()
-      let payload = this.getMultiDayDisplayDates(
-        this.buildWeekDateArray(this.numDays, this.sundayFirstDayOfWeek)
-      )
+      this.weekDateArray = this.buildWeekDateArray(this.numDays)
+      let payload = this.getMultiDayDisplayDates(this.weekDateArray)
       this.triggerDisplayChange(
         this.eventRef,
         payload
@@ -112,9 +114,8 @@ export default {
         this.eventRef + ':navMovePeriod',
         params
       )
-      let payload = this.getMultiDayDisplayDates(
-        this.buildWeekDateArray()
-      )
+      this.weekDateArray = this.buildWeekDateArray(this.numDays)
+      let payload = this.getMultiDayDisplayDates(this.weekDateArray)
       payload['moveUnit'] = params.unitType
       payload['moveAmount'] = params.amount
       this.triggerDisplayChange(

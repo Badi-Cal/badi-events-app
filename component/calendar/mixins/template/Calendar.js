@@ -1,9 +1,12 @@
+import dashHas from 'lodash.has'
+import { DateTime } from 'luxon'
+
 const debug = require('debug')('calendar:Calendar')
 
 export default {
   props: {
     startDate: {
-      type: [Object, Date],
+      type: [Date],
       default: () => { return new Date() }
     },
     tabLabels: {
@@ -23,14 +26,19 @@ export default {
     return {
       dayCellHeight: 5,
       dayCellHeightUnit: 'rem',
-      workingDate: new Date(),
       parsed: {
         byAllDayStartDate: {},
         byStartDate: {},
         byId: {}
       },
       currentTab: 'tab-month',
-      thisRefName: this.createRandomString()
+      thisRefName: this.createRandomString(),
+      workingDate: this.startDate
+    }
+  },
+  computed: {
+    workingDateTime () {
+      return this.makeDT(this.workingDate)
     }
   },
   methods: {
@@ -47,6 +55,14 @@ export default {
         'update-event-' + this.eventRef,
         this.handleEventUpdate
       )
+      this.$root.$on(
+        'move-time-period-' + this.eventref,
+        this.moveTimePeriod
+      )
+      this.$root.$on(
+        'set-time-period-' + this.eventref,
+        this.setTimePeriod
+      )
     },
     calPackageMoveTimePeriod: function (params) {
       this.moveTimePeriod(params)
@@ -56,16 +72,45 @@ export default {
       )
     },
     switchToSingleDay: function (params) {
-      this.setTimePeriod(params)
+      debug('switchToSingleDay triggered with %s', params)
+
+      this.workingDate = params.dateObject
       this.currentTab = 'tab-single-day-component'
     },
     doUpdate: function () {
       this.mountSetDate()
+    },
+    /**
+     * Adds time unit to workingDate data property
+     *
+     * @param {Object} params A Luxon Duration Object
+     * @param {str} params.unitType The unit of time
+     * @param {int} params.amount The time period quantity
+     *
+     */
+    moveTimePeriod: function (params) {
+      debug('moveTimePeriod triggered with %s', params)
+
+      let dateObject = this.workingDate
+
+      // first convert to Luxon DateTime
+      if (dateObject instanceof Date) {
+        dateObject = DateTime.fromJSDate(dateObject)
+      }
+
+      if (dashHas(this, 'workingDate')) {
+        let paramObj = {}
+        paramObj[params.unitType] = params.amount
+        debug('this.workingDate = %s', this.workingDate)
+        this.workingDate = dateObject.plus(paramObj)
+      }
+      else {
+        debug('this.workingDate not on %s object', this)
+      }
     }
   },
   mounted () {
     debug('Component mounted')
-    this.mountSetDate()
     this.parseEventList()
     this.setupEventsHandling()
   },

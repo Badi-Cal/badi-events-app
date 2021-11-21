@@ -8,7 +8,6 @@
       :prevent-event-detail="preventEventDetail"
       :calendar-locale="calendarLocale"
       :calendar-timezone="calendarTimezone"
-      :sunday-first-day-of-week="sundayFirstDayOfWeek"
       :allow-editing="allowEditing"
       :render-html="renderHtml"
       :day-display-start-hour="dayDisplayStartHour"
@@ -16,11 +15,12 @@
     >
       <template v-slot:headernav="navVal">
         <calendar-header-nav
+          data-cy="calendar-header"
           :time-period-unit="navVal.timePeriodUnit"
           :time-period-amount="1"
           :move-time-period-emit="navVal.eventRef + ':navMovePeriod'"
         >
-          {{ formatDate(navVal.workingDate, 'MMMM yyyy') }}
+          {{ toDateFormat(navVal.workingDate, 'MONTH_YEAR') }}
         </calendar-header-nav>
       </template>
       <template v-slot:eventdetail="eventVal">
@@ -43,12 +43,14 @@
   import {
     CalendarMixin,
     CalendarEventMixin,
-    CalendarParentComponentMixin,
-    CalendarMonthTemplateMixin,
-    CalendarMonthInner
-  } from '@daykeep/calendar-core'
-  import CalendarHeaderNav from './CalendarHeaderNav'
-  import CalendarEventDetail from './CalendarEventDetail'
+    CalendarPropsMixin,
+    CalendarMonthMixin,
+    CalendarMonthTemplateMixin
+  } from 'mixins'
+
+  import CalendarMonthInner from './CalendarMonthInner.vue'
+  import CalendarHeaderNav from './CalendarHeaderNav.vue'
+  import CalendarEventDetail from './CalendarEventDetail.vue'
 
   export default {
     name: 'CalendarMonth',
@@ -58,9 +60,10 @@
       CalendarMonthInner
     },
     mixins: [
-      CalendarParentComponentMixin,
       CalendarMixin,
       CalendarEventMixin,
+      CalendarPropsMixin,
+      CalendarMonthMixin,
       CalendarMonthTemplateMixin
     ]
   }

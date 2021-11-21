@@ -7,11 +7,14 @@ import CalendarDayLabelsTemplateMixin from './CalendarDayLabels'
 import CalendarEventTemplateMixin from './CalendarEvent'
 import CalendarEventDetailTemplateMixin from './CalendarEventDetail'
 import CalendarHeaderNavTemplateMixin from './CalendarHeaderNav'
-import CalendarMonthTemplateMixin from './CalendarMonth'
 import CalendarMonthInnerTemplateMixin from './CalendarMonthInner'
 import CalendarMultiDayTemplateMixin from './CalendarMultiDay'
 import CalendarMultiDayContentTemplateMixin from './CalendarMultiDayContent'
 import CalendarTimeLabelTemplateMixin from './CalendarTimeLabelColumn'
+import CalendarMonthTemplateMixin from './CalendarMonth'
+import BadiMonthTemplate from './BadiMonth'
+import BadiMonthInnerTemplateMixin from './BadiMonthInner'
+import BadiTemplateMixin from './Badi'
 
 export {
   CalendarTemplateMixin,
@@ -23,9 +26,12 @@ export {
   CalendarEventTemplateMixin,
   CalendarEventDetailTemplateMixin,
   CalendarHeaderNavTemplateMixin,
-  CalendarMonthTemplateMixin,
   CalendarMonthInnerTemplateMixin,
   CalendarMultiDayTemplateMixin,
   CalendarMultiDayContentTemplateMixin,
-  CalendarTimeLabelTemplateMixin
+  CalendarTimeLabelTemplateMixin,
+  CalendarMonthTemplateMixin,
+  BadiMonthTemplate,
+  BadiMonthInnerTemplateMixin,
+  BadiTemplateMixin
 }

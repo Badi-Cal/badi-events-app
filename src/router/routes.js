@@ -2,9 +2,18 @@
 const routes = [
   {
     path: '/',
+    redirect: '/calendar'
+  },
+  {
+    path: '/calendar',
     component: () => import('layouts/LayoutDefault.vue'),
     children: [
-      { path: '', component: () => import('pages/index.vue') }
+      { path: '', component: () => import('pages/index.vue') },
+      {
+        path: ':view',
+        component: () => import('pages/index.vue'),
+        props: route => ({ tab: route.params.view })
+      }
     ]
   }
 ]

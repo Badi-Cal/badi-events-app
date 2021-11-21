@@ -1,4 +1,4 @@
-name: Node.js build, test
+name: Node.js test
 
 on:
   push:
@@ -10,6 +10,8 @@ jobs:
   build-test:
 
     runs-on: ubuntu-latest
+    container:
+      image: cypress/included:3.8.3
 
     strategy:
       matrix:
@@ -17,10 +19,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+    - uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: npm run build
-    - run: npm test
+    - name: Run e2e tests
+      run: npm run test:e2e:ci

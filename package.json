@@ -25,36 +25,64 @@
     "package.json"
   ],
   "scripts": {
-    "lint": "eslint --ext .js,.vue src",
+    "lint": "eslint --ext .js,.vue src component",
     "pretest": "npm run --silent lint",
-    "test": "echo \"No test specified\" && exit 0",
+    "test": "echo \"See package.json => scripts for available tests.\" && exit 0",
     "dev": "quasar dev",
     "build": "quasar build",
-    "build:pwa": "quasar build -m pwa"
+    "build:pwa": "quasar build -m pwa",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "test:e2e": "cross-env E2E_TEST=true start-test \"quasar dev -p 1863\" http-get://localhost:1863 \"cypress open\"",
+    "test:e2e:ci": "cross-env E2E_TEST=true start-test \"quasar dev -p 1863\" http-get://localhost:1863 \"cypress run\"",
+    "test:unit": "jest --updateSnapshot",
+    "test:unit:ci": "jest --ci",
+    "test:unit:coverage": "jest --coverage",
+    "test:unit:watch": "jest --watch",
+    "test:unit:watchAll": "jest --watchAll",
+    "serve:test:coverage": "quasar serve test/jest/coverage/lcov-report/ --port 8788",
+    "concurrently:dev:jest": "concurrently \"quasar dev\" \"jest --watch\""
   },
   "dependencies": {
     "@daykeep/calendar-core": "^1.0.0",
-    "@quasar/extras": "^1.10.3",
+    "@quasar/extras": "^1.10.8",
     "axios": "^0.21.1",
+    "badidate": "^3.0.2",
     "lodash.has": "^4.5.2",
-    "luxon": "^1.17.2",
-    "quasar": "^1.15.10"
+    "luxon": "^1.27.0",
+    "quasar": "^1.15.21"
   },
   "devDependencies": {
+    "@babel/core": "^7.14.6",
     "@quasar/app": "^1.0.4",
     "@quasar/quasar-app-extension-dotenv": "^1.0.0-beta.10",
+    "@quasar/quasar-app-extension-testing-e2e-cypress": "^3.1.0",
+    "@quasar/quasar-app-extension-testing-unit-jest": "^2.2.2",
+    "@storybook/addon-actions": "^6.3.2",
+    "@storybook/addon-controls": "^6.3.2",
+    "@storybook/addon-links": "^6.3.2",
+    "@storybook/vue": "^6.3.2",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.2.2",
     "copy-webpack-plugin": "^5.0.3",
-    "debug": "^4.1.1",
+    "core-js": "^2.6.12",
+    "css-loader": "^3.6.0",
+    "debug": "^4.3.2",
     "eslint": "^5.10.0",
     "eslint-loader": "^2.1.1",
+    "eslint-plugin-cypress": "^2.11.3",
+    "eslint-plugin-jest": "^24.1.0",
     "eslint-plugin-vue": "^5.0.0",
-    "strip-ansi": "=3.0.1"
+    "strip-ansi": "=3.0.1",
+    "style-loader": "^2.0.0",
+    "stylus-loader": "^3.0.2",
+    "vue-loader": "^15.9.7"
   },
   "peerDependencies": {
     "@quasar/extras": "^1.2.0",
-    "quasar": "^1.0.5"
+    "quasar": "^1.0.5",
+    "core-js": "^2.6.12"
   },
   "engines": {
     "node": ">= 8.9.0",

@@ -1,12 +1,13 @@
-import DateTime from 'luxon/src/datetime'
+import BadiDate from 'utils/badidate'
+import { DateTime } from 'luxon'
 
 const debug = require('debug')('calendar:CalendarDayLabels')
 
 export default {
   props: {
     startDate: {
-      type: [Object, Date],
-      default: () => { return new Date() }
+      type: [Object, DateTime, BadiDate],
+      default: () => { return DateTime.local() }
     },
     numberOfDays: {
       type: Number,
@@ -16,15 +17,7 @@ export default {
       type: Boolean,
       default: false
     },
-    forceStartOfWeek: {
-      type: Boolean,
-      default: false
-    },
     fullComponentRef: String,
-    sundayFirstDayOfWeek: {
-      type: Boolean,
-      default: false
-    },
     calendarLocale: {
       type: String,
       default: () => { return DateTime.local().locale }
@@ -34,7 +27,6 @@ export default {
     return {
       dayCellHeight: 5,
       dayCellHeightUnit: 'rem',
-      workingDate: DateTime.local(),
       weekDateArray: []
     }
   },
@@ -51,20 +43,14 @@ export default {
       this.doUpdate()
     },
     doUpdate: function () {
-      this.mountSetDate()
-      this.buildWeekDateArray(this.numberOfDays, this.sundayFirstDayOfWeek)
+      this.weekDateArray = this.buildWeekDateArray(this.numberOfDays)
     },
     isCurrentDayLabel: function (thisDay, checkMonthOnly) {
-      let now = DateTime.local()
-      thisDay = this.makeDT(thisDay)
       if (checkMonthOnly === true) {
-        return (
-          now.weekday === thisDay.weekday &&
-          now.month === thisDay.month
-        )
+        return this.isCurrenMonth(thisDay)
       }
       else {
-        return now.hasSame(thisDay, 'day')
+        return this.isCurrentDate(thisDay)
       }
     },
     handleDayClick: function (dateObject) {
@@ -75,7 +61,7 @@ export default {
   },
   mounted () {
     debug('Component mounted')
-    this.mountSetDate()
+    this.doUpdate()
   },
   watch: {
     startDate: 'handleStartChange'

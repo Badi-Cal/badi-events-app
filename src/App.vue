@@ -1,5 +1,5 @@
 <template>
-  <div id="q-app">
+  <div id="q-app" data-cy='q-app'>
     <router-view />
   </div>
 </template>

@@ -339,7 +339,7 @@
     CalendarMixin,
     EventPropsMixin,
     CalendarEventDetailTemplateMixin
-  } from '@daykeep/calendar-core'
+  } from 'mixins'
   import {
     QuasarFieldDate as FieldDate,
     QuasarFieldTime as FieldTime

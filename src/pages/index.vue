@@ -1,29 +1,51 @@
 <template>
   <q-page padding class="row NOflex NOflex-center">
+    <div inline class="full-width q-ma-sm">
     <transition
       appear
       enter-active-class="animated fadeInLeft"
       leave-active-class="animated fadeOutLeft"
     >
-      <q-card
-        inline
-        class="full-width q-ma-sm"
-      >
-        <q-card-section>
-          <daykeep-calendar
-            :event-array="eventArray"
-            :sunday-first-day-of-week="false"
-            calendar-locale="en"
-            calendar-timezone="America/New_York"
-            NOevent-ref="MYCALENDAR"
-            :allow-editing="true"
-            agenda-style="block"
-            :render-html="true"
-            :start-date="new Date()"
-          />
-        </q-card-section>
-      </q-card>
-    </transition>
+
+      <q-tab-panels v-model="tab" animated>
+
+        <q-tab-panel name="gregorian">
+          <q-card>
+            <q-card-section>
+              <daykeep-calendar
+                :event-array="eventArray"
+                calendar-locale="en-US"
+                calendar-timezone="America/New_York"
+                NOevent-ref="MYCALENDAR"
+                :allow-editing="true"
+                agenda-style="block"
+                :render-html="true"
+                :start-date="new Date()"
+              />
+            </q-card-section>
+          </q-card>
+        </q-tab-panel>
+
+        <q-tab-panel name="badi">
+          <q-card>
+            <q-card-section>
+              <badi-calendar
+                :event-array="eventArray"
+                calendar-locale="en-US"
+                calendar-timezone="America/New_York"
+                NOevent-ref="MYCALENDAR"
+                :allow-editing="true"
+                agenda-style="block"
+                :render-html="true"
+                :start-date="new Date()"
+              />
+            </q-card-section>
+          </q-card>
+        </q-tab-panel>
+
+        </q-tab-panels>
+      </transition>
+      </div>
   </q-page>
 </template>
 
@@ -31,26 +53,38 @@
   import {
     QPage,
     QCard,
-    QCardSection
+    QCardSection,
+    QTabPanel,
+    QTabPanels
   } from 'quasar'
   import {
-    DaykeepCalendar
+    DaykeepCalendar,
+    BadiCalendar
   } from '../../component/quasar'
   import {
     api
-  } from '../../boot/axios'
+  } from 'boot/axios'
   export default {
     name: 'PageIndex',
     components: {
       QPage,
       QCard,
       QCardSection,
-      DaykeepCalendar
+      QTabPanel,
+      QTabPanels,
+      DaykeepCalendar,
+      BadiCalendar
     },
     data () {
       return {
         eventArray: [],
         showCards: ['fullCalendar']
+      }
+    },
+    props: {
+      tab: {
+        type: String,
+        default: 'gregorian'
       }
     },
     computed: {},

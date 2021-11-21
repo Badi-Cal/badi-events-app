@@ -1,5 +1,13 @@
+/**
+ * @fileoverview Shared methods across all calendar components
+ */
+
+import BadiDate from 'utils/badidate'
 import dashHas from 'lodash.has'
-import DateTime from 'luxon/src/datetime'
+import { DateTime } from 'luxon'
+import { tokensBadi, tokensLuxon } from '../../../../utils/formatter'
+import { getFirstDayOfWeek, getFirstWeekDay } from '../../../../utils/startofweek'
+
 // const debug = require('debug')('calendar:CalendarMixin')
 export default {
   computed: {},
@@ -7,6 +15,15 @@ export default {
     handleStartChange: function (val, oldVal) {
       this.doUpdate()
     },
+    /**
+     * Converts a JavaScript Date object to a Luxon DateTime
+     * object
+     *
+     * @param {Date} dateObject
+     * @param {string} adjustTimezone
+     *
+     * @returns {DateTime} A Luxon DateTime object
+     */
     makeDT: function (dateObject, adjustTimezone) {
       if (typeof dateObject === 'undefined') {
         return null
@@ -97,12 +114,35 @@ export default {
       cssObject['text-' + this.getEventColor(eventObject, 'textColor')] = true
       return cssObject
     },
-    formatDate: function (dateObject, formatString, usePredefined) {
+    /**
+     * Return formatted date string for BadiDate or DateTime object.
+     * @see https://moment.github.io/luxon/#/formatting?id=presets
+     *
+     * @param {BadiDate||DateTime} dateObject
+     * @param {string} format A preset formatting string
+     * @returns {string}
+     */
+    toDateFormat: function (dateObject, format) {
+      if (dateObject instanceof BadiDate) {
+        return this.formatDateBadi(dateObject, tokensBadi[format])
+      }
+
+      return dateObject.toLocaleString(tokensLuxon[format])
+    },
+    /**
+     * Return formatted date string Date object.
+     *
+     * @param {Object} dateObject
+     * @param {string} format A preset formatting string
+     * @param {boolean} usePredefined
+     * @returns {string}
+     */
+    formatDate: function (dateObject, format, usePredefined) {
       if (usePredefined) {
-        return this.makeDT(dateObject).toLocaleString(DateTime[formatString])
+        return this.makeDT(dateObject).toLocaleString(DateTime[format])
       }
       else {
-        return this.makeDT(dateObject).toFormat(formatString)
+        return this.makeDT(dateObject).toFormat(format)
       }
     },
     dateAdjustWeekday (thisDateObject, weekdayNum) {
@@ -112,15 +152,19 @@ export default {
       if (weekdayNum < 1) {
         adjustForward = false
         weekdayNum = Math.abs(weekdayNum)
+        // never reached condition?
         if (weekdayNum === 0) {
           weekdayNum = 7
         }
       }
+
       for (let counter = 1; counter <= 7; counter++) {
         if (adjustForward) {
+          // add counter to current date object
           checkDate = thisDateObject.plus({ days: counter })
         }
         else {
+          // substract counter from current date object
           checkDate = thisDateObject.minus({ days: counter })
         }
         if (checkDate.weekday === weekdayNum) {
@@ -128,7 +172,13 @@ export default {
         }
       }
     },
-    buildWeekDateArray: function (numberOfDays, sundayFirstDayOfWeek) {
+    /**
+     * Array of days in the week
+     *
+     * @param {integer} numberOfDays
+     * @returns {Array<DateTime}
+     */
+    buildWeekDateArray: function (numberOfDays) {
       if (numberOfDays === undefined) {
         if (this.numberOfDays !== undefined) {
           numberOfDays = this.numberOfDays
@@ -140,46 +190,33 @@ export default {
           numberOfDays = 7
         }
       }
-      if (this.forceStartOfWeek) {
-        this.weekDateArray = this.getForcedWeekDateArray(numberOfDays, sundayFirstDayOfWeek)
-      }
-      else {
-        this.weekDateArray = this.getWeekDateArray(numberOfDays)
-      }
-      return this.weekDateArray
+      return this.getWeekDateArray(numberOfDays)
     },
-    getForcedWeekBookendDates: function (numberOfDays, sundayFirstDayOfWeek) {
+    getForcedWeekBookendDates: function (numberOfDays) {
+      const locale = this.startDate.locale
+      const sundayFirstDayOfWeek = getFirstWeekDay(locale)
       if (numberOfDays === undefined) {
         numberOfDays = 7
       }
       if (sundayFirstDayOfWeek) {
         return {
-          first: this.dateAdjustWeekday(this.workingDate, -1).minus({ days: 1 }),
-          last: this.dateAdjustWeekday(this.workingDate, numberOfDays).minus({ days: 1 })
+          first: this.dateAdjustWeekday(this.startDate, -1).minus({ days: 1 }),
+          last: this.dateAdjustWeekday(this.startDate, numberOfDays).minus({ days: 1 })
         }
       }
       else {
         return {
-          first: this.dateAdjustWeekday(this.workingDate, -1),
-          last: this.dateAdjustWeekday(this.workingDate, numberOfDays)
+          first: this.dateAdjustWeekday(this.startDate, -1),
+          last: this.dateAdjustWeekday(this.startDate, numberOfDays)
         }
       }
     },
-    getForcedWeekDateArray: function (numberOfDays, sundayFirstDayOfWeek) {
-      let bookendDates = this.getForcedWeekBookendDates(numberOfDays, sundayFirstDayOfWeek)
-      let returnArray = []
-      for (let counter = 0; counter <= numberOfDays - 1; counter++) {
-        returnArray.push(
-          this.makeDT(bookendDates.first).plus({ days: counter })
-        )
-      }
-      return returnArray
-    },
     getWeekDateArray: function (numberOfDays) {
       let returnArray = []
+      let startOfWeek = getFirstDayOfWeek(this.startDate)
       for (let counter = 0; counter <= numberOfDays - 1; counter++) {
         returnArray.push(
-          this.makeDT(this.workingDate).plus({ days: counter })
+          startOfWeek.plus({ days: counter })
         )
       }
       return returnArray
@@ -203,30 +240,6 @@ export default {
         .replace(':00', '')
         .replace(' ', '')
         .toLowerCase()
-    },
-    moveTimePeriod: function (params) {
-      console.debug('moveTimePeriod triggered, params = ', params)
-      if (dashHas(params, 'absolute')) {
-        this.workingDate = this.makeDT(params.absolute)
-      }
-      else if (dashHas(this, 'workingDate')) {
-        let paramObj = {}
-        paramObj[params.unitType] = params.amount
-        console.debug('this.workingDate = ', this.workingDate)
-        this.workingDate = this.workingDate.plus(paramObj)
-      }
-      else if (dashHas(this.$parent, 'workingDate')) {
-        let paramObj = {}
-        paramObj[params.unitType] = params.amount
-        // console.debug('this.workingDate = ', this.workingDate)
-        this.workingDate = this.$parent.workingDate.plus(paramObj)
-      }
-      else {
-        let paramObj = {}
-        paramObj[params.unitType] = params.amount
-        console.debug('this.workingDate = ', this.workingDate)
-        this.workingDate = this.workingDate.plus(paramObj)
-      }
     },
     setTimePeriod: function (params) {
       this.workingDate = params.dateObject
@@ -254,18 +267,70 @@ export default {
     createThisDate: function (dateNum) {
       return this.parseDateParams(dateNum)
     },
+    /**
+     * True if date is same as today
+     *
+     * @param {DateTime|BadiDate} thisDateObject
+     * @returns {boolean}
+     */
     isCurrentDate: function (thisDateObject) {
-      return DateTime.local().hasSame(
-        this.makeDT(thisDateObject),
+      const today = DateTime.local()
+
+      if (thisDateObject instanceof BadiDate) {
+        const badiDate = new BadiDate(today)
+        return badiDate.equals(thisDateObject)
+      }
+
+      return today.hasSame(
+        thisDateObject,
         'day'
       )
     },
+    /**
+     * True if date has same month as today
+     *
+     * @param {DateTime|BadiDate} dateObject
+     * @returns {boolean}
+     */
+    isCurrentMonth: function (dateObject) {
+      let now = DateTime.local()
+
+      if (dateObject instanceof BadiDate) {
+        now = new BadiDate(now)
+      }
+
+      return (
+        now.weekday === dateObject.weekday &&
+          now.month === dateObject.month
+      )
+    },
+    /**
+     * Return true if days is weekend day.
+     *
+     * @param {DateTime|BadiDate} thisDateObject
+     * @returns {boolean}
+     */
     isWeekendDay: function (thisDateObject) {
-      const dayNumber = this.makeDT(thisDateObject).weekday
+      const dayNumber = thisDateObject.weekday
+
+      if (thisDateObject instanceof BadiDate) {
+        return (dayNumber === 1 || dayNumber === 2)
+      }
+
       return (dayNumber === 6 || dayNumber === 7)
     },
-    getWeekNumber (thisDateObject, useSundayStart) {
-      if (useSundayStart) {
+    /**
+     * Adjusts for Sunday as the first day of the week.
+     *
+     * Weeks start on Monday.
+     *
+     * @param {DateTime} thisDateObject
+     * @returns {integer}
+     */
+    getWeekNumber (thisDateObject) {
+      const locale = thisDateObject.locale
+      const useSundayStart = getFirstWeekDay(locale)
+      if (useSundayStart === 0) {
         return this.makeDT(thisDateObject).plus({ days: 1 }).weekNumber
       }
       else {
@@ -273,7 +338,11 @@ export default {
       }
     },
     mountSetDate: function () {
-      this.workingDate = this.makeDT(this.startDate)
+      let newDate = this.makeDT(this.startDate)
+      this.$emit(
+        'set-working-date-' + this.eventRef,
+        newDate
+      )
     },
     decimalAdjust: function (type, value, exp) {
       // from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor
@@ -329,7 +398,23 @@ export default {
         this.makeDT(workingDate).toISODate() +
         '-hour-' +
         thisHour
+    },
+    /**
+     * Validates object is DateTime or BadiDate
+     *
+     * @param {object} dateObject
+     * @returns {boolean}
+     */
+    isCalendarDate: function (dateObject) {
+      if (DateTime.isDateTime(dateObject)) {
+        return true
+      }
+      if (dateObject instanceof BadiDate) {
+        return true
+      }
+      return false
     }
+
   },
   mounted () {}
 }

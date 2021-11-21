@@ -16,7 +16,9 @@
 </template>
 
 <script>
+  import { QBtn } from 'quasar'
   export default {
-    name: 'Error404'
+    name: 'Error404',
+    components: { QBtn }
   }
 </script>

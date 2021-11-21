@@ -1,7 +1,13 @@
+import { DateTime } from 'luxon'
+
 const debug = require('debug')('calendar:CalendarAgenda')
 
 export default {
   props: {
+    startDate: {
+      type: [DateTime],
+      default: () => { return DateTime.local() }
+    },
     agendaStyle: {
       type: String,
       default: 'dot'
@@ -21,7 +27,7 @@ export default {
   },
   data () {
     return {
-      workingDate: new Date(),
+      workingDate: this.startDate,
       numJumpDays: 28,
       localNumDays: 28,
       dayCounter: [],
@@ -49,7 +55,6 @@ export default {
       done(true)
     },
     doUpdate: function () {
-      this.mountSetDate()
       this.triggerDisplayChange(
         this.eventRef,
         this.getAgendaDisplayDates()
@@ -115,7 +120,6 @@ export default {
     )
   },
   watch: {
-    startDate: 'handleStartChange',
     eventArray: function () {
       this.getPassedInEventArray()
     },

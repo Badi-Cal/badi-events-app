@@ -1,5 +1,5 @@
 <template>
-  <div class="calendar-test">
+  <div class="calendar">
     <q-tabs
       v-model="currentTab"
       class="text-primary calendar-tabs"
@@ -43,11 +43,10 @@
       <q-tab-panel name="tab-month" class="calendar-tab-panel-month">
         <calendar-month
           :ref="'month-' + thisRefName"
-          :start-date="workingDate"
+          :start-date="workingDateTime"
           :parsed-events="parsed"
           :event-ref="eventRef"
           :full-component-ref="eventRef"
-          :sunday-first-day-of-week="sundayFirstDayOfWeek"
           :calendar-locale="calendarLocale"
           :calendar-timezone="calendarTimezone"
           :prevent-event-detail="preventEventDetail"
@@ -58,14 +57,13 @@
       <q-tab-panel name="tab-week-component" class="calendar-tab-panel-week">
         <calendar-multi-day
           :ref="'week-' + thisRefName"
-          :start-date="workingDate"
+          :start-date="workingDateTime"
           :parsed-events="parsed"
           :num-days="7"
           :nav-days="7"
           :force-start-of-week="true"
           :event-ref="eventRef"
           :full-component-ref="eventRef"
-          :sunday-first-day-of-week="sundayFirstDayOfWeek"
           :calendar-locale="calendarLocale"
           :calendar-timezone="calendarTimezone"
           :prevent-event-detail="preventEventDetail"
@@ -77,14 +75,13 @@
       <q-tab-panel name="tab-days-component" class="calendar-tab-panel-week">
         <calendar-multi-day
           :ref="'days-' + thisRefName"
-          :start-date="workingDate"
+          :start-date="workingDateTime"
           :parsed-events="parsed"
           :num-days="3"
           :nav-days="1"
           :force-start-of-week="false"
           :event-ref="eventRef"
           :full-component-ref="eventRef"
-          :sunday-first-day-of-week="sundayFirstDayOfWeek"
           :calendar-locale="calendarLocale"
           :calendar-timezone="calendarTimezone"
           :prevent-event-detail="preventEventDetail"
@@ -96,14 +93,13 @@
       <q-tab-panel name="tab-single-day-component" class="calendar-tab-panel-week">
         <calendar-multi-day
           :ref="'day-' + thisRefName"
-          :start-date="workingDate"
+          :start-date="workingDateTime"
           :parsed-events="parsed"
           :num-days="1"
           :nav-days="1"
           :force-start-of-week="false"
           :event-ref="eventRef"
           :full-component-ref="eventRef"
-          :sunday-first-day-of-week="sundayFirstDayOfWeek"
           :calendar-locale="calendarLocale"
           :calendar-timezone="calendarTimezone"
           :prevent-event-detail="preventEventDetail"
@@ -115,13 +111,12 @@
       <q-tab-panel name="tab-agenda" class="calendar-tab-panel-agenda">
         <calendar-agenda
           :ref="'agenda-' + thisRefName"
-          :start-date="workingDate"
+          :start-date="workingDateTime"
           :parsed-events="parsed"
           :num-days="28"
           :event-ref="eventRef"
           scroll-height="300px"
           :full-component-ref="eventRef"
-          :sunday-first-day-of-week="sundayFirstDayOfWeek"
           :calendar-locale="calendarLocale"
           :calendar-timezone="calendarTimezone"
           :prevent-event-detail="preventEventDetail"
@@ -137,9 +132,9 @@
   import {
     CalendarMixin,
     CalendarEventMixin,
-    CalendarParentComponentMixin,
+    CalendarPropsMixin,
     CalendarTemplateMixin
-  } from '@daykeep/calendar-core'
+  } from 'mixins'
   import CalendarMonth from './CalendarMonth'
   import CalendarMultiDay from './CalendarMultiDay'
   import CalendarAgenda from './CalendarAgenda'
@@ -154,9 +149,9 @@
   export default {
     name: 'Calendar',
     mixins: [
-      CalendarParentComponentMixin,
       CalendarMixin,
       CalendarEventMixin,
+      CalendarPropsMixin,
       CalendarTemplateMixin
     ],
     components: {

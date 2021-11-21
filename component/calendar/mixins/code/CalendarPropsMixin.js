@@ -1,11 +1,10 @@
-// this file contains shared properties for Calendar, CalendarAgenda, CalendarMonth and CalendarMultiday
-import DateTime from 'luxon/src/datetime'
+/**
+ * @fileoverview shared properties for Calendar,
+ * CalendarAgenda, CalendarMonth and CalendarMultiday
+ */
+import { DateTime } from 'luxon'
 export default {
   props: {
-    startDate: {
-      type: [Object, Date],
-      default: () => { return DateTime.local() }
-    },
     eventArray: {
       type: Array,
       default: () => []
@@ -29,10 +28,6 @@ export default {
     calendarTimezone: {
       type: String,
       default: () => { return DateTime.local().zoneName }
-    },
-    sundayFirstDayOfWeek: {
-      type: Boolean,
-      default: false
     },
     allowEditing: {
       type: Boolean,

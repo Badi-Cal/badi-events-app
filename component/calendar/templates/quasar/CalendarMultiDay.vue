@@ -8,7 +8,7 @@
         :move-time-period-emit="eventRef + ':navMovePeriod'"
         :calendar-locale="calendarLocale"
       >
-        {{ formatDate(workingDate, 'EEEE, MMMM d, yyyy') }}
+        {{ toDateFormat(workingDate, 'DATE_FULL') }}
       </calendar-header-nav>
     </template>
     <template v-else>
@@ -28,7 +28,6 @@
         :start-date="workingDate"
         :force-start-of-week="forceStartOfWeek"
         :full-component-ref="fullComponentRef"
-        :sunday-first-day-of-week="sundayFirstDayOfWeek"
         :calendar-locale="calendarLocale"
       />
     </div>
@@ -87,26 +86,28 @@
 
 <script>
   import {
-    // mixins
-    CalendarMixin,
-    CalendarEventMixin,
-    CalendarParentComponentMixin,
-    CalendarMultiDayTemplateMixin,
     // components
-    CalendarDayLabels,
     CalendarAllDayEvents,
     CalendarMultiDayContent
   } from '@daykeep/calendar-core'
+  import { CalendarDayLabels } from 'templates/common'
   import CalendarHeaderNav from './CalendarHeaderNav'
   import CalendarEventDetail from './CalendarEventDetail'
+  import {
+    // mixins
+    CalendarMixin,
+    CalendarEventMixin,
+    CalendarPropsMixin,
+    CalendarMultiDayTemplateMixin
+  } from 'mixins'
   import { QScrollArea } from 'quasar'
 
   export default {
     name: 'CalendarMultiDay',
     mixins: [
-      CalendarParentComponentMixin,
       CalendarMixin,
       CalendarEventMixin,
+      CalendarPropsMixin,
       CalendarMultiDayTemplateMixin
     ],
     components: {

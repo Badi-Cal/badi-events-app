@@ -1,5 +1,5 @@
 import dashHas from 'lodash.has'
-import DateTime from 'luxon/src/datetime'
+import { DateTime } from 'luxon'
 
 const debug = require('debug')('calendar:CalendarEventDetail')
 

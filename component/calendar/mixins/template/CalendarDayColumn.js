@@ -1,4 +1,4 @@
-import DateTime from 'luxon/src/datetime'
+import { DateTime } from 'luxon'
 
 const debug = require('debug')('calendar:CalendarDayColumn')
 

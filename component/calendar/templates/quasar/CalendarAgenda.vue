@@ -12,7 +12,6 @@
       :prevent-event-detail="preventEventDetail"
       :calendar-locale="calendarLocale"
       :calendar-timezone="calendarTimezone"
-      :sunday-first-day-of-week="sundayFirstDayOfWeek"
       :allow-editing="allowEditing"
       :render-html="renderHtml"
       :day-display-start-hour="dayDisplayStartHour"
@@ -26,9 +25,9 @@
           :move-time-period-emit="eventRef + ':navMovePeriod'"
           :calendar-locale="calendarLocale"
         >
-          {{ formatDate(workingDate, 'EEE, MMM d')}}
+          {{ toDateFormat(workingDate, 'MONTH_SHORT_DAY')}}
           -
-          {{ formatDate(makeDT(workingDate).plus({ days: numJumpDays }), 'MMM d')}}
+          {{ toDateFormat(workingDate.plus({ days: numJumpDays }), 'MONTH_SHORT_DAY_YEAR')}}
         </calendar-header-nav>
       </template>
       <template v-slot:eventdetail="eventVal">
@@ -52,8 +51,10 @@
   import {
     CalendarMixin,
     CalendarEventMixin,
-    CalendarParentComponentMixin,
-    CalendarAgendaTemplateMixin,
+    CalendarPropsMixin,
+    CalendarAgendaTemplateMixin
+  } from 'mixins'
+  import {
     CalendarAgendaInner
   } from '@daykeep/calendar-core'
   import CalendarHeaderNav from './CalendarHeaderNav'
@@ -62,9 +63,9 @@
   export default {
     name: 'CalendarAgenda',
     mixins: [
-      CalendarParentComponentMixin,
       CalendarMixin,
       CalendarEventMixin,
+      CalendarPropsMixin,
       CalendarAgendaTemplateMixin
     ],
     components: {

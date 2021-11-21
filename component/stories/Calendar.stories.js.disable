@@ -1,0 +1,50 @@
+import DaykeepCalendar from 'templates/quasar/Calendar.vue'
+// import CalendarMonth from 'templates/quasar/CalendarMonth.vue'
+
+import {
+  CalendarMixin,
+  CalendarEventMixin,
+  CalendarParentComponentMixin,
+  CalendarTemplateMixin
+} from '@daykeep/calendar-core'
+
+import { sampleEventArray } from '@daykeep/calendar-core/demo/'
+
+// 👇 This default export determines where your story goes in the story list
+export default {
+  title: 'Calendar',
+  component: DaykeepCalendar
+}
+
+// 👇 We create a “template” of how args map to rendering
+export const Template = () => ({
+  components: {
+    DaykeepCalendar
+  },
+  mixins: [
+    CalendarParentComponentMixin,
+    CalendarMixin,
+    CalendarEventMixin,
+    CalendarTemplateMixin
+  ],
+  data () {
+    return {
+      events: sampleEventArray // in page-code-mixins/sample-data.js
+    }
+  },
+  template: `
+  <div>
+    <daykeep-calendar
+      event-ref="MYCALENDAR"
+      :event-array="events"
+      :sunday-first-day-of-week="true"
+      calendar-locale="en"
+      calendar-timezone="America/New_York"
+      NOevent-ref="MYCALENDAR"
+      :allow-editing="true"
+      agenda-style="block"
+      :render-html="true"
+    />
+  </div>
+  `
+})
