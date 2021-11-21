@@ -84,7 +84,7 @@
     props: {
       tab: {
         type: String,
-        default: 'badi'
+        default: 'gregorian'
       }
     },
     computed: {},

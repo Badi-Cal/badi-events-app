@@ -67,7 +67,7 @@
       return {
         drawerRight: false,
         drawerLeft: false,
-        tabName: 'badi'
+        tabName: 'gregorian'
       }
     },
     computed: {
