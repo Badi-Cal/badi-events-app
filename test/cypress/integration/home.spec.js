@@ -33,23 +33,23 @@ describe('Calendar index page', () => {
     })
   })
 
-  it('should expect today to have class .calendar-day-number-current', () => {
-    cy.dataCy('calendar-content').then(($content) => {
-      cy.log('Calendar content: ', $content)
+  it('should expect .calendar-day-number-current to contain today', () => {
+    cy.dataCy('calendar-content').within(($content) => {
       datetime = DateTime.local()
-      today = datetime.get('day')
-      cy.contains(today)
-        .parent()
-        .should('have.class', 'calendar-day-number-current')
+      today = datetime.get('day').toString()
+      cy.get('.calendar-day-number-current')
+        .should(($div) => {
+          const text = $div.text().trim()
+          expect(text).to.equal(today)
+        })
     })
   })
 
   it('should expect Sunday to have class .calendar-day-weekend', () => {
-    cy.dataCy('calendar-content').then(($content) => {
-      cy.log('Calendar content: ', $content)
+    cy.dataCy('calendar-content').within(($content) => {
       datetime = DateTime.local()
       weekday = datetime.weekday
-      weekend = datetime.plus({ days: (7 - weekday) }).get('day')
+      weekend = datetime.plus({ days: (7 - weekday) }).get('day').toString()
       cy.contains(weekend)
         .parent()
         .parent()

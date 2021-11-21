@@ -13,9 +13,10 @@ describe('Navigation header', () => {
   })
 
   it('should move time one period forward', () => {
-    const testDate = now.plus({ month: 1 })
-    // luxon week starts on Monday
-    const testWeekEnd = testDate.endOf('month').startOf('week').minus({ days: 1 })
+    const testDate = now.plus({ month: 1 }).endOf('month')
+    // get Sunday of the week
+    const duration = (testDate.weekday === 7) ? 0 : testDate.weekday
+    const testWeekEnd = testDate.minus({ days: duration })
     cy.get('.calendar-header-right > button').click()
     cy.dataCy('calendar-header')
       .contains(testDate.monthLong).should('exist')
@@ -23,12 +24,16 @@ describe('Navigation header', () => {
     cy.dataCy('calendar-content')
       .children().last()
       .find('.calendar-day-weekend').first()
-      .contains(testWeekEnd.day).should('exist')
+      .should(($div) => {
+        const text = $div.text().trim()
+        expect(text).to.equal(testWeekEnd.day.toString())
+      })
   })
 
   it('should move time one period backwards', () => {
-    const testDate = now.plus({ month: -1 })
-    const testWeekEnd = testDate.endOf('month').startOf('week').minus({ days: 1 })
+    const testDate = now.plus({ month: -1 }).endOf('month')
+    const duration = (testDate.weekday === 7) ? 0 : testDate.weekday
+    const testWeekEnd = testDate.plus({ days: duration })
     cy.get('.calendar-header-left > button').click()
     cy.dataCy('calendar-header')
       .contains(testDate.monthLong).should('exist')
@@ -36,6 +41,9 @@ describe('Navigation header', () => {
     cy.dataCy('calendar-content')
       .children().last()
       .find('.calendar-day-weekend').first()
-      .contains(testWeekEnd.day).should('exist')
+      .should(($div) => {
+        const text = $div.text().trim()
+        expect(text).to.equal(testWeekEnd.day.toString())
+      })
   })
 })
