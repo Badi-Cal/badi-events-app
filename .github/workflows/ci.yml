@@ -21,7 +21,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: npm run build
-    - run: npm test
+    - run: npm run test:e2e:ci
       env:
         CI: true
   deployAnsible:
