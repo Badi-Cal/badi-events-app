@@ -28,8 +28,8 @@ describe('Calendar index page', () => {
       month = datetime.monthLong
       year = datetime.year
       cy.dataCy('calendar-header')
-        .contains(month).should('exist')
-        .contains(year).should('exist')
+        .should('include.text', month)
+        .should('include.text', year)
     })
   })
 

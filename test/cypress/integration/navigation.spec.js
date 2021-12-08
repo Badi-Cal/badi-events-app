@@ -19,7 +19,7 @@ describe('Navigation header', () => {
     const testWeekEnd = testDate.minus({ days: duration })
     cy.get('.calendar-header-right > button').click()
     cy.dataCy('calendar-header')
-      .contains(testDate.monthLong).should('exist')
+      .should('include.text', testDate.monthLong)
     // get first weekend day in last week of month
     cy.dataCy('calendar-content')
       .children().last()
@@ -33,10 +33,10 @@ describe('Navigation header', () => {
   it('should move time one period backwards', () => {
     const testDate = now.plus({ month: -1 }).endOf('month')
     const duration = (testDate.weekday === 7) ? 0 : testDate.weekday
-    const testWeekEnd = testDate.plus({ days: duration })
+    const testWeekEnd = testDate.minus({ days: duration })
     cy.get('.calendar-header-left > button').click()
     cy.dataCy('calendar-header')
-      .contains(testDate.monthLong).should('exist')
+      .should('include.text', testDate.monthLong)
     // get first weekend day in last week of month
     cy.dataCy('calendar-content')
       .children().last()
