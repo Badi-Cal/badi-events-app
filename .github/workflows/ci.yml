@@ -6,7 +6,7 @@ on:
 
 jobs:
   cache-modules:
-    uses: Badi-Cal/badi-events-app/.github/workflows/cache.yml@ce32e880e7b9e05b3a985b4af7192bb9272ecd10
+    uses: Badi-Cal/badi-events-app/.github/workflows/cache.yml@c8b3734fc3a7c63f988617ff65893243bbcc18c9
     with:
       cache-name: 'cache-node-modules'
 
