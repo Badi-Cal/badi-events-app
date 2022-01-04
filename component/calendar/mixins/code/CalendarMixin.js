@@ -287,20 +287,16 @@ export default {
       )
     },
     /**
-     * True if date has same month as today
+     * True if date has same month as working date
      *
      * @param {DateTime|BadiDate} dateObject
      * @returns {boolean}
      */
     isCurrentMonth: function (dateObject) {
-      let now = DateTime.local()
-
-      if (dateObject instanceof BadiDate) {
-        now = new BadiDate(now)
-      }
+      const workingDate = this.startDate
 
       return (
-        now.month === dateObject.month
+        workingDate.month === dateObject.month
       )
     },
     /**
