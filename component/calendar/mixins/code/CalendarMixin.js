@@ -412,7 +412,7 @@ export default {
       if (dateObject instanceof BadiDate) {
         return true
       }
-      return false
+      throw TypeError('Invalid date object type')
     }
 
   },
