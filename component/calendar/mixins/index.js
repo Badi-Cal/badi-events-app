@@ -7,6 +7,7 @@ import {
   CalendarMonthMixin,
   MonthInnerMixin
 } from './code'
+
 import {
   CalendarTemplateMixin,
   CalendarAgendaTemplateMixin,
@@ -24,7 +25,8 @@ import {
   CalendarMonthTemplateMixin,
   BadiMonthTemplate,
   BadiMonthInnerTemplateMixin,
-  BadiTemplateMixin
+  BadiTemplateMixin,
+  GregorianTemplateMixin
 } from './template'
 
 export {
@@ -51,5 +53,6 @@ export {
   CalendarMonthTemplateMixin,
   BadiMonthTemplate,
   BadiMonthInnerTemplateMixin,
-  BadiTemplateMixin
+  BadiTemplateMixin,
+  GregorianTemplateMixin
 }

@@ -23,7 +23,7 @@
       <q-tab-panel name="tab-month" class="calendar-tab-panel-month">
         <badi-month
           :ref="'month-' + thisRefName"
-          :start-date="workingDateBadi"
+          :start-date="workingDate"
           :parsed-events="parsed"
           :event-ref="eventRef"
           :full-component-ref="eventRef"
@@ -43,6 +43,7 @@
     CalendarEventMixin,
     CalendarPropsMixin,
     CalendarTemplateMixin,
+    CalendarBadiMixin,
     BadiTemplateMixin
   } from 'mixins'
   import BadiMonth from './BadiMonth'
@@ -61,6 +62,7 @@
       CalendarEventMixin,
       CalendarPropsMixin,
       CalendarTemplateMixin,
+      CalendarBadiMixin,
       BadiTemplateMixin
     ],
     components: {
