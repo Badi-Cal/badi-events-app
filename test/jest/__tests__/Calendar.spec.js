@@ -64,11 +64,11 @@ describe('Calendar', () => {
 
     it('should create correct working date', () => {
       const vm = wrapper.vm
-      expect(vm.$data.workingDate instanceof Date).toBe(true)
-      expect(vm.workingDateTime instanceof DateTime).toBe(true)
+      expect(vm.$props.startDate instanceof Date).toBe(true)
+      expect(vm.workingDate instanceof DateTime).toBe(true)
 
       const date = DateTime.fromJSDate(new Date())
-      expect(vm.workingDateTime.toLocaleString()).toBe(date.toLocaleString())
+      expect(vm.workingDate.toLocaleString()).toBe(date.toLocaleString())
     })
   })
 
@@ -87,7 +87,7 @@ describe('Calendar', () => {
       wrapper.destroy()
     })
 
-    it('moveTimePeriod - should set the workingDateTime computed property', () => {
+    it('moveTimePeriod - should set the workingDate computed property', () => {
       const vm = wrapper.vm
       const fixture = {
         unitType: 'month',
@@ -100,7 +100,6 @@ describe('Calendar', () => {
       vm.moveTimePeriod(fixture)
 
       expect(vm.$data.workingDate.toLocaleString()).toBe(testDate.toLocaleString())
-      expect(vm.workingDateTime.toLocaleString()).toBe(testDate.toLocaleString())
     })
   })
 })
