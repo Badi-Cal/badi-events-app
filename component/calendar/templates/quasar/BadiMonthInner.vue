@@ -32,7 +32,7 @@
             'calendar-day': true,
             'calendar-cell': true,
             'calendar-day-weekend': isWeekendDay(thisDay.dateObject),
-            'calendar-day-current': isCurrentDate(thisDay.dateObject)
+            'calendar-day-today': isCurrentDate(thisDay.dateObject)
           }"
           v-for="(thisDay, weekDayIndex) in thisWeek"
           :key="thisDay.dateObject.format('yy-mm-dd')"
@@ -42,7 +42,7 @@
             v-if="isCurrentDate(thisDay.dateObject)"
             :class="{
               'calendar-day-number': true,
-              'calendar-day-number-current': true,
+              'calendar-day-number-today': true,
               'is-clickable': calendarDaysAreClickable
             }"
           >
@@ -54,6 +54,7 @@
             v-else
             :class="{
               'calendar-day-number': true,
+              'calendar-day-number-current': isCurrentMonth(thisDay.dateObject),
               'cursor-pointer': calendarDaysAreClickable
             }"
           >
@@ -138,55 +139,5 @@
 </script>
 
 <style lang="stylus">
-  @import '../../styles-common/calendar.vars.styl'
-
-  .calendar-month
-
-    .calendar-time-width
-      width $dayTimeLabelWidth
-    .calendar-time-margin
-      margin-left $dayTimeLabelWidth
-
-    .calendar-header
-      .calendar-header-label
-        font-size 1.25em
-        font-weight bold
-    .calendar-content
-      padding 4px 12px
-      .calendar-cell
-        width $cellWidth
-        max-width $cellWidth
-        padding 0
-      .calendar-day-labels
-        .calendar-day-label
-          font-size 1.1em
-        .calendar-day-label-current
-          font-weight bold
-      .calendar-multi-day
-        border-bottom 1px solid $borderColor
-        :last-child
-          border-bottom none
-      .calendar-day
-        background-color none
-        height $cellHeight
-        max-height $cellHeight
-        overflow hidden
-        width $sevenCellWidth
-        .calendar-day-number
-          font-size 0.9em
-          height 2em
-          width 2em
-          vertical-align middle
-          padding-top .25em
-          padding-left .25em
-          .inner-span
-            font-size 1.1em
-        .calendar-day-number-current
-          .inner-span
-            font-size 1.25em
-      .calendar-day-current
-        background-color $currentDayBackgroundColor
-      .calendar-day-weekend
-        background-color $weekendDayBackgroundColor
 
 </style>

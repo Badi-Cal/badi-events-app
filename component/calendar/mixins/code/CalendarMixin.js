@@ -300,8 +300,7 @@ export default {
       }
 
       return (
-        now.weekday === dateObject.weekday &&
-          now.month === dateObject.month
+        now.month === dateObject.month
       )
     },
     /**
