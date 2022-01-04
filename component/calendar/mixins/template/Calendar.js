@@ -1,6 +1,3 @@
-import dashHas from 'lodash.has'
-import { DateTime } from 'luxon'
-
 const debug = require('debug')('calendar:Calendar')
 
 export default {
@@ -32,13 +29,7 @@ export default {
         byId: {}
       },
       currentTab: 'tab-month',
-      thisRefName: this.createRandomString(),
-      workingDate: this.startDate
-    }
-  },
-  computed: {
-    workingDateTime () {
-      return this.makeDT(this.workingDate)
+      thisRefName: this.createRandomString()
     }
   },
   methods: {
@@ -91,21 +82,15 @@ export default {
     moveTimePeriod: function (params) {
       debug('moveTimePeriod triggered with %s', params)
 
-      let dateObject = this.workingDate
+      let dateObject
+      let paramObj = {}
 
-      // first convert to Luxon DateTime
-      if (dateObject instanceof Date) {
-        dateObject = DateTime.fromJSDate(dateObject)
-      }
-
-      if (dashHas(this, 'workingDate')) {
-        let paramObj = {}
-        paramObj[params.unitType] = params.amount
+      if (this.isCalendarDate(this.workingDate)) {
         debug('this.workingDate = %s', this.workingDate)
+        dateObject = this.workingDate
+
+        paramObj[params.unitType] = params.amount
         this.workingDate = dateObject.plus(paramObj)
-      }
-      else {
-        debug('this.workingDate not on %s object', this)
       }
     }
   },

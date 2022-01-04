@@ -5,6 +5,7 @@
       :working-date="startDate"
       :event-ref="eventRef"
       time-period-unit="month"
+      :time-period-amount=1
     ></slot>
 
     <div class="calendar-content" data-cy="calendar-content">

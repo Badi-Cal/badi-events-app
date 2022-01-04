@@ -4,7 +4,8 @@
       name="headernav"
       :working-date="startDate"
       :event-ref="eventRef"
-      time-period-unit="month"
+      time-period-unit="day"
+      :time-period-amount=19
     ></slot>
 
     <div class="calendar-content" data-cy="calendar-content">

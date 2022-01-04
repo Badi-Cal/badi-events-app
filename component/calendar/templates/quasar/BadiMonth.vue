@@ -18,7 +18,7 @@
         <calendar-header-nav
           data-cy="calendar-header"
           :time-period-unit="navVal.timePeriodUnit"
-          :time-period-amount="1"
+          :time-period-amount="navVal.timePeriodAmount"
           :move-time-period-emit="navVal.eventRef + ':navMovePeriod'"
         >
           <span v-html="formatDateBadi(navVal.workingDate, 'MM+ yy')"></span>
