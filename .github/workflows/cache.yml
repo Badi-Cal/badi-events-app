@@ -1,0 +1,29 @@
+name: Cache node modules
+
+on:
+  workflow_call:
+    inputs:
+      cache-name:
+        description: 'Name used to identify cache key'
+        required: true
+        type: string
+    outputs:
+      cache-hit:
+        description: 'Boolean indicating if cache hit occured'
+        value: ${{ jobs.cache-modules.outputs.cache-hit }}
+
+jobs:
+  cache-modules:
+    runs-on: ubuntu-latest
+
+    outputs:
+      cache-hit: steps.cache-modules.outputs.cache-hit
+
+    steps:
+      - name: Cache node modules
+        uses: actions/cache@v2
+        id: cache-modules
+        with:
+          path: '~/.npm'
+          key: ${{ runner.os }}-${{ inputs.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-${{ inputs.cache-name }}-

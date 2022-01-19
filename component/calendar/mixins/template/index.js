@@ -15,6 +15,7 @@ import CalendarMonthTemplateMixin from './CalendarMonth'
 import BadiMonthTemplate from './BadiMonth'
 import BadiMonthInnerTemplateMixin from './BadiMonthInner'
 import BadiTemplateMixin from './Badi'
+import GregorianTemplateMixin from './Gregorian'
 
 export {
   CalendarTemplateMixin,
@@ -33,5 +34,6 @@ export {
   CalendarMonthTemplateMixin,
   BadiMonthTemplate,
   BadiMonthInnerTemplateMixin,
-  BadiTemplateMixin
+  BadiTemplateMixin,
+  GregorianTemplateMixin
 }

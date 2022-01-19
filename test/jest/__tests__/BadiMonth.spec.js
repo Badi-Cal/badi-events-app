@@ -7,7 +7,7 @@ import { DateTime } from 'luxon'
 import BadiDate from '../../../utils/badidate'
 import { tokensBadi } from '../../../utils/formatter'
 
-describe('CalendarMonth', () => {
+describe('BadiMonth', () => {
   // set up Quasar and Vue
   Quasar()
   const LocalVue = Vue.extend()

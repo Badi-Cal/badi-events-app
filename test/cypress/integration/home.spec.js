@@ -33,11 +33,11 @@ describe('Calendar index page', () => {
     })
   })
 
-  it('should expect .calendar-day-number-current to contain today', () => {
+  it('should expect .calendar-day-number-today to contain today', () => {
     cy.dataCy('calendar-content').within(($content) => {
       datetime = DateTime.local()
       today = datetime.get('day').toString()
-      cy.get('.calendar-day-number-current')
+      cy.get('.calendar-day-number-today')
         .should(($div) => {
           const text = $div.text().trim()
           expect(text).to.equal(today)

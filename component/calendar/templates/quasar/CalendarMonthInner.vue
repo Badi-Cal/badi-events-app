@@ -5,6 +5,7 @@
       :working-date="startDate"
       :event-ref="eventRef"
       time-period-unit="month"
+      :time-period-amount=1
     ></slot>
 
     <div class="calendar-content" data-cy="calendar-content">
@@ -31,7 +32,7 @@
             'calendar-day': true,
             'calendar-cell': true,
             'calendar-day-weekend': isWeekendDay(thisDay.dateObject),
-            'calendar-day-current': isCurrentDate(thisDay.dateObject)
+            'calendar-day-today': isCurrentDate(thisDay.dateObject)
           }"
           v-for="(thisDay, weekDayIndex) in thisWeek"
           :key="makeDT(thisDay.dateObject).toISODate()"
@@ -41,7 +42,7 @@
             v-if="isCurrentDate(thisDay.dateObject)"
             :class="{
               'calendar-day-number': true,
-              'calendar-day-number-current': true,
+              'calendar-day-number-today': true,
               'is-clickable': calendarDaysAreClickable
             }"
           >
@@ -53,6 +54,7 @@
             v-else
             :class="{
               'calendar-day-number': true,
+              'calendar-day-number-current': isCurrentMonth(thisDay.dateObject),
               'cursor-pointer': calendarDaysAreClickable
             }"
           >
@@ -170,6 +172,7 @@
         overflow hidden
         width $sevenCellWidth
         .calendar-day-number
+          color $grey-7
           font-size 0.9em
           height 2em
           width 2em
@@ -178,11 +181,13 @@
           padding-left .25em
           .inner-span
             font-size 1.1em
+        .calendar-day-number-today
+          color $grey-1
+          border-radius 50%
+          background $primary
+          text-align center
         .calendar-day-number-current
-          .inner-span
-            font-size 1.25em
-      .calendar-day-current
-        background-color $currentDayBackgroundColor
+          color $dark
       .calendar-day-weekend
         background-color $weekendDayBackgroundColor
 

@@ -7,9 +7,14 @@ on:
     branches-ignore: [ master ]
 
 jobs:
-  build-test:
+  cache-modules:
+    uses: Badi-Cal/badi-events-app/.github/workflows/cache.yml@c8b3734fc3a7c63f988617ff65893243bbcc18c9
+    with:
+      cache-name: 'cache-node-modules'
 
+  build-test:
     runs-on: ubuntu-latest
+
     container:
       image: cypress/included:3.8.3
 
@@ -17,11 +22,18 @@ jobs:
       matrix:
         node-version: [14]
 
+    needs: cache-modules
+
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
+
+    - uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install
+
+    - name: Install dependencies
+      if: needs.cache-modules.outputs.cache-hit != 'true'
+      run: npm install
+
     - name: Run e2e tests
       run: npm run test:e2e:ci
