@@ -54,4 +54,4 @@ jobs:
       run: source ./scripts/setup.sh
 
     - name: Run deploy playbook
-      run: ansible-playbook playbooks/deploy.yml --extra-vars ansible_ssh_user=${DEPLOY_USER}
+      run: ansible-playbook ./config/playbooks/deploy.yml --extra-vars ansible_ssh_user=${DEPLOY_USER}
