@@ -1,6 +1,6 @@
 # Daykeep Calendar
 
-An event display calendar for the Quasar framework. 
+An event display calendar for the Quasar framework.
 
 ![screenshot](https://stormseed.github.io/daykeep-calendar-quasar/statics/quasar_calendar_snap.png)
 
@@ -16,6 +16,29 @@ Do not use uneven versions of Node i.e. 13, 15, etc. These versions are not test
 ### Using NVM
 
 If you use [NVM](https://github.com/nvm-sh/nvm), the `/.nvmrc` file will set your Node version with `nvm use`.
+
+### Using a Docker context
+
+There is a [Dockerfile](https://docs.docker.com/get-docker/) that can be used to simulate a production-like environment.
+A helper script is provided to make the process more stream-lined.
+
+```shell
+./docker.sh build # builds the docker image
+./docker.sh start # creates a docker container to run in background
+npm run build
+```
+
+The Docker image merely houses the serving of built files, but does not automatically build the application.
+If you want the Docker environment to build the app as well:
+
+```shell
+./docker.sh enter
+> npm run build
+# or
+> npm start
+```
+
+You can run `./docker.sh help` to see more options.
 
 ## Setup
 
@@ -272,4 +295,3 @@ This is the structure of a Quasar project with all modes installed.
  [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 * **[GPL-3.0 license](https://www.gnu.org/licenses/gpl-3.0)**
-
