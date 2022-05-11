@@ -44,7 +44,7 @@
         <calendar-month
           :ref="'month-' + thisRefName"
           :start-date="workingDate"
-          :parsed-events="parsed"
+          :parsed-events="parsedEvents"
           :event-ref="eventRef"
           :full-component-ref="eventRef"
           :calendar-locale="calendarLocale"
@@ -58,7 +58,7 @@
         <calendar-multi-day
           :ref="'week-' + thisRefName"
           :start-date="workingDate"
-          :parsed-events="parsed"
+          :parsed-events="parsedEvents"
           :num-days="7"
           :nav-days="7"
           :force-start-of-week="true"
@@ -76,7 +76,7 @@
         <calendar-multi-day
           :ref="'days-' + thisRefName"
           :start-date="workingDate"
-          :parsed-events="parsed"
+          :parsed-events="parsedEvents"
           :num-days="3"
           :nav-days="1"
           :force-start-of-week="false"
@@ -94,7 +94,7 @@
         <calendar-multi-day
           :ref="'day-' + thisRefName"
           :start-date="workingDate"
-          :parsed-events="parsed"
+          :parsed-events="parsedEvents"
           :num-days="1"
           :nav-days="1"
           :force-start-of-week="false"
@@ -112,7 +112,7 @@
         <calendar-agenda
           :ref="'agenda-' + thisRefName"
           :start-date="workingDate"
-          :parsed-events="parsed"
+          :parsed-events="parsedEvents"
           :num-days="28"
           :event-ref="eventRef"
           scroll-height="300px"
