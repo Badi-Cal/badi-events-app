@@ -62,7 +62,7 @@
               {{ thisDay.dateObject.day }}
             </span>
           </div>
-          <div class="calendar-day-content">
+          <div class="calendar-day-content" data-cy='calendar-day-content'>
             <template v-if="hasAnyEvents(thisDay.dateObject)">
               <div
                 v-for="thisEvent in monthGetDateEvents(thisDay.dateObject)"
