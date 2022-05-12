@@ -13,7 +13,7 @@
           <q-card>
             <q-card-section>
               <daykeep-calendar
-                :event-array="eventArray"
+                :parsed-events="parsed"
                 calendar-locale="en-US"
                 calendar-timezone="America/New_York"
                 NOevent-ref="MYCALENDAR"
@@ -30,7 +30,7 @@
           <q-card>
             <q-card-section>
               <badi-calendar
-                :event-array="eventArray"
+                :parsed-events="parsed"
                 calendar-locale="en-US"
                 calendar-timezone="America/New_York"
                 NOevent-ref="MYCALENDAR"
@@ -64,6 +64,8 @@
   import {
     api
   } from 'boot/axios'
+  import { EventMixin } from '../mixins'
+  import { CalendarMixin } from 'mixins'
   export default {
     name: 'PageIndex',
     components: {
@@ -75,9 +77,15 @@
       DaykeepCalendar,
       BadiCalendar
     },
+    mixins: [ EventMixin, CalendarMixin ],
     data () {
       return {
         eventArray: [],
+        parsed: {
+          byAllDayStartDate: {},
+          byStartDate: {},
+          byId: {}
+        },
         showCards: ['fullCalendar']
       }
     },
@@ -93,20 +101,26 @@
         api.get('/eventitems.json')
           .then((response) => {
             this.eventArray = response.data
+            return this.eventArray
           })
-          .catch(() => {
+          .then((events) => {
+            this.parseEventList()
+          })
+          .catch((error) => {
             this.$q.notify({
               color: 'negative',
               position: 'top',
               message: 'Loading failed',
               icon: 'report_problem'
             })
+            console.error(error)
           })
       }
     },
     created () {
       this.loadData()
-    }
+    },
+    mounted () {}
   }
 </script>
 
