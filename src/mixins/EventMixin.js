@@ -24,133 +24,179 @@ export default {
       }
       return true
     },
+
     moveToDisplayZone: function (dateObject) {
       return this.makeDT(dateObject, this.calendarTimezone)
     },
+
+    /**
+     * Adjust the dates of an event according to ${SET_OF_RULES}
+     * TODO: Please define SET_OF_RULES (gregw, 2022.09.27)
+     * @param event event whose dates will be adjusted
+     */
+    adjustEventDates: function(event) {
+
+      // TODO: Document what is the signifcance of the event.start dashHas'ing a 'date' (gregw, 2022.09.27)
+      if (dashHas(event.start, 'date')) { //
+
+        // TODO:  Looks like we are moving the ISO version of the start of the start date to the display zone.
+        //        I have no idea what that means. Please expound (gregw, 2022.09.27)
+        event.start['dateObject'] = this.moveToDisplayZone(
+          DateTime.fromISO(event.start.date).startOf('day')
+        )
+        // TODO:  Looks like we are moving the ISO version of the end of the end date to the display zone.
+        //        I have no idea what that means. Please expound (gregw, 2022.09.27)
+        event.end['dateObject'] = this.moveToDisplayZone(
+          DateTime.fromISO(event.end.date).endOf('day')
+        )
+        // TODO:  Presumably by this point we have created a range from the the first second of the start date
+        //        until the last of the end date. Is this correct? Please confirm. (gregw, 2022.09.27)
+
+        // Set the start object's all day flag to
+        event.start['isAllDay'] = true
+        event['durationDays'] = Math.ceil(
+          event.end.dateObject
+            .diff(event.start.dateObject)
+            .as('days')
+        )
+      }
+      else {
+        /* NB:  Assumption is objects are passed by reference not by value.
+         *      (gregw, 2202.09.27)
+         */
+
+        // start date
+        this.cleanseEventStartOrEnd(event.start)
+
+        // end date
+        this.cleanseEventStartOrEnd(event.end)
+      }
+    },
+
+    /**
+     * Adjust a date with a pre-existing time zone according to ${SET_OF_RULES}
+     * TODO: Please define SET_OF_RULES
+     * @param date date to be adjusted
+     */
+    adjustDateTimeZone: function(date) {
+      if (dashHas(date, 'timeZone')) {
+        // convert to local timezone
+        date.dateObject = date.dateObject
+          .setZone(date.timeZone, { keepLocalTime: true })
+          .toLocal()
+        delete date.timeZone
+        date.dateTime = date.dateObject.toISO() // fix time zone
+      }
+    },
+
+     /**
+     * Adjust the start or end objects for an event that does not have a "date" field.
+     * TODO:  Consider abstract the startOrEnd object into its own class (eventLimit, say?)
+     *        Then a lot of the adjust methods I've abstracted could be encapsulated in this
+     *        new class, which would handle all this conversion logic internally, providing
+     *        a simple interface here. (gregw, 2022.09.27)
+     * @param startOrEnd  object to be adjusted.
+     */
+    cleanseEventStartOrEnd: function(startOrEnd) {
+      startOrEnd['dateObject'] = DateTime.fromISO(startOrEnd.dateTime)
+      this.adjustDateTimeZone(startOrEnd)
+      startOrEnd.dateObject = this.moveToDisplayZone(startOrEnd.dateObject)
+    },
+
+    adjustEventDuration: function(event) {
+      // put in duration for multiday events with an associated time
+      // Consider an if/else ladder
+      if (event.start['isAllDay']) {
+
+      }
+      else if (event.start.dateObject.toISODate() !== event.end.dateObject.toISODate()) {
+        event['durationDays'] = Math.ceil(
+          event.end.dateObject
+            .diff(event.start.dateObject)
+            .as('days')
+        )
+
+        // TODO:  Consider breaking the following into a method on the event object
+        //        (gregw, 2022.09.27)
+        if (event['durationDays'] > 2) {
+          event['timeSpansMultipleDays'] = true
+        }
+        else {
+          event['timeSpansOvernight'] = true
+        }
+      }
+    },
+
+    addMultiDayEvents: function(event) {
+      for (let dayAdd = 0; dayAdd < event.durationDays; dayAdd++) {
+        let innerStartDate = event.start.dateObject
+          .plus({ days: dayAdd })
+          .toISODate()
+        this.addToParsedList('byAllDayStartDate', innerStartDate, event.id)
+        // newer all-day events routine
+        this.addToParsedList(
+          'byAllDayObject',
+          innerStartDate,
+          {
+            id: event.id,
+            hasPrev: (dayAdd > 0),
+            hasNext: (dayAdd < (event.durationDays - 1)),
+            hasPreviousDay: (dayAdd > 0),
+            hasNextDay: (dayAdd < (event.durationDays - 1)),
+            durationDays: event.durationDays,
+            startDate: event.start.dateObject,
+            daysFromStart: dayAdd
+          }
+        )
+      }
+    },
+
+    addSingleDayEvent: function(thisEvent) {
+      thisEvent.durationMinutes = this.parseGetDurationMinutes(thisEvent)
+      this.addToParsedList('byStartDate', thisStartDate, thisEvent.id)
+
+      if (thisEvent.start.dateObject.toISODate() !== thisEvent.end.dateObject.toISODate()) {
+        // this is a date where the time is set and spans across more than one day
+
+        if (this.getEventDuration(thisEvent) > 1) {
+          // this event spans multiple days
+          this.addToParsedList('byMultiDay', thisStartDate, thisEvent.id)
+          this.addToParsedList('byAllDayObject', thisStartDate, thisEvent.id)
+          this.addToParsedList('byAllDayStartDate', thisStartDate, thisEvent.id)
+          let multiDate = thisEvent.start.dateObject
+          while (multiDate.toISODate() !== thisEvent.end.dateObject.toISODate()) {
+            multiDate = multiDate.plus({ days: 1 })
+            this.addToParsedList('byContinuedMultiDay', multiDate.toISODate(), thisEvent.id)
+            this.addToParsedList('byAllDayObject', thisStartDate, thisEvent.id)
+          }
+        }
+        else {
+          // this event crosses into the next day
+          this.addToParsedList('byNextDay', thisStartDate, thisEvent.id)
+          this.addToParsedList('byContinuedNextDay', thisEvent.end.dateObject.toISODate(), thisEvent.id)
+          this.addToParsedList('byStartDate', thisEvent.end.dateObject.toISODate(), thisEvent.id)
+        }
+      }
+    },
+
     parseEventList: function () {
       this.clearParsed()
       for (let thisEvent of this.eventArray) {
         this.parsed.byId[thisEvent.id] = thisEvent
-        if (dashHas(thisEvent.start, 'date')) {
-          thisEvent.start['dateObject'] = this.moveToDisplayZone(
-            DateTime.fromISO(thisEvent.start.date).startOf('day')
-          )
-          thisEvent.end['dateObject'] = this.moveToDisplayZone(
-            DateTime.fromISO(thisEvent.end.date).endOf('day')
-          )
-          thisEvent.start['isAllDay'] = true
-          thisEvent['durationDays'] = Math.ceil(
-            thisEvent.end.dateObject
-              .diff(thisEvent.start.dateObject)
-              .as('days')
-          )
-        }
-        else {
-          // start date
-          thisEvent.start['dateObject'] = DateTime.fromISO(thisEvent.start.dateTime)
-          if (dashHas(thisEvent.start, 'timeZone')) {
-            // convert to local timezone
-            thisEvent.start.dateObject = thisEvent.start.dateObject
-              .setZone(thisEvent.start.timeZone, { keepLocalTime: true })
-              .toLocal()
-            delete thisEvent.start.timeZone
-            thisEvent.start.dateTime = thisEvent.start.dateObject.toISO() // fix time zone
-          }
-          thisEvent.start.dateObject = this.moveToDisplayZone(
-            thisEvent.start.dateObject
-          )
-          // end date
-          thisEvent.end['dateObject'] = DateTime.fromISO(thisEvent.end.dateTime)
-          if (dashHas(thisEvent.end, 'timeZone')) {
-            // convert to local timezone
-            thisEvent.end.dateObject = thisEvent.end.dateObject
-              .setZone(thisEvent.end.timeZone, { keepLocalTime: true })
-              .toLocal()
-            delete thisEvent.end.timeZone
-            thisEvent.end.dateTime = thisEvent.end.dateObject.toISO() // fix time zone
-          }
-          thisEvent.end.dateObject = this.moveToDisplayZone(
-            thisEvent.end.dateObject
-          )
-        }
-
-        // put in duration for multiday events with an associated time
-        if (
-          !thisEvent.start['isAllDay'] &&
-          thisEvent.start.dateObject.toISODate() !== thisEvent.end.dateObject.toISODate()
-        ) {
-          thisEvent['durationDays'] = Math.ceil(
-            thisEvent.end.dateObject
-              .diff(thisEvent.start.dateObject)
-              .as('days')
-          )
-          if (thisEvent['durationDays'] > 2) {
-            thisEvent['timeSpansMultipleDays'] = true
-          }
-          else {
-            thisEvent['timeSpansOvernight'] = true
-          }
-        }
+        this.adjustEventDates(thisEvent)
+        this.adjustEventDuration(thisEvent)
 
         let thisStartDate = thisEvent.start.dateObject.toISODate()
         // get all-day events
-        if (
-          thisEvent.start.isAllDay ||
-          Math.floor(thisEvent.end.dateObject.diff(thisEvent.start.dateObject).as('days')) > 1
-        ) {
-          for (let dayAdd = 0; dayAdd < thisEvent.durationDays; dayAdd++) {
-            let innerStartDate = thisEvent.start.dateObject
-              .plus({ days: dayAdd })
-              .toISODate()
-            this.addToParsedList('byAllDayStartDate', innerStartDate, thisEvent.id)
-            // newer all-day events routine
-            this.addToParsedList(
-              'byAllDayObject',
-              innerStartDate,
-              {
-                id: thisEvent.id,
-                hasPrev: (dayAdd > 0),
-                hasNext: (dayAdd < (thisEvent.durationDays - 1)),
-                hasPreviousDay: (dayAdd > 0),
-                hasNextDay: (dayAdd < (thisEvent.durationDays - 1)),
-                durationDays: thisEvent.durationDays,
-                startDate: thisEvent.start.dateObject,
-                daysFromStart: dayAdd
-              }
-            )
-          }
+        if (thisEvent.start.isAllDay || this.getEventDuration(thisEvent) > 1) {
+          this.addMultiDayEvents(thisEvent)
         }
-
-        // get events with a start and end time
         else {
-          thisEvent.durationMinutes = this.parseGetDurationMinutes(thisEvent)
-          this.addToParsedList('byStartDate', thisStartDate, thisEvent.id)
-
-          if (thisEvent.start.dateObject.toISODate() !== thisEvent.end.dateObject.toISODate()) {
-            // this is a date where the time is set and spans across more than one day
-            const diffDays = Math.floor(thisEvent.end.dateObject.diff(thisEvent.start.dateObject).as('days'))
-
-            if (diffDays > 1) {
-              // this event spans multiple days
-              this.addToParsedList('byMultiDay', thisStartDate, thisEvent.id)
-              this.addToParsedList('byAllDayObject', thisStartDate, thisEvent.id)
-              this.addToParsedList('byAllDayStartDate', thisStartDate, thisEvent.id)
-              let multiDate = thisEvent.start.dateObject
-              while (multiDate.toISODate() !== thisEvent.end.dateObject.toISODate()) {
-                multiDate = multiDate.plus({ days: 1 })
-                this.addToParsedList('byContinuedMultiDay', multiDate.toISODate(), thisEvent.id)
-                this.addToParsedList('byAllDayObject', thisStartDate, thisEvent.id)
-              }
-            }
-            else {
-              // this event crosses into the next day
-              this.addToParsedList('byNextDay', thisStartDate, thisEvent.id)
-              this.addToParsedList('byContinuedNextDay', thisEvent.end.dateObject.toISODate(), thisEvent.id)
-              this.addToParsedList('byStartDate', thisEvent.end.dateObject.toISODate(), thisEvent.id)
-            }
-          }
+          // get events with a start and end time
+          this.addSingleDayEvent(thisEvent)
         }
       }
+
       // sort all day events
       for (let thisDate in this.parsed.byAllDayObject) {
         this.parsed.byAllDayObject[thisDate].sort(this.sortPairOfAllDayObjects)
