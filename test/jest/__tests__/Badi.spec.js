@@ -6,34 +6,30 @@ import Quasar from '../utils'
 import { DateTime } from 'luxon'
 import BadiDate from '../../../utils/badidate'
 
+// default module is on named default property of export object
+// import CalendarEventMixin from 'mixins/code/CalendarEventMixin'
+import CalendarTemplateMixin, { spyEventsHandling } from 'mixins/template/Calendar'
+jest.mock('mixins/template/Calendar')
+
 describe('BadiCalendar', () => {
   // set up Quasar and Vue
   Quasar()
   const LocalVue = Vue.extend()
 
   describe('component mounted', () => {
-    let spyEventsHandling,
-      wrapper
-
-    const buildWrapper = (options = {}) => {
-      const vm0 = new LocalVue({
-        extends: BadiCalendar
-      })
-      spyEventsHandling = jest.spyOn(vm0, 'setupEventsHandling')
-      vm0.$mount()
-      wrapper = createWrapper(vm0, {
-        options
-      })
-    }
+    let wrapper
 
     beforeEach(() => {
-      buildWrapper()
+      wrapper = shallowMount(BadiCalendar, {
+        LocalVue,
+        mixins: [CalendarTemplateMixin.default]
+      })
+      jest.clearAllMocks()
     })
 
     afterEach(() => {
     // IMPORTANT: Clean up the component instance
       wrapper.destroy()
-      spyEventsHandling.mockRestore()
     })
 
     it('should set up event handling', () => {
@@ -46,7 +42,7 @@ describe('BadiCalendar', () => {
   describe('component data object', () => {
     let wrapper
     beforeEach(() => {
-      wrapper = mount(BadiCalendar, {
+      wrapper = shallowMount(BadiCalendar, {
         LocalVue,
         propsData: {
           startDate: new Date()
