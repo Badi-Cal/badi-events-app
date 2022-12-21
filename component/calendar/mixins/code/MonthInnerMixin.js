@@ -7,7 +7,6 @@ export default {
     return {
       dayCellHeight: 5,
       dayCellHeightUnit: 'rem',
-      parsed: this.getDefaultParsed(),
       eventDetailEventObject: {},
       eventClicked: false
     }
