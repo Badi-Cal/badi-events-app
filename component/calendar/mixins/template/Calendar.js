@@ -28,6 +28,9 @@ export default {
     }
   },
   methods: {
+    createRandomString: function () {
+      return Math.random().toString(36).substring(2, 15)
+    },
     setupEventsHandling: function () {
       this.$root.$on(
         this.eventRef + ':navMovePeriod',
