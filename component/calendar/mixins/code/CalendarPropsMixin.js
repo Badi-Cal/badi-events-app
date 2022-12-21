@@ -7,7 +7,14 @@ export default {
   props: {
     parsedEvents: {
       type: Object,
-      default: () => {}
+      default: () => {
+        return {
+          byAllDayStartDate: {},
+          byAllDayObject: {},
+          byStartDate: {},
+          byId: {}
+        }
+      }
     },
     eventRef: {
       type: String,
