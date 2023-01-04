@@ -65,7 +65,7 @@
     api
   } from 'boot/axios'
   import { EventMixin } from '../mixins'
-  import { CalendarMixin } from 'mixins'
+  import { CalendarMixin, CalendarEventMixin } from 'mixins'
   export default {
     name: 'PageIndex',
     components: {
@@ -77,7 +77,7 @@
       DaykeepCalendar,
       BadiCalendar
     },
-    mixins: [ EventMixin, CalendarMixin ],
+    mixins: [ EventMixin, CalendarMixin, CalendarEventMixin ],
     data () {
       return {
         eventArray: [],
@@ -111,7 +111,8 @@
               color: 'negative',
               position: 'top',
               message: 'Loading failed',
-              icon: 'report_problem'
+              icon: 'report_problem',
+              timeout: 10000
             })
             console.error(error)
           })
