@@ -168,9 +168,18 @@ export default {
       }
       return returnString
     },
-    getEventDuration: function (startTime, endTime) {
+    /**
+     * Computes length of duration.
+     *
+     * @param {Date} startTime
+     * @param {Date} endTime
+     * @param {string} units
+     *
+     * @returns {string} Duration in minutes or given unit argument.
+     */
+    getEventDuration: function (startTime, endTime, units = 'minutes') {
       return Math.floor(
-        this.makeDT(endTime).diff(this.makeDT(startTime)).as('minutes')
+        this.makeDT(endTime).diff(this.makeDT(startTime)).as(units)
       )
     }
   },
