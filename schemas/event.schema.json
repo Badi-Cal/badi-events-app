@@ -1,0 +1,435 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Badi-Cal/badi-events-app/schemas/event.schema.json",
+  "title": "Event",
+  "description": "A Google Calendar Event",
+  "type": "object",
+  "properties": {
+    "kind": {
+      "type": "string",
+      "description": "Constant: calendar#event",
+      "pattern": "^calendar#event$"
+    },
+    "etag": {
+      "type": "string",
+      "description": "etag"
+    },
+    "id": {
+      "description": "Unique ID",
+      "type": "string",
+      "pattern": "^[a-v0-9]{5-1024}_(19|20)[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])T(0[0-9]|1[0-9]|2[0-3])[0-5][0-9][0-5][0-9]Z$"
+    },
+    "status": {
+      "type": "string"
+    },
+    "htmlLink": {
+      "type": "string"
+    },
+    "created": {
+      "type": "string",
+      "description": "Constant: calendar#event"
+    },
+    "updated": {
+      "type": "string",
+      "description": "Constant: calendar#event"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "colorId": {
+      "type": "string"
+    },
+    "creator": {
+      "type": "object",
+      "description": "Describes the user who created the event",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique ID"
+        },
+        "email": {
+          "type": "string",
+          "description": "User Email"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User Display Name"
+        },
+        "self": {
+          "type": "boolean",
+          "description": "If the viewer is the creator"
+        }
+      }
+    },
+    "organizer": {
+      "type": "object",
+      "description": "Describes the user who owns the event",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique ID"
+        },
+        "email": {
+          "type": "string",
+          "description": "User Email"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User Display Name"
+        },
+        "self": {
+          "type": "boolean",
+          "description": "If the viewer is the organizer"
+        }
+      }
+    },
+    "start": {
+      "type": "object",
+      "description": "Description of start time of event",
+      "properties": {
+        "date": {
+          "type": "string",
+          "description": "Calendar date of start time"
+        },
+        "dateTime": {
+          "type": "string",
+          "description": "Calendar dateTime of start time"
+        },
+        "timeZone": {
+          "type": "string",
+          "description": "Time Zone of start time"
+        }
+      }
+    },
+    "end": {
+      "type": "object",
+      "description": "Description of end time of event",
+      "properties": {
+        "date": {
+          "type": "string",
+          "description": "Calendar date of end time"
+        },
+        "dateTime": {
+          "type": "string",
+          "description": "Calendar dateTime of end time"
+        },
+        "timeZone": {
+          "type": "string",
+          "description": "Time Zone of end time"
+        }
+      }
+    },
+    "endTimeUnspecified": {
+      "type": "boolean",
+      "description": "Whether or not the event has a specified end time"
+    },
+    "recurrence": {
+      "type": "array",
+      "description": "The type of recurrence pattern",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recurringEventId": {
+      "type": "string",
+      "description": "Unique ID of the parent Event for the recurring event",
+      "pattern": "^[a-v0-9]{5-1024}_(19|20)[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])T(0[0-9]|1[0-9]|2[0-3])[0-5][0-9][0-5][0-9]Z$"
+    },
+    "originalStartTime": {
+      "type": "object",
+      "description": "Description of original start time of event",
+      "properties": {
+        "date": {
+          "type": "string",
+          "description": "Calendar date of original start time"
+        },
+        "dateTime": {
+          "type": "string",
+          "description": "Calendar dateTime of original start time"
+        },
+        "timeZone": {
+          "type": "string",
+          "description": "Time Zone of original start time"
+        }
+      }
+    },
+    "transparency": {
+      "type": "string"
+    },
+    "visibility": {
+      "type": "string"
+    },
+    "iCalUID": {
+      "type": "string"
+    },
+    "sequence": {
+      "type": "integer"
+    },
+    "attendees": {
+      "type": "array",
+      "description": "User information for each attendee",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique ID"
+          },
+          "email": {
+            "type": "string",
+            "description": "User Email"
+          },
+          "displayName": {
+            "type": "string",
+            "description": "User Display Name"
+          },
+          "self": {
+            "type": "boolean",
+            "description": "If the viewer is this user"
+          },
+          "organizer": {
+            "type": "boolean",
+            "description": "If the user is the organizer of the event"
+          },
+          "resource": {
+            "type": "boolean"
+          },
+          "optional": {
+            "type": "boolean",
+            "description": "If the user is an optional attendee."
+          },
+          "responseStatus": {
+            "type": "string",
+            "description": "Whether the user has confirmed attendance"
+          },
+          "comment": {
+            "type": "string",
+            "description": "Comment on the user"
+          },
+          "additionalGuests": {
+            "type": "integer",
+            "description": "How many additional guests the user will bring"
+          }
+        }
+      }
+    },
+    "attendeesOmitted": {
+      "type": "boolean",
+      "description": "Whether the number of attendees is track????"
+    },
+    "extendedProperties": {
+      "type": "object",
+      "properties": {
+        "private": {
+          "type": "object"
+        },
+        "shared": {
+          "type": "object"
+        }
+      }
+    },
+    "hangoutLink": {
+      "type": "string",
+      "description": "URI to video conferencing"
+    },
+    "conferenceData": {
+      "type": "object",
+      "properties": {
+        "createRequest": {
+          "type": "object",
+          "properties": {
+            "type": "object",
+            "properties": {
+              "requestId": {
+                "type": "string"
+              },
+              "conferenceSolutionKey": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  }
+                }
+              },
+              "status": {
+                "type": "object",
+                "properties": {
+                  "statusCode": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "entryPoints": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "entryPointType": {
+                "type": "string"
+              },
+              "uri": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "pin": {
+                "type": "string"
+              },
+              "accessCode": {
+                "type": "string"
+              },
+              "meetingCode": {
+                "type": "string"
+              },
+              "passcode": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "conferenceSolution": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                }
+              }
+            },
+            "name": {
+              "type": "string"
+            },
+            "iconUri": {
+              "type": "string"
+            }
+          }
+        },
+        "conferenceId": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "gadget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "iconLink": {
+          "type": "string"
+        },
+        "width": {
+          "type": "string"
+        },
+        "height": {
+          "type": "string"
+        },
+        "display": {
+          "type": "string"
+        },
+        "preferences": {
+          "type": "object"
+        }
+      }
+    },
+    "anyoneCanAddSelf": {
+      "type": "boolean"
+    },
+    "guestsCanInviteOthers": {
+      "type": "boolean"
+    },
+    "guestsCanModify": {
+      "type": "boolean"
+    },
+    "guestsCanSeeOtherGuests": {
+      "type": "boolean"
+    },
+    "privateCopy": {
+      "type": "boolean"
+    },
+    "locked": {
+      "type": "locked"
+    },
+    "reminders": {
+      "type": "object",
+      "properties": {
+        "useDefault": {
+          "type": "boolean"
+        },
+        "overrides": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "method": {
+                "type": "string"
+              },
+              "minutes": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "attachments": {
+      "type": "object",
+      "properties": {
+        "fileUrl": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "mimeType": {
+          "type": "string"
+        },
+        "iconLink": {
+          "type": "string"
+        },
+        "fileId": {
+          "type": "string"
+        }
+      }
+    },
+    "eventType": {
+      "type": "string"
+    }
+  }
+}
+
