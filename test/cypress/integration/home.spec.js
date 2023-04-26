@@ -45,15 +45,14 @@ describe('Calendar index page', () => {
     })
   })
 
-  it('should expect Sunday to have class .calendar-day-weekend', () => {
+  it('should expect day of Sunday to have correct day number', () => {
     cy.dataCy('calendar-content').within(($content) => {
       datetime = DateTime.local()
       weekday = datetime.weekday
-      weekend = datetime.plus({ days: (7 - weekday) }).get('day').toString()
-      cy.contains(weekend)
-        .parent()
-        .parent()
-        .should('have.class', 'calendar-day-weekend')
+      // get the day of Sunday
+      weekend = datetime.minus({ days: (weekday % 7) }).get('day').toString()
+      cy.get('.calendar-day-weekend > .calendar-day-number > .inner-span')
+        .should('include.text', weekend)
     })
   })
 })
