@@ -65,7 +65,7 @@
           <div class="calendar-day-content" data-cy='calendar-day-content'>
             <template v-if="hasAnyEvents(thisDay.dateObject)">
               <div
-                v-for="thisEvent in monthGetDateEvents(thisDay.dateObject)"
+                v-for="thisEvent in dateGetEvents(thisDay.dateObject)"
                 :key="thisEvent.id"
               >
                 <template v-if="!eventIsContinuedFromPreviousDay(thisEvent.id, thisDay.dateObject)">
@@ -115,10 +115,8 @@
     BadiMonthInnerTemplateMixin
   } from 'mixins'
   import {
+    CalendarDayLabels,
     CalendarEvent
-  } from 'templates/quasar'
-  import {
-    CalendarDayLabels
   } from 'templates/common'
 
   export default {
