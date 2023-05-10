@@ -15,6 +15,11 @@ export default {
     calendarDaysAreClickable: function () {
       return (this.fullComponentRef && this.fullComponentRef.length > 0)
     },
+    /**
+     * Get calandar date for week in month.
+     *
+     * @returns {Array<Array<Object>>}
+     */
     weekArray: function () {
       return this.getCalendarCellArray(
         this.startDate.month,
@@ -23,9 +28,6 @@ export default {
     }
   },
   methods: {
-    monthGetDateEvents: function (dateObject) {
-      return this.dateGetEvents(dateObject)
-    },
     handleDayClick: function (dateObject) {
       // event item clicked; prevent "day" event
       if (this.eventClicked) {
