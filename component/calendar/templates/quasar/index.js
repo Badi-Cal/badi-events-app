@@ -4,7 +4,6 @@ import {
   CalendarAgendaEvent,
   CalendarAllDayEvents,
   CalendarDayColumn,
-  CalendarEvent,
   CalendarMultiDayContent,
   CalendarTimeLabelColumn
 } from '@daykeep/calendar-core'
@@ -27,7 +26,6 @@ export {
   CalendarAgendaEvent,
   CalendarAllDayEvents,
   CalendarDayColumn,
-  CalendarEvent,
   CalendarMonthInner,
   CalendarMultiDayContent,
   CalendarTimeLabelColumn,
