@@ -4,9 +4,9 @@
 describe('Calendar routes', () => {
   const routesToSelector = {
     // calendar selector for gregorian cal
-    '/#/calendar/gregorian': '.calendar',
+    '/calendar/gregorian': '.calendar',
     // calendar selector for badi cal
-    '/#/calendar/badi': '.calendar-badi'
+    '/calendar/badi': '.calendar-badi'
   }
   const urls = Object.keys(routesToSelector)
 
