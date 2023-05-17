@@ -10,7 +10,7 @@ describe('Parsed event data', () => {
     '/calendar/badi'
   ]
 
-  before(() => {
+  beforeEach(() => {
     cy.fixture('events')
       .then((events) => {
         const moveDates = { eventArray: events, ...MoveDates.methods }
@@ -35,11 +35,8 @@ describe('Parsed event data', () => {
   })
 
   routes.forEach((url) => {
-    beforeEach(() => {
-      cy.visit(url)
-    })
-
     it(`${url} should render event summary for today`, () => {
+      cy.visit(url)
       cy.get('.calendar-day-today')
         .find('[data-cy=calendar-day-content]').within(($content) => {
           $description = 'Multi-day test #36-2'
