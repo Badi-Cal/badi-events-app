@@ -5,6 +5,10 @@ const { MoveDates } = require('@daykeep/calendar-core/demo')
 
 describe('Parsed event data', () => {
   let $description
+  const routes = [
+    '/calendar/gregorian',
+    '/calendar/badi'
+  ]
 
   before(() => {
     cy.fixture('events')
@@ -30,16 +34,18 @@ describe('Parsed event data', () => {
       })
   })
 
-  beforeEach(() => {
-    cy.visit('/')
-  })
+  routes.forEach((url) => {
+    beforeEach(() => {
+      cy.visit(url)
+    })
 
-  it('should render event summary for today', () => {
-    cy.get('.calendar-day-today')
-      .find('[data-cy=calendar-day-content]').within(($content) => {
-        $description = 'Multi-day test #36-2'
-        cy.get('.calendar-event-summary')
-          .should('include.text', $description)
-      })
+    it(`${url} should render event summary for today`, () => {
+      cy.get('.calendar-day-today')
+        .find('[data-cy=calendar-day-content]').within(($content) => {
+          $description = 'Multi-day test #36-2'
+          cy.get('.calendar-event-summary')
+            .should('include.text', $description)
+        })
+    })
   })
 })
