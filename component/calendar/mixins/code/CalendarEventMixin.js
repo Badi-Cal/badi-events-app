@@ -42,13 +42,13 @@ export default {
       let hasAllDayEvents = this.hasAllDayEvents(thisDate)
       let hasEvents = this.hasEvents(thisDate)
       let returnArray = []
-      let sqlDate = this.formatToSqlDate(thisDate)
+      let isoDate = thisDate.toISODate()
       if (hasAllDayEvents) {
         let transferFields = ['daysFromStart', 'durationDays', 'hasNext', 'hasPrev', 'slot']
         // build temp object with slot IDs
         let slotObject = {}
         let maxSlot = 0
-        for (let thisEvent of this.parsedEvents.byAllDayObject[sqlDate]) {
+        for (let thisEvent of this.parsedEvents.byAllDayObject[isoDate]) {
           slotObject[thisEvent.slot] = thisEvent
           if (thisEvent.slot > maxSlot) {
             maxSlot = thisEvent.slot
@@ -84,12 +84,18 @@ export default {
       }
 
       if (hasEvents) {
-        for (let thisEvent of this.parsedEvents.byStartDate[sqlDate]) {
+        for (let thisEvent of this.parsedEvents.byStartDate[isoDate]) {
           returnArray.push(this.getEventById(thisEvent))
         }
       }
       return returnArray
     },
+    /**
+     * Check if this date has events.
+     *
+     * @param {DateTime|BadiDate} thisDateObject
+     * @returns {boolean}
+     */
     hasAnyEvents: function (thisDateObject) {
       return (
         this.hasEvents(thisDateObject) ||
@@ -97,19 +103,29 @@ export default {
       )
     },
     hasAllDayEvents: function (thisDateObject) {
+      const isoDate = thisDateObject.toISODate()
       return dashHas(
         this.parsedEvents.byAllDayObject,
-        this.formatToSqlDate(thisDateObject)
+        isoDate
       )
     },
     hasEvents: function (thisDateObject) {
+      const isoDate = thisDateObject.toISODate()
+      const startDateObject = this.parsedEvents.byStartDate
       return dashHas(
-        this.parsedEvents.byStartDate,
-        this.formatToSqlDate(thisDateObject)
+        startDateObject,
+        isoDate
       )
     },
+    /**
+     * True if date has multiday event from previous day.
+     *
+     * @param {number} id Event id
+     * @param {DateTime|BadiDate} thisDayObject
+     * @returns {boolean}
+     */
     eventIsContinuedFromPreviousDay (id, thisDayObject) {
-      const isoDate = this.makeDT(thisDayObject).toISODate()
+      const isoDate = thisDayObject.toISODate()
       return (
         dashHas(this.parsedEvents['byContinuedNextDay'], isoDate) &&
         this.parsedEvents['byContinuedNextDay'][isoDate].includes(id)
