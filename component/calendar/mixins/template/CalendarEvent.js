@@ -40,8 +40,8 @@ export default {
           'calendar-event-has-next-day': this.eventHasNextDay(),
           'calendar-event-has-previous-day': this.eventHasPreviousDay(),
           'calendar-event-empty-slot': this.isEmptySlot(),
-          'calendar-event-continues-next-week': this.eventContinuesNextWeek(), // for future use
-          'calendar-event-continues-from-last-week': this.eventContinuesFromLastWeek() // for future use
+          'calendar-event-continues-next-week': this.eventContinuesNextWeek(),
+          'calendar-event-continues-from-last-week': this.eventContinuesFromLastWeek()
         },
         this.eventObject
       )
@@ -50,48 +50,20 @@ export default {
       return this.eventObject.start.isEmptySlot
     },
     eventContinuesNextWeek: function () {
-      /** @type {DateTime} */
-      const dateObject = this.eventObject.start.dateObject
       return (
         dashHas(this.eventObject, 'start.dateObject') &&
         this.monthStyle &&
         this.eventHasNextDay() &&
-        (this.lastDayOfWeek || this.isLastDayOfMonth(dateObject))
+        this.lastDayOfWeek
       )
     },
     eventContinuesFromLastWeek: function () {
-      /** @type {DateTime} */
-      const dateObject = this.eventObject.start.dateObject
       return (
         dashHas(this.eventObject, 'start.dateObject') &&
         this.monthStyle &&
         this.eventHasPreviousDay() &&
-        (this.firstDayOfWeek || this.isFirstDayOfMonth(dateObject))
+        this.firstDayOfWeek
       )
-    },
-    /**
-     * True if current calendar day is last day of event's month
-     *
-     * @param {DateTime} dateObject
-     * @returns {boolean}
-     */
-    isLastDayOfMonth: function (dateObject) {
-      if (typeof dateObject === 'undefined' || dateObject === null) {
-        return false
-      }
-      return this.currentCalendarDay.toISODate() === dateObject.endOf('month').toISODate()
-    },
-    /**
-     * True if current calendar day is first day of the event's month
-     *
-     * @param {DateTime} dateObject
-     * @returns {boolean}
-     */
-    isFirstDayOfMonth: function (dateObject) {
-      if (typeof dateObject === 'undefined' || dateObject === null) {
-        return false
-      }
-      return this.currentCalendarDay.toISODate() === dateObject.startOf('month').toISODate()
     },
     eventHasNextDay: function () {
       if (this.hasNextDay) {
