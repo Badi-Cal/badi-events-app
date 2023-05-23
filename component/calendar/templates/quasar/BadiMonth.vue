@@ -2,7 +2,6 @@
   <div class="calendar-month">
     <badi-month-inner
       :start-date="startDate"
-      :event-array="eventArray"
       :parsed-events="parsedEvents"
       :event-ref="eventRef"
       :prevent-event-detail="preventEventDetail"

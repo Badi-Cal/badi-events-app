@@ -24,7 +24,7 @@
         <badi-month
           :ref="'month-' + thisRefName"
           :start-date="workingDate"
-          :parsed-events="parsed"
+          :parsed-events="parsedEvents"
           :event-ref="eventRef"
           :full-component-ref="eventRef"
           :calendar-locale="calendarLocale"

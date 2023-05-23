@@ -1,11 +1,13 @@
 import dashHas from 'lodash.has'
+import { DateTime } from 'luxon'
+import BadiDate from 'utils/badidate'
 
 const debug = require('debug')('calendar:CalendarEvent')
 
 export default {
   props: {
     forceAllDay: Boolean,
-    currentCalendarDay: Object,
+    currentCalendarDay: [DateTime, BadiDate],
     hasPreviousDay: Boolean,
     hasNextDay: Boolean,
     firstDayOfWeek: Boolean,
@@ -17,7 +19,9 @@ export default {
     isLeftmostColumn: {
       type: Boolean,
       default: false
-    }
+    },
+    /** @desc A parsed event. */
+    eventObject: Object
   },
   methods: {
     getEventStyle: function () {
@@ -36,8 +40,8 @@ export default {
           'calendar-event-has-next-day': this.eventHasNextDay(),
           'calendar-event-has-previous-day': this.eventHasPreviousDay(),
           'calendar-event-empty-slot': this.isEmptySlot(),
-          'calendar-event-continues-next-week': this.eventContinuesNextWeek(), // for future use
-          'calendar-event-continues-from-last-week': this.eventContinuesFromLastWeek() // for future use
+          'calendar-event-continues-next-week': this.eventContinuesNextWeek(),
+          'calendar-event-continues-from-last-week': this.eventContinuesFromLastWeek()
         },
         this.eventObject
       )
@@ -50,7 +54,7 @@ export default {
         dashHas(this.eventObject, 'start.dateObject') &&
         this.monthStyle &&
         this.eventHasNextDay() &&
-        (this.lastDayOfWeek || this.isLastDayOfMonth(this.eventObject.start.dateObject))
+        this.lastDayOfWeek
       )
     },
     eventContinuesFromLastWeek: function () {
@@ -58,20 +62,8 @@ export default {
         dashHas(this.eventObject, 'start.dateObject') &&
         this.monthStyle &&
         this.eventHasPreviousDay() &&
-        (this.firstDayOfWeek || this.isFirstDayOfMonth(this.eventObject.start.dateObject))
+        this.firstDayOfWeek
       )
-    },
-    isLastDayOfMonth: function (dateObject) {
-      if (typeof dateObject === 'undefined' || dateObject === null) {
-        return false
-      }
-      return this.makeDT(this.currentCalendarDay).toISODate() === this.makeDT(dateObject).endOf('month').toISODate()
-    },
-    isFirstDayOfMonth: function (dateObject) {
-      if (typeof dateObject === 'undefined' || dateObject === null) {
-        return false
-      }
-      return this.makeDT(this.currentCalendarDay).toISODate() === this.makeDT(dateObject).startOf('month').toISODate()
     },
     eventHasNextDay: function () {
       if (this.hasNextDay) {

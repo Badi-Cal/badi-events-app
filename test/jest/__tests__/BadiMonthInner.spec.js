@@ -6,7 +6,11 @@ import Quasar from '../utils'
 import { DateTime } from 'luxon'
 import BadiDate from '../../../utils/badidate'
 
-describe('CalendarMonthInner', () => {
+// default module is on named default property of export object
+import CalendarEventMixin from 'mixins/code/CalendarEventMixin'
+jest.mock('mixins/code/CalendarEventMixin')
+
+describe('BadiMonthInner', () => {
   // set up Quasar and Vue
   Quasar()
   const LocalVue = Vue.extend()
@@ -19,11 +23,13 @@ describe('CalendarMonthInner', () => {
         LocalVue,
         propsData: {
           startDate: new BadiDate(DateTime.local())
-        }
+        },
+        mixins: [CalendarEventMixin.default]
       })
     })
 
     afterEach(() => {
+      jest.clearAllMocks()
       wrapper.destroy()
     })
 

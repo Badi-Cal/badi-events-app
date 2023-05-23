@@ -23,16 +23,14 @@ export default {
     return {
       dayCellHeight: 5,
       dayCellHeightUnit: 'rem',
-      parsed: {
-        byAllDayStartDate: {},
-        byStartDate: {},
-        byId: {}
-      },
       currentTab: 'tab-month',
       thisRefName: this.createRandomString()
     }
   },
   methods: {
+    createRandomString: function () {
+      return Math.random().toString(36).substring(2, 15)
+    },
     setupEventsHandling: function () {
       this.$root.$on(
         this.eventRef + ':navMovePeriod',
@@ -96,18 +94,11 @@ export default {
   },
   mounted () {
     debug('Component mounted')
-    this.parseEventList()
     this.setupEventsHandling()
   },
   watch: {
     startDate: function () {
       this.handleStartChange()
-    },
-    eventArray: function () {
-      this.getPassedInEventArray()
-    },
-    parsedEvents: function () {
-      this.getPassedInParsedEvents()
     }
   }
 }

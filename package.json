@@ -45,12 +45,12 @@
   },
   "dependencies": {
     "@daykeep/calendar-core": "^1.0.0",
-    "@quasar/extras": "^1.10.8",
+    "@quasar/extras": "^1.2.0",
     "axios": "^0.21.1",
     "badidate": "^3.0.2",
     "lodash.has": "^4.5.2",
     "luxon": "^1.27.0",
-    "quasar": "^1.15.21"
+    "quasar": "^1.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
@@ -74,6 +74,8 @@
     "eslint-plugin-cypress": "^2.11.3",
     "eslint-plugin-jest": "^24.1.0",
     "eslint-plugin-vue": "^5.0.0",
+    "express": "^4.18.0",
+    "serve-static": "^1.15.0",
     "strip-ansi": "=3.0.1",
     "style-loader": "^2.0.0",
     "stylus-loader": "^3.0.2",
@@ -81,8 +83,8 @@
   },
   "peerDependencies": {
     "@quasar/extras": "^1.2.0",
-    "quasar": "^1.0.5",
-    "core-js": "^2.6.12"
+    "core-js": "^2.6.12",
+    "quasar": "^1.0.5"
   },
   "engines": {
     "node": ">= 8.9.0",

@@ -18,7 +18,7 @@ export default {
      * @param {integer} monthNumber Badi month
      * @param {integer} yearNumber Badi year
      *
-     * @returns {Array<BadiDate}
+     * @returns {Array<Array<Object>>}
      */
     getCalendarCellArray: function (monthNumber, yearNumber) {
       const weekArray = [new Array(7), new Array(7), new Array(7), new Array(7)]

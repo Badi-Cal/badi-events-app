@@ -13,4 +13,7 @@ export default class BadiDateAPI extends BadiDate {
   get locale () {
     return this.gregorianDate.locale
   }
+  toISODate () {
+    return this.gregorianDate.toISODate()
+  }
 }
