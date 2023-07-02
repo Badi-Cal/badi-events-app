@@ -169,6 +169,7 @@ export default {
         let innerStartDate = event.start.dateObject
           .plus({ days: dayAdd })
           .toISODate()
+        // TODO: dead code that is never used by other code (kenny 2023.07.02)
         this.addToParsedList('byAllDayStartDate', innerStartDate, event.id)
         // newer all-day events routine
         this.addToParsedList(
@@ -203,6 +204,7 @@ export default {
       if (thisStartDateObj.toISODate() !== thisEndDateObj.toISODate()) {
         // this is a date where the time is set and spans across more than one day
 
+        // TODO: dead code that is never executed from parseEventList branch (kenny 2023.07.02)
         if (this.getEventDuration(thisStartDateObj, thisEndDateObj, 'days') > 1) {
           // this event spans multiple days
           this.addToParsedList('byMultiDay', thisStartDate, thisEvent.id)
@@ -218,6 +220,8 @@ export default {
         else {
           // this event crosses into the next day
           this.addToParsedList('byNextDay', thisStartDate, thisEvent.id)
+
+          // TODO: redundant propertiers that should be refactored (kenny 2023.07.02)
           this.addToParsedList('byContinuedNextDay', thisEvent.end.dateObject.toISODate(), thisEvent.id)
           this.addToParsedList('byStartDate', thisEvent.end.dateObject.toISODate(), thisEvent.id)
         }
