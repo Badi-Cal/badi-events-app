@@ -50,6 +50,8 @@
 </template>
 
 <script>
+  const debug = require('debug')('calendar:index')
+
   import {
     QPage,
     QCard,
@@ -114,7 +116,7 @@
               icon: 'report_problem',
               timeout: 10000
             })
-            console.error(error)
+            debug(error)
           })
       }
     },
