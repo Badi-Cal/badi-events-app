@@ -40,6 +40,14 @@ If you want the Docker environment to build the app as well:
 
 You can run `./docker.sh help` to see more options.
 
+### Using Debug
+
+The [debug](https://github.com/debug-js/debug) utility allows you to debug output for different parts of the app.
+
+When running the app through Node.js set the `DEBUG` enviromental variable in your `.env.dev` file to include "calendar:*" to enable debug messages.
+
+When running the app in a browser set `localStorage.debug` to include "calendar:*" to enable debug messages.
+
 ## Setup
 
 Version 1.0.x of Daykeep Calendar is intended to be used with [Quasar Framework v1](https://v1.quasar-framework.org/). For legacy versions of Quasar, you should use v0.3.x of Quasar Calendar.

@@ -35,6 +35,8 @@
 </template>
 
 <script>
+  const debug = require('debug')('calendar:LayoutDefault')
+
   import {
     openURL,
     QLayout,
@@ -67,7 +69,7 @@
       return {
         drawerRight: false,
         drawerLeft: false,
-        tabName: 'gregorian'
+        tabName: ''
       }
     },
     computed: {
@@ -81,6 +83,15 @@
     watch: {
       tabName: function () {
         this.$router.push({ path: `/calendar/${this.tabName}` })
+          .catch((err) => {
+            /*
+            trying to navigate to same location as the current one throws error
+            @see https://github.com/vuejs/vue-router/issues/2872
+            */
+            if (err.name !== 'NavigationDuplicated') {
+              debug(err)
+            }
+          })
       }
     },
     methods: {
