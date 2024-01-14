@@ -1,15 +1,15 @@
 import {
-  Calendar as DaykeepCalendar,
-  CalendarAgenda as DaykeepCalendarAgenda,
-  CalendarMonth as DaykeepCalendarMonth,
-  CalendarMultiDay as DaykeepCalendarMultiDay,
+  Calendar as GregorianCalendar,
+  CalendarAgenda as GregorianCalendarAgenda,
+  CalendarMonth as GregorianCalendarMonth,
+  CalendarMultiDay as GregorianCalendarMultiDay,
   BadiCalendar
 } from './calendar/templates/quasar'
 
 export {
-  DaykeepCalendar,
-  DaykeepCalendarAgenda,
-  DaykeepCalendarMonth,
-  DaykeepCalendarMultiDay,
+  GregorianCalendar,
+  GregorianCalendarAgenda,
+  GregorianCalendarMonth,
+  GregorianCalendarMultiDay,
   BadiCalendar
 }
