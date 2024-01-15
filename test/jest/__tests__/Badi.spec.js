@@ -58,12 +58,12 @@ describe('BadiCalendar', () => {
 
     it('should create correct Badi date', () => {
       const vm = wrapper.vm
-      expect(vm.startDate instanceof Date).toBe(true)
+      expect(vm.$data.workingDate instanceof Date).toBe(true)
 
       const datetime = DateTime.fromJSDate(new Date())
       const myBadiDate = new BadiDate(datetime)
 
-      expect(vm.workingDate.format()).toBe(myBadiDate.format())
+      expect(vm.workingDateBadi.format()).toBe(myBadiDate.format())
     })
   })
 })
