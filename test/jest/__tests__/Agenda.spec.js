@@ -1,7 +1,7 @@
 import { createWrapper, shallowMount, mount } from '@vue/test-utils'
 import { DateTime } from 'luxon'
 import Vue from 'vue'
-import { DaykeepCalendarAgenda } from '../../../component/quasar'
+import { GregorianCalendarAgenda } from '../../../component/quasar'
 import Quasar from '../utils'
 
 describe('CalendarAgenda', () => {
@@ -14,7 +14,7 @@ describe('CalendarAgenda', () => {
 
     const buildWrapper = (options = {}) => {
       const vm0 = new LocalVue({
-        extends: DaykeepCalendarAgenda,
+        extends: GregorianCalendarAgenda,
         propsData: {
           startDate: DateTime.local()
         }
@@ -35,7 +35,7 @@ describe('CalendarAgenda', () => {
     })
 
     it('should be a Vue instance', () => {
-      const instance = wrapper.findComponent(DaykeepCalendarAgenda)
+      const instance = wrapper.findComponent(GregorianCalendarAgenda)
       expect(instance.exists()).toBe(true)
     })
   })
@@ -43,7 +43,7 @@ describe('CalendarAgenda', () => {
   describe('component prop object', () => {
     let wrapper
     beforeEach(() => {
-      wrapper = shallowMount(DaykeepCalendarAgenda, {
+      wrapper = shallowMount(GregorianCalendarAgenda, {
         LocalVue,
         propsData: {
           startDate: DateTime.local()

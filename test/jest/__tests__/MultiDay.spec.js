@@ -1,7 +1,7 @@
 import { createWrapper, shallowMount, mount } from '@vue/test-utils'
 import { DateTime } from 'luxon'
 import Vue from 'vue'
-import { DaykeepCalendarMultiDay } from '../../../component/quasar'
+import { GregorianCalendarMultiDay } from '../../../component/quasar'
 import Quasar from '../utils'
 
 describe('CalendarMultiDay', () => {
@@ -14,7 +14,7 @@ describe('CalendarMultiDay', () => {
 
     const buildWrapper = (options = {}) => {
       const vm0 = new LocalVue({
-        extends: DaykeepCalendarMultiDay,
+        extends: GregorianCalendarMultiDay,
         propsData: {
           startDate: DateTime.local()
         }
@@ -35,7 +35,7 @@ describe('CalendarMultiDay', () => {
     })
 
     it('should be a Vue instance', () => {
-      const instance = wrapper.findComponent(DaykeepCalendarMultiDay)
+      const instance = wrapper.findComponent(GregorianCalendarMultiDay)
       expect(instance.exists()).toBe(true)
     })
   })
@@ -43,7 +43,7 @@ describe('CalendarMultiDay', () => {
   describe('component data object', () => {
     let wrapper
     beforeEach(() => {
-      wrapper = mount(DaykeepCalendarMultiDay, {
+      wrapper = mount(GregorianCalendarMultiDay, {
         LocalVue,
         propsData: {
           startDate: DateTime.local()
@@ -67,7 +67,7 @@ describe('CalendarMultiDay', () => {
   describe('component prop object', () => {
     let wrapper
     beforeEach(() => {
-      wrapper = shallowMount(DaykeepCalendarMultiDay, {
+      wrapper = shallowMount(GregorianCalendarMultiDay, {
         LocalVue,
         propsData: {
           startDate: DateTime.local()
