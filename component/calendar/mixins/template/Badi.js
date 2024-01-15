@@ -7,7 +7,6 @@ import { badiDateSettings } from 'badidate'
 const debug = require('debug')('calendar:Badi')
 
 export default {
-  data () {},
   computed: {
     workingDateBadi: function () {
       return new BadiDate(this.makeDT(this.workingDate))
