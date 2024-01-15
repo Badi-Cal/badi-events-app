@@ -1,5 +1,5 @@
 /**
- * @fileoverview Sets properties specific to Badi template child component instances
+ * @fileoverview Sets properties specific to the BadiCalendar.vue
  */
 import BadiDate from 'utils/badidate'
 import { badiDateSettings } from 'badidate'
@@ -7,9 +7,10 @@ import { badiDateSettings } from 'badidate'
 const debug = require('debug')('calendar:Badi')
 
 export default {
-  data () {
-    return {
-      workingDate: new BadiDate(this.makeDT(this.startDate))
+  data () {},
+  computed: {
+    workingDateBadi: function () {
+      return new BadiDate(this.makeDT(this.workingDate))
     }
   },
   created () {
