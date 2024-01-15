@@ -5,7 +5,6 @@
 const debug = require('debug')('calendar:Gregorian')
 
 export default {
-  data () {},
   computed: {
     workingDateGregorian: function () {
       return this.makeDT(this.workingDate)
