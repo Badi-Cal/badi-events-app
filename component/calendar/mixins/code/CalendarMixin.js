@@ -118,7 +118,7 @@ export default {
      * Return formatted date string for BadiDate or DateTime object.
      * @see https://moment.github.io/luxon/#/formatting?id=presets
      *
-     * @param {BadiDate||DateTime} dateObject
+     * @param {BadiDate|DateTime} dateObject
      * @param {string} format A preset formatting string
      * @returns {string}
      */
