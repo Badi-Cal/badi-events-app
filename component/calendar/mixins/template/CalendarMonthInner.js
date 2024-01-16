@@ -9,6 +9,7 @@ export default {
       default: () => { return DateTime.local() }
     }
   },
+  inject: ['moveTimePeriodEmit'],
   methods: {
     /**
      * Generates cell data for a calendar month

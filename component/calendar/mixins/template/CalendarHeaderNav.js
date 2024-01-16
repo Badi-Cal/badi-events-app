@@ -9,16 +9,13 @@ export default {
     timePeriodAmount: {
       type: Number,
       default: 1
-    },
-    moveTimePeriodFunction: Object,
-    moveTimePeriodEmit: {
-      type: String,
-      default: 'calendar:navMovePeriod'
     }
   },
+  inject: ['moveTimePeriodEmit'],
   methods: {
     doMoveTimePeriod (timePeriodUnit, timePeriodAmount) {
-      this.$root.$emit(
+      debug('doMoveTimePeriod emited: ', this.moveTimePeriodEmit)
+      this.$emit(
         this.moveTimePeriodEmit,
         {
           unitType: timePeriodUnit,

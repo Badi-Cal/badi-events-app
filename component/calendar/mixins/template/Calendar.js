@@ -1,6 +1,32 @@
+/**
+ * @fileoverview shared properties for Calendar.vue,
+ * BadiCalendar.vue
+ */
 const debug = require('debug')('calendar:Calendar')
 
 export default {
+  data () {
+    return {
+      dayCellHeight: 5,
+      dayCellHeightUnit: 'rem',
+      currentTab: 'tab-month',
+      thisRefName: this.createRandomString(),
+      workingDate: this.$props.startDate
+    }
+  },
+  computed: {
+    calEventRef: function () {
+      return `cal-${this.thisRefName}`
+    },
+    moveTimePeriodEmit: function () {
+      return `${this.calEventRef}:navMovePeriod`
+    }
+  },
+  provide () {
+    return {
+      'moveTimePeriodEmit': this.moveTimePeriodEmit
+    }
+  },
   props: {
     startDate: {
       type: [Date],
@@ -17,14 +43,10 @@ export default {
           agenda: 'Agenda'
         }
       }
-    }
-  },
-  data () {
-    return {
-      dayCellHeight: 5,
-      dayCellHeightUnit: 'rem',
-      currentTab: 'tab-month',
-      thisRefName: this.createRandomString()
+    },
+    calendarTab: {
+      type: String,
+      default: 'tab-month'
     }
   },
   methods: {
@@ -32,10 +54,13 @@ export default {
       return Math.random().toString(36).substring(2, 15)
     },
     setupEventsHandling: function () {
-      this.$root.$on(
-        this.eventRef + ':navMovePeriod',
-        this.calPackageMoveTimePeriod
+      // TODO: deprecate this 2024-01-15 k.rogers
+      this.$on(
+        this.moveTimePeriodEmit,
+        this.moveTimePeriod
       )
+      // TODO: deprecate this 2024-01-13 k.rogers
+      // and remove switchToSingleDay
       this.$root.$on(
         this.eventRef + ':moveToSingleDay',
         this.switchToSingleDay
@@ -53,6 +78,8 @@ export default {
         this.setTimePeriod
       )
     },
+    // TODO: deprecate this 2024-01-14 k.rogers
+    // moved to CalendarHeaderNav.js
     calPackageMoveTimePeriod: function (params) {
       this.moveTimePeriod(params)
       this.$emit(
@@ -66,30 +93,9 @@ export default {
       this.workingDate = params.dateObject
       this.currentTab = 'tab-single-day-component'
     },
+    // TODO: deprecate this 2024-01-14 k.rogers
     doUpdate: function () {
       this.mountSetDate()
-    },
-    /**
-     * Adds time unit to workingDate data property
-     *
-     * @param {Object} params A Luxon Duration Object
-     * @param {str} params.unitType The unit of time
-     * @param {int} params.amount The time period quantity
-     *
-     */
-    moveTimePeriod: function (params) {
-      debug('moveTimePeriod triggered with %s', params)
-
-      let dateObject
-      let paramObj = {}
-
-      if (this.isCalendarDate(this.workingDate)) {
-        debug('this.workingDate = %s', this.workingDate)
-        dateObject = this.workingDate
-
-        paramObj[params.unitType] = params.amount
-        this.workingDate = dateObject.plus(paramObj)
-      }
     }
   },
   mounted () {
@@ -97,6 +103,7 @@ export default {
     this.setupEventsHandling()
   },
   watch: {
+    // TODO: deprecate this 2024-01-14 k.rogers
     startDate: function () {
       this.handleStartChange()
     }
