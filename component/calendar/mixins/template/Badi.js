@@ -9,7 +9,7 @@ const debug = require('debug')('calendar:Badi')
 export default {
   computed: {
     workingDateBadi: function () {
-      return new BadiDate(this.makeDT(this.workingDate))
+      return new BadiDate(this.makeDT(this.startDate))
     }
   },
   created () {
