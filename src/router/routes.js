@@ -10,10 +10,23 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/index.vue') },
       {
-        path: ':view',
+        path: ':calendar/:period/:year/:month/:day',
         component: () => import('pages/index.vue'),
-        props: route => ({ tab: route.params.view })
-      }
+        props: route => (
+          {
+            tab: route.params.calendar,
+            view: route.params.period,
+            year: parseInt(route.params.year),
+            month: parseInt(route.params.month) - 1,
+            day: parseInt(route.params.day)
+          })
+      },
+      {
+        path: ':calendar',
+        component: () => import('pages/index.vue'),
+        props: route => ({ tab: route.params.calendar })
+      },
+      { path: '*', component: () => import('pages/index.vue') }
     ]
   }
 ]
