@@ -16,6 +16,7 @@ export default {
         }
       }
     },
+    // TODO: deprecate this 2024-01-17 k.rogers
     eventRef: {
       type: String,
       default: 'cal-eventRef'
@@ -45,11 +46,6 @@ export default {
       default: 7
     },
     fullComponentRef: String
-  },
-  methods: {
-    doUpdate: () => {
-      // this should be overridden
-    }
   },
   mounted () {}
 }

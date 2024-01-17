@@ -93,20 +93,10 @@ export default {
 
       this.workingDate = params.dateObject
       this.currentTab = 'tab-single-day-component'
-    },
-    // TODO: deprecate this 2024-01-14 k.rogers
-    doUpdate: function () {
-      this.mountSetDate()
     }
   },
   mounted () {
     debug('Component mounted')
     this.setupEventsHandling()
-  },
-  watch: {
-    // TODO: deprecate this 2024-01-14 k.rogers
-    startDate: function () {
-      this.handleStartChange()
-    }
   }
 }

@@ -12,9 +12,6 @@ import { getFirstDayOfWeek, getFirstWeekDay } from '../../../../utils/startofwee
 export default {
   computed: {},
   methods: {
-    handleStartChange: function (val, oldVal) {
-      this.doUpdate()
-    },
     /**
      * Converts a JavaScript Date object to a Luxon DateTime
      * object
@@ -331,13 +328,6 @@ export default {
       else {
         return this.makeDT(thisDateObject).weekNumber
       }
-    },
-    mountSetDate: function () {
-      let newDate = this.makeDT(this.startDate)
-      this.$emit(
-        'set-working-date-' + this.eventRef,
-        newDate
-      )
     },
     decimalAdjust: function (type, value, exp) {
       // from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor
