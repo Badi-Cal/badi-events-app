@@ -9,13 +9,6 @@ export default {
       default: () => { return DateTime.local() }
     }
   },
-  data: function () {
-    return {
-      workingDate: this.startDate
-    }
-  },
-  inject: ['moveTimePeriodEmit'],
-  methods: {},
   mounted () {
     debug('Component mounted')
   }
