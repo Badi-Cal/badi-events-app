@@ -12,6 +12,7 @@ export default class BadiDateAPI extends BadiDate {
     }
     super(date)
   }
+  // TODO: refactor to natively support date addition on BadiDate
   plus (object) {
     let date = this.gregorianDate.plus(object)
     return new BadiDateAPI(date)
