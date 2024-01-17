@@ -50,8 +50,11 @@
   } from 'mixins'
 
   import BadiMonthInner from './BadiMonthInner.vue'
-  import CalendarHeaderNav from './CalendarHeaderNav'
   import CalendarEventDetail from './CalendarEventDetail'
+
+  import {
+    CalendarHeaderNav
+  } from 'templates/common'
 
   export default {
     name: 'BadiMonth',

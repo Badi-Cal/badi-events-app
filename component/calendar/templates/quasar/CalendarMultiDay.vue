@@ -90,8 +90,7 @@
     CalendarAllDayEvents,
     CalendarMultiDayContent
   } from '@daykeep/calendar-core'
-  import { CalendarDayLabels } from 'templates/common'
-  import CalendarHeaderNav from './CalendarHeaderNav'
+  import { CalendarDayLabels, CalendarHeaderNav } from 'templates/common'
   import CalendarEventDetail from './CalendarEventDetail'
   import {
     // mixins

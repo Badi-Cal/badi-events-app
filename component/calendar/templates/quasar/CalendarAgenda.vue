@@ -57,8 +57,10 @@
   import {
     CalendarAgendaInner
   } from '@daykeep/calendar-core'
-  import CalendarHeaderNav from './CalendarHeaderNav'
   import CalendarEventDetail from './CalendarEventDetail'
+  import {
+    CalendarHeaderNav
+  } from 'templates/common'
 
   export default {
     name: 'CalendarAgenda',
