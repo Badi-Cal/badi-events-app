@@ -54,23 +54,37 @@ export default {
     moveTimePeriod: function (unitType, amount) {
       let dateObject = this.workingDate
       let paramObj = {}
-      let routeParams = {
-        year: dateObject.year,
-        month: dateObject.month,
-        day: dateObject.day
-      }
+      let routeParams = new this.RouteParams(
+        dateObject.year,
+        dateObject.month,
+        dateObject.day
+      )
       if (this.isCalendarDate(dateObject)) {
         debug('this.workingDate = %o', dateObject)
         // Object for Luxon Duration
         paramObj[unitType] = amount
         dateObject = dateObject.plus(paramObj)
         routeParams = {
-          year: dateObject.year,
-          month: dateObject.month,
-          day: dateObject.day
+          ...new this.RouteParams(
+            dateObject.year,
+            dateObject.month,
+            dateObject.day
+          )
         }
       }
       return routeParams
+    },
+    /**
+     * Constructs RouteParams object for route
+     *
+     * @param {number} year
+     * @param {number} month
+     * @param {number} day
+     */
+    RouteParams: function (year, month, day) {
+      this.year = year
+      this.month = month
+      this.day = day
     }
   },
   mounted () {
