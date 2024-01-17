@@ -1,13 +1,14 @@
 <template>
   <div class="calendar-month">
-    <slot
-      name="headernav"
-      :working-date="startDate"
-      :event-ref="eventRef"
+    <slot name="headernav"></slot>
+    <calendar-header-nav
+      data-cy="calendar-header"
       time-period-unit="month"
-      :time-period-amount=1
-    ></slot>
-
+      :time-period-amount="1"
+      :working-date="startDate"
+    >
+      {{ toDateFormat(startDate, 'MONTH_YEAR') }}
+    </calendar-header-nav>
     <div class="calendar-content" data-cy="calendar-content">
       <calendar-day-labels
         :number-of-days="7"
@@ -116,14 +117,16 @@
 
   import {
     CalendarDayLabels,
-    CalendarEvent
+    CalendarEvent,
+    CalendarHeaderNav
   } from 'templates/common'
 
   export default {
     name: 'CalendarMonthInner',
     components: {
       CalendarEvent,
-      CalendarDayLabels
+      CalendarDayLabels,
+      CalendarHeaderNav
     },
     mixins: [
       CalendarPropsMixin,

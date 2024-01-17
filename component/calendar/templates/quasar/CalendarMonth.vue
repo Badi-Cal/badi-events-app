@@ -12,16 +12,6 @@
       :day-display-start-hour="dayDisplayStartHour"
       :full-component-ref="fullComponentRef"
     >
-      <template v-slot:headernav="navVal">
-        <calendar-header-nav
-          data-cy="calendar-header"
-          :time-period-unit="navVal.timePeriodUnit"
-          :time-period-amount="1"
-          :move-time-period-emit="navVal.eventRef + ':navMovePeriod'"
-        >
-          {{ toDateFormat(navVal.workingDate, 'MONTH_YEAR') }}
-        </calendar-header-nav>
-      </template>
       <template v-slot:eventdetail="eventVal">
         <calendar-event-detail
           :ref="eventVal.targetRef"
@@ -39,6 +29,7 @@
 </template>
 
 <script>
+
   import {
     CalendarMixin,
     CalendarEventMixin,
@@ -48,13 +39,11 @@
   } from 'mixins'
 
   import CalendarMonthInner from './CalendarMonthInner.vue'
-  import CalendarHeaderNav from './CalendarHeaderNav.vue'
   import CalendarEventDetail from './CalendarEventDetail.vue'
 
   export default {
     name: 'CalendarMonth',
     components: {
-      CalendarHeaderNav,
       CalendarEventDetail,
       CalendarMonthInner
     },
