@@ -12,7 +12,7 @@
         <q-tab-panel name="gregorian">
           <q-card>
             <q-card-section>
-              <daykeep-calendar
+              <gregorian-calendar
                 :parsed-events="parsed"
                 calendar-locale="en-US"
                 calendar-timezone="America/New_York"
@@ -20,7 +20,8 @@
                 :allow-editing="true"
                 agenda-style="block"
                 :render-html="true"
-                :start-date="new Date()"
+                :start-date="startDate"
+                :calendar-tab="calendarTab"
               />
             </q-card-section>
           </q-card>
@@ -37,7 +38,8 @@
                 :allow-editing="true"
                 agenda-style="block"
                 :render-html="true"
-                :start-date="new Date()"
+                :start-date="startDate"
+                :calendar-tab="calendarTab"
               />
             </q-card-section>
           </q-card>
@@ -60,7 +62,7 @@
     QTabPanels
   } from 'quasar'
   import {
-    DaykeepCalendar,
+    GregorianCalendar,
     BadiCalendar
   } from '../../component/quasar'
   import {
@@ -76,7 +78,7 @@
       QCardSection,
       QTabPanel,
       QTabPanels,
-      DaykeepCalendar,
+      GregorianCalendar,
       BadiCalendar
     },
     mixins: [ EventMixin, CalendarMixin, CalendarEventMixin ],
@@ -95,9 +97,32 @@
       tab: {
         type: String,
         default: 'gregorian'
+      },
+      view: {
+        type: String,
+        default: 'month'
+      },
+      year: {
+        type: Number,
+        default: new Date().getFullYear()
+      },
+      month: {
+        type: Number,
+        default: new Date().getMonth()
+      },
+      day: {
+        type: Number,
+        default: new Date().getDate()
       }
     },
-    computed: {},
+    computed: {
+      calendarTab: function () {
+        return `tab-${this.view}`
+      },
+      startDate: function () {
+        return new Date(this.year, this.month, this.day)
+      }
+    },
     methods: {
       loadData () {
         api.get('/eventitems.json')
