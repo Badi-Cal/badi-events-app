@@ -1,3 +1,23 @@
+/**
+ * @fileoverview Router construction options
+ * @see https://v3.router.vuejs.org/api/#router-construction-options
+ */
+
+/**
+ * Validate route params
+ *
+ * @param {Object} route The Route object
+ *
+ * @returns {Object}
+ */
+const dynamicPropsFn = (route) => {
+  return {
+    view: route.params.period ?? 'month',
+    year: route.params.year ? parseInt(route.params.year) : undefined,
+    month: route.params.month ? parseInt(route.params.month) : undefined,
+    day: route.params.day ? parseInt(route.params.day) : undefined
+  }
+}
 
 const routes = [
   {
@@ -6,25 +26,34 @@ const routes = [
   },
   {
     path: '/calendar',
+    redirect: '/calendar/gregorian'
+  },
+  {
+    path: '/calendar',
     component: () => import('layouts/LayoutDefault.vue'),
     children: [
-      { path: '', component: () => import('pages/index.vue') },
       {
-        path: ':calendar/:period/:year/:month/:day',
+        path: '',
+        props: dynamicPropsFn,
         component: () => import('pages/index.vue'),
-        props: route => (
+        children: [
           {
-            tab: route.params.calendar,
-            view: route.params.period,
-            year: parseInt(route.params.year),
-            month: parseInt(route.params.month) - 1,
-            day: parseInt(route.params.day)
-          })
-      },
-      {
-        path: ':calendar',
-        component: () => import('pages/index.vue'),
-        props: route => ({ tab: route.params.calendar })
+            path: 'gregorian',
+            component: () => import('pages/gregorian.vue')
+          },
+          {
+            path: 'badi',
+            component: () => import('pages/badi.vue')
+          },
+          {
+            path: 'gregorian/:period/:year/:month/:day',
+            component: () => import('pages/gregorian.vue')
+          },
+          {
+            path: 'badi/:period/:year/:month/:day',
+            component: () => import('pages/badi.vue')
+          }
+        ]
       },
       { path: '*', component: () => import('pages/index.vue') }
     ]
