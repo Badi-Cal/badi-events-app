@@ -47,7 +47,7 @@
       <q-tab-panel name="tab-month" class="calendar-tab-panel-month">
         <calendar-month
           :ref="'month-' + thisRefName"
-          :start-date="workingDateGregorian"
+          :start-date="startDate"
           :parsed-events="parsedEvents"
           :event-ref="eventRef"
           :full-component-ref="eventRef"
@@ -60,7 +60,7 @@
       <q-tab-panel name="tab-week" class="calendar-tab-panel-week">
         <calendar-multi-day
           :ref="'week-' + thisRefName"
-          :start-date="workingDateGregorian"
+          :start-date="startDate"
           :parsed-events="parsedEvents"
           :num-days="7"
           :nav-days="7"
@@ -78,7 +78,7 @@
       <q-tab-panel name="tab-multiday" class="calendar-tab-panel-week">
         <calendar-multi-day
           :ref="'multiday-' + thisRefName"
-          :start-date="workingDateGregorian"
+          :start-date="startDate"
           :parsed-events="parsedEvents"
           :num-days="3"
           :nav-days="1"
@@ -96,7 +96,7 @@
       <q-tab-panel name="tab-day" class="calendar-tab-panel-week">
         <calendar-multi-day
           :ref="'day-' + thisRefName"
-          :start-date="workingDateGregorian"
+          :start-date="startDate"
           :parsed-events="parsedEvents"
           :num-days="1"
           :nav-days="1"
@@ -114,7 +114,7 @@
       <q-tab-panel name="tab-agenda" class="calendar-tab-panel-agenda">
         <calendar-agenda
           :ref="'agenda-' + thisRefName"
-          :start-date="workingDateGregorian"
+          :start-date="startDate"
           :parsed-events="parsedEvents"
           :num-days="28"
           :event-ref="eventRef"
