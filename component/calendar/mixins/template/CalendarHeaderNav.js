@@ -60,7 +60,7 @@ export default {
         day: dateObject.day
       }
       if (this.isCalendarDate(dateObject)) {
-        debug('this.workingDate = %s', dateObject)
+        debug('this.workingDate = %o', dateObject)
         // Object for Luxon Duration
         paramObj[unitType] = amount
         dateObject = dateObject.plus(paramObj)
