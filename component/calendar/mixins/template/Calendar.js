@@ -10,8 +10,7 @@ export default {
       dayCellHeight: 5,
       dayCellHeightUnit: 'rem',
       currentTab: 'tab-month',
-      thisRefName: this.createRandomString(),
-      workingDate: this.$props.startDate
+      thisRefName: this.createRandomString()
     }
   },
   computed: {
