@@ -1,13 +1,13 @@
 <template>
   <div class="calendar-month">
-    <slot
-      name="headernav"
+    <calendar-header-nav
+      data-cy="calendar-header"
+      time-period-unit="month"
+      :time-period-amount="1"
       :working-date="startDate"
-      :event-ref="eventRef"
-      time-period-unit="day"
-      :time-period-amount=19
-    ></slot>
-
+    >
+      <span v-html="formatDateBadi(startDate, 'MM+ yy')"></span>
+    </calendar-header-nav>
     <div class="calendar-content" data-cy="calendar-content">
       <calendar-day-labels
         :number-of-days="7"
@@ -116,14 +116,16 @@
   } from 'mixins'
   import {
     CalendarDayLabels,
-    CalendarEvent
+    CalendarEvent,
+    CalendarHeaderNav
   } from 'templates/common'
 
   export default {
     name: 'BadiMonthInner',
     components: {
       CalendarEvent,
-      CalendarDayLabels
+      CalendarDayLabels,
+      CalendarHeaderNav
     },
     mixins: [
       CalendarPropsMixin,

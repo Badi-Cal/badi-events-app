@@ -13,16 +13,6 @@
       :day-display-start-hour="dayDisplayStartHour"
       :full-component-ref="fullComponentRef"
     >
-      <template v-slot:headernav="navVal">
-        <calendar-header-nav
-          data-cy="calendar-header"
-          :time-period-unit="navVal.timePeriodUnit"
-          :time-period-amount="navVal.timePeriodAmount"
-          :move-time-period-emit="navVal.eventRef + ':navMovePeriod'"
-        >
-          <span v-html="formatDateBadi(navVal.workingDate, 'MM+ yy')"></span>
-        </calendar-header-nav>
-      </template>
       <template v-slot:eventdetail="eventVal">
         <calendar-event-detail
           :ref="eventVal.targetRef"
@@ -52,14 +42,9 @@
   import BadiMonthInner from './BadiMonthInner.vue'
   import CalendarEventDetail from './CalendarEventDetail'
 
-  import {
-    CalendarHeaderNav
-  } from 'templates/common'
-
   export default {
     name: 'BadiMonth',
     components: {
-      CalendarHeaderNav,
       CalendarEventDetail,
       BadiMonthInner
     },
