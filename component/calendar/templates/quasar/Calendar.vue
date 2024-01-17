@@ -1,33 +1,37 @@
 <template>
   <div class="calendar">
     <q-tabs
-      v-model="currentTab"
       class="text-primary calendar-tabs"
       ref="fullCalendarTabs"
       align="left"
     >
-      <q-tab
-        name="tab-month"
+      <q-route-tab
+        to="/calendar/gregorian/month/2023/10/1"
+        exact
         icon="view_module"
         :label="tabLabels.month"
       />
-      <q-tab
-        name="tab-week-component"
+      <q-route-tab
+        to="/calendar/gregorian/week/2023/10/1"
+        exact
         icon="view_week"
         :label="tabLabels.week"
       />
-      <q-tab
-        name="tab-days-component"
+      <q-route-tab
+        to="/calendar/gregorian/multiday/2023/10/1"
+        exact
         icon="view_column"
         :label="tabLabels.threeDay"
       />
-      <q-tab
-        name="tab-single-day-component"
+      <q-route-tab
+        to="/calendar/gregorian/day/2023/10/1"
+        exact
         icon="view_day"
         :label="tabLabels.day"
       />
-      <q-tab
-        name="tab-agenda"
+      <q-route-tab
+        to="/calendar/gregorian/agenda/2023/10/1"
+        exact
         icon="view_agenda"
         :label="tabLabels.agenda"
       />
@@ -36,14 +40,14 @@
     <q-separator />
 
     <q-tab-panels
-      v-model="currentTab"
+      v-model="calendarTab"
       class="calendar-tab-panels"
       animated
     >
       <q-tab-panel name="tab-month" class="calendar-tab-panel-month">
         <calendar-month
           :ref="'month-' + thisRefName"
-          :start-date="workingDate"
+          :start-date="workingDateGregorian"
           :parsed-events="parsedEvents"
           :event-ref="eventRef"
           :full-component-ref="eventRef"
@@ -51,13 +55,12 @@
           :calendar-timezone="calendarTimezone"
           :prevent-event-detail="preventEventDetail"
           :allow-editing="allowEditing"
-
         />
       </q-tab-panel>
-      <q-tab-panel name="tab-week-component" class="calendar-tab-panel-week">
+      <q-tab-panel name="tab-week" class="calendar-tab-panel-week">
         <calendar-multi-day
           :ref="'week-' + thisRefName"
-          :start-date="workingDate"
+          :start-date="workingDateGregorian"
           :parsed-events="parsedEvents"
           :num-days="7"
           :nav-days="7"
@@ -72,10 +75,10 @@
 
         />
       </q-tab-panel>
-      <q-tab-panel name="tab-days-component" class="calendar-tab-panel-week">
+      <q-tab-panel name="tab-multiday" class="calendar-tab-panel-week">
         <calendar-multi-day
-          :ref="'days-' + thisRefName"
-          :start-date="workingDate"
+          :ref="'multiday-' + thisRefName"
+          :start-date="workingDateGregorian"
           :parsed-events="parsedEvents"
           :num-days="3"
           :nav-days="1"
@@ -90,10 +93,10 @@
 
         />
       </q-tab-panel>
-      <q-tab-panel name="tab-single-day-component" class="calendar-tab-panel-week">
+      <q-tab-panel name="tab-day" class="calendar-tab-panel-week">
         <calendar-multi-day
           :ref="'day-' + thisRefName"
-          :start-date="workingDate"
+          :start-date="workingDateGregorian"
           :parsed-events="parsedEvents"
           :num-days="1"
           :nav-days="1"
@@ -111,7 +114,7 @@
       <q-tab-panel name="tab-agenda" class="calendar-tab-panel-agenda">
         <calendar-agenda
           :ref="'agenda-' + thisRefName"
-          :start-date="workingDate"
+          :start-date="workingDateGregorian"
           :parsed-events="parsedEvents"
           :num-days="28"
           :event-ref="eventRef"
@@ -129,6 +132,7 @@
 </template>
 
 <script>
+
   import {
     CalendarMixin,
     CalendarEventMixin,
@@ -141,7 +145,7 @@
   import CalendarAgenda from './CalendarAgenda'
   import {
     QTabs,
-    QTab,
+    QRouteTab,
     QTabPanels,
     QTabPanel,
     QSeparator
@@ -161,7 +165,7 @@
       CalendarMultiDay,
       CalendarAgenda,
       QTabs,
-      QTab,
+      QRouteTab,
       QTabPanels,
       QTabPanel,
       QSeparator
