@@ -1,3 +1,5 @@
 import EventMixin from './EventMixin'
+import DateMixin from './DateMixin'
+import CalendarMixin from './CalendarMixin'
 
-export { EventMixin }
+export { EventMixin, DateMixin, CalendarMixin }
