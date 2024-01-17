@@ -1,3 +1,6 @@
+import BadiDate from 'utils/badidate'
+import { DateTime } from 'luxon'
+
 /**
  * @fileoverview shared properties for Calendar.vue,
  * BadiCalendar.vue
@@ -28,8 +31,7 @@ export default {
   },
   props: {
     startDate: {
-      type: [Date],
-      default: () => { return new Date() }
+      type: [DateTime, BadiDate]
     },
     tabLabels: {
       type: Object,
