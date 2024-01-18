@@ -1,15 +1,15 @@
 import {
-  Calendar as GregorianCalendar,
-  CalendarAgenda as GregorianCalendarAgenda,
-  CalendarMonth as GregorianCalendarMonth,
-  CalendarMultiDay as GregorianCalendarMultiDay,
+  Calendar,
+  CalendarAgenda,
+  CalendarMonth,
+  CalendarMultiDay,
   BadiCalendar
 } from './calendar/templates/quasar'
 
 export {
-  GregorianCalendar,
-  GregorianCalendarAgenda,
-  GregorianCalendarMonth,
-  GregorianCalendarMultiDay,
+  Calendar,
+  CalendarAgenda,
+  CalendarMonth,
+  CalendarMultiDay,
   BadiCalendar
 }

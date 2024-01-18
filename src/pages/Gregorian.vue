@@ -1,5 +1,5 @@
 <template>
-  <gregorian-calendar
+  <calendar
     :parsed-events="parsedEvents"
     calendar-locale="en-US"
     calendar-timezone="America/New_York"
@@ -15,11 +15,11 @@
 <script>
   import { DateMixin, CalendarMixin } from '../mixins'
   import {
-    GregorianCalendar
+    Calendar
   } from '../../component/quasar'
   export default {
     name: 'PageGregrorian',
-    components: { GregorianCalendar },
+    components: { Calendar },
     mixins: [ CalendarMixin, DateMixin ],
     props: {
       year: {
