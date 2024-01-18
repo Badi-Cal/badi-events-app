@@ -39,19 +39,19 @@ const routes = [
         children: [
           {
             path: 'gregorian',
-            component: () => import('pages/gregorian.vue')
+            component: () => import('pages/Gregorian.vue')
           },
           {
             path: 'badi',
-            component: () => import('pages/badi.vue')
+            component: () => import('pages/Badi.vue')
           },
           {
             path: 'gregorian/:period/:year/:month/:day',
-            component: () => import('pages/gregorian.vue')
+            component: () => import('pages/Gregorian.vue')
           },
           {
             path: 'badi/:period/:year/:month/:day',
-            component: () => import('pages/badi.vue')
+            component: () => import('pages/Badi.vue')
           }
         ]
       },
