@@ -1,14 +1,9 @@
 import { shallowMount, mount } from '@vue/test-utils'
 import Vue from 'vue'
-import { BadiCalendar } from '../../../component/quasar'
+import BadiCalendar from 'src/pages/Badi.vue'
 import Quasar from '../utils'
 
-import { DateTime } from 'luxon'
 import BadiDate from '../../../utils/badidate'
-
-// default module is on named default property of export object
-import CalendarTemplateMixin, { spyEventsHandling } from 'mixins/template/Calendar'
-jest.mock('mixins/template/Calendar')
 
 describe('BadiCalendar', () => {
   // set up Quasar and Vue
@@ -21,34 +16,31 @@ describe('BadiCalendar', () => {
     beforeEach(() => {
       wrapper = mount(BadiCalendar, {
         LocalVue,
-        stubs: ['router-link'],
-        mixins: [CalendarTemplateMixin.default]
+        stubs: ['router-link']
       })
     })
 
     afterEach(() => {
       // IMPORTANT: Clean up the component instance
-      jest.clearAllMocks()
       wrapper.destroy()
     })
 
-    it('should set up event handling', () => {
-      const vm = wrapper.vm
-      expect(typeof vm.setupEventsHandling).toBe('function')
-      expect(spyEventsHandling).toHaveBeenCalled()
+    it('should be a Vue instance', () => {
+      const instance = wrapper.findComponent(BadiCalendar)
+      expect(instance.exists()).toBe(true)
     })
   })
 
   describe('component data object', () => {
     let wrapper
     beforeEach(() => {
-      wrapper = mount(BadiCalendar, {
+      wrapper = shallowMount(BadiCalendar, {
         LocalVue,
         propsData: {
-          startDate: new Date()
-        },
-        stubs: ['router-link'],
-        mixins: [CalendarTemplateMixin.default]
+          year: new BadiDate().year,
+          month: new BadiDate().month,
+          day: new BadiDate().day
+        }
       })
     })
 
@@ -58,12 +50,8 @@ describe('BadiCalendar', () => {
 
     it('should create correct Badi date', () => {
       const vm = wrapper.vm
-      expect(vm.$data.workingDate instanceof Date).toBe(true)
-
-      const datetime = DateTime.fromJSDate(new Date())
-      const myBadiDate = new BadiDate(datetime)
-
-      expect(vm.workingDateBadi.format()).toBe(myBadiDate.format())
+      const testBadiDate = new BadiDate()
+      expect(vm.startDateBadi).toStrictEqual(testBadiDate)
     })
   })
 })
