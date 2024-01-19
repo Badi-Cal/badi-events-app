@@ -1,7 +1,6 @@
 <template>
   <div class="calendar-month">
     <calendar-header-nav
-      data-cy="calendar-header"
       time-period-unit="month"
       :time-period-amount="1"
       :working-date="startDate"

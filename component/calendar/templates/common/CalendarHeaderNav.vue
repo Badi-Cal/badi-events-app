@@ -9,7 +9,7 @@
         flat
       />
     </div>
-    <div class="calendar-header-label">
+    <div class="calendar-header-label" data-cy="calendar-header">
       <slot/>
     </div>
     <div class="calendar-header-right flex-col-auto">
