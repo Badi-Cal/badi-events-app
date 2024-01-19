@@ -21,12 +21,29 @@ const dynamicPropsFn = (route) => {
 
 const routes = [
   {
-    path: '/',
-    redirect: '/calendar'
+    path: '/calendar/gregorian',
+    alias: [ '/', '/calendar' ],
+    redirect: '/calendar/gregorian/month'
   },
   {
-    path: '/calendar',
-    redirect: '/calendar/gregorian'
+    path: '/calendar/gregorian/:period/:year',
+    redirect: '/calendar/gregorian/:period'
+  },
+  {
+    path: '/calendar/gregorian/:period/:year/:month',
+    redirect: '/calendar/gregorian/:period'
+  },
+  {
+    path: '/calendar/badi',
+    redirect: '/calendar/badi/month'
+  },
+  {
+    path: '/calendar/badi/:period/:year',
+    redirect: '/calendar/badi/:period'
+  },
+  {
+    path: '/calendar/badi/:period/:year/:month',
+    redirect: '/calendar/badi/:period'
   },
   {
     path: '/calendar',
@@ -38,19 +55,21 @@ const routes = [
         component: () => import('pages/index.vue'),
         children: [
           {
-            path: 'gregorian',
-            component: () => import('pages/Gregorian.vue')
-          },
-          {
-            path: 'badi',
-            component: () => import('pages/Badi.vue')
-          },
-          {
             path: 'gregorian/:period/:year/:month/:day',
+            name: 'gregorian',
             component: () => import('pages/Gregorian.vue')
           },
           {
             path: 'badi/:period/:year/:month/:day',
+            name: 'badi',
+            component: () => import('pages/Badi.vue')
+          },
+          {
+            path: 'gregorian/:period/:year?/:month?/:day?',
+            component: () => import('pages/Gregorian.vue')
+          },
+          {
+            path: 'badi/:period/:year?/:month?/:day?',
             component: () => import('pages/Badi.vue')
           }
         ]
