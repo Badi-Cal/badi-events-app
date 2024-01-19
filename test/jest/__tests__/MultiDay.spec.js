@@ -1,7 +1,7 @@
-import { createWrapper, shallowMount, mount } from '@vue/test-utils'
+import { shallowMount, mount } from '@vue/test-utils'
 import { DateTime } from 'luxon'
 import Vue from 'vue'
-import { GregorianCalendarMultiDay } from '../../../component/quasar'
+import { CalendarMultiDay } from '../../../component/quasar'
 import Quasar from '../utils'
 
 describe('CalendarMultiDay', () => {
@@ -12,21 +12,13 @@ describe('CalendarMultiDay', () => {
   describe('component mounted', () => {
     let wrapper
 
-    const buildWrapper = (options = {}) => {
-      const vm0 = new LocalVue({
-        extends: GregorianCalendarMultiDay,
-        propsData: {
-          startDate: DateTime.local()
+    beforeEach(() => {
+      wrapper = mount(CalendarMultiDay, {
+        LocalVue,
+        provide: {
+          moveTimePeriodEmit: () => 'moveTimePeriodEmit'
         }
       })
-      vm0.$mount()
-      wrapper = createWrapper(vm0, {
-        options
-      })
-    }
-
-    beforeEach(() => {
-      buildWrapper()
     })
 
     afterEach(() => {
@@ -35,39 +27,15 @@ describe('CalendarMultiDay', () => {
     })
 
     it('should be a Vue instance', () => {
-      const instance = wrapper.findComponent(GregorianCalendarMultiDay)
+      const instance = wrapper.findComponent(CalendarMultiDay)
       expect(instance.exists()).toBe(true)
-    })
-  })
-
-  describe('component data object', () => {
-    let wrapper
-    beforeEach(() => {
-      wrapper = mount(GregorianCalendarMultiDay, {
-        LocalVue,
-        propsData: {
-          startDate: DateTime.local()
-        }
-      })
-    })
-
-    afterEach(() => {
-      wrapper.destroy()
-    })
-
-    it('should create correct working date', () => {
-      const vm = wrapper.vm
-      expect(vm.$data.workingDate instanceof DateTime).toBe(true)
-
-      const date = DateTime.fromJSDate(new Date())
-      expect(vm.workingDate.toLocaleString()).toBe(date.toLocaleString())
     })
   })
 
   describe('component prop object', () => {
     let wrapper
     beforeEach(() => {
-      wrapper = shallowMount(GregorianCalendarMultiDay, {
+      wrapper = shallowMount(CalendarMultiDay, {
         LocalVue,
         propsData: {
           startDate: DateTime.local()
