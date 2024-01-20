@@ -21,12 +21,16 @@ export default {
       return `cal-${this.thisRefName}`
     },
     moveTimePeriodEmit: function () {
-      return `${this.calEventRef}:navMovePeriod`
+      return `${this.calEventRef}:navMoveTimePeriod`
+    },
+    changeCalPeriodEmit: function () {
+      return `${this.calEventRef}:navChangeCalendarPeriod`
     }
   },
   provide () {
     return {
-      'moveTimePeriodEmit': this.moveTimePeriodEmit
+      'moveTimePeriodEmit': this.moveTimePeriodEmit,
+      'changeCalendarPeriodEmit': this.changeCalPeriodEmit
     }
   },
   props: {
@@ -39,7 +43,7 @@ export default {
         return {
           month: 'Month',
           week: 'Week',
-          threeDay: '3 Day',
+          multiday: '3 Day',
           day: 'Day',
           agenda: 'Agenda'
         }
@@ -55,17 +59,6 @@ export default {
       return Math.random().toString(36).substring(2, 15)
     },
     setupEventsHandling: function () {
-      // TODO: deprecate this 2024-01-15 k.rogers
-      this.$on(
-        this.moveTimePeriodEmit,
-        this.moveTimePeriod
-      )
-      // TODO: deprecate this 2024-01-13 k.rogers
-      // and remove switchToSingleDay
-      this.$root.$on(
-        this.eventRef + ':moveToSingleDay',
-        this.switchToSingleDay
-      )
       this.$root.$on(
         'update-event-' + this.eventRef,
         this.handleEventUpdate
@@ -79,20 +72,31 @@ export default {
         this.setTimePeriod
       )
     },
-    // TODO: deprecate this 2024-01-14 k.rogers
-    // moved to CalendarHeaderNav.js
-    calPackageMoveTimePeriod: function (params) {
-      this.moveTimePeriod(params)
+    /**
+     * Callback to change calendar period (month, week, day)
+     *
+     * @param {string} view
+     *
+     * @returns {void}
+     */
+    doChangeCalPeriod: function (view, event) {
+      const params = {
+        period: view,
+        ...new this.RouteParams(
+          this.startDate.year,
+          this.startDate.month,
+          this.startDate.day
+        )
+      }
+      this.$router.push({
+        params: params
+      })
+      debug('router push with params: ', params)
       this.$emit(
-        'calendar' + ':navMovePeriod',
+        this.changeCalPeriodEmit,
         params
       )
-    },
-    switchToSingleDay: function (params) {
-      debug('switchToSingleDay triggered with %s', params)
-
-      this.workingDate = params.dateObject
-      this.currentTab = 'tab-single-day-component'
+      debug('changeCalendarPeriod emitted: ', this.changeCalPeriodEmit)
     }
   },
   mounted () {
