@@ -5,33 +5,29 @@
       ref="fullCalendarTabs"
       align="left"
     >
-      <q-route-tab
-        to="/calendar/gregorian/month/2023/10/1"
-        exact
+      <q-tab
+        @click="doChangeCalPeriod('month')"
         icon="view_module"
         :label="tabLabels.month"
       />
-      <q-route-tab
-        to="/calendar/gregorian/week/2023/10/1"
-        exact
+      <q-tab
+        @click="doChangeCalPeriod('week')"
         icon="view_week"
         :label="tabLabels.week"
       />
-      <q-route-tab
-        to="/calendar/gregorian/multiday/2023/10/1"
+      <q-tab
+        @click="doChangeCalPeriod('multiday')"
         exact
         icon="view_column"
-        :label="tabLabels.threeDay"
+        :label="tabLabels.multiday"
       />
-      <q-route-tab
-        to="/calendar/gregorian/day/2023/10/1"
-        exact
+      <q-tab
+        @click="doChangeCalPeriod('day')"
         icon="view_day"
         :label="tabLabels.day"
       />
-      <q-route-tab
-        to="/calendar/gregorian/agenda/2023/10/1"
-        exact
+      <q-tab
+        @click="doChangeCalPeriod('agenda')"
         icon="view_agenda"
         :label="tabLabels.agenda"
       />
@@ -145,7 +141,7 @@
   import CalendarAgenda from './CalendarAgenda'
   import {
     QTabs,
-    QRouteTab,
+    QTab,
     QTabPanels,
     QTabPanel,
     QSeparator
@@ -165,7 +161,7 @@
       CalendarMultiDay,
       CalendarAgenda,
       QTabs,
-      QRouteTab,
+      QTab,
       QTabPanels,
       QTabPanel,
       QSeparator
