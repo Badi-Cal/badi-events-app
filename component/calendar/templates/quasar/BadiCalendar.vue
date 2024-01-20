@@ -5,9 +5,8 @@
       ref="fullCalendarTabs"
       align="left"
     >
-      <q-route-tab
-        to="/calendar/badi/month/180/11/15"
-        exact
+      <q-tab
+        @click="doChangeCalPeriod('month')"
         icon="view_module"
         :label="tabLabels.month"
       />
@@ -49,7 +48,7 @@
   import BadiMonth from './BadiMonth'
   import {
     QTabs,
-    QRouteTab,
+    QTab,
     QTabPanels,
     QTabPanel,
     QSeparator
@@ -68,7 +67,7 @@
     components: {
       BadiMonth,
       QTabs,
-      QRouteTab,
+      QTab,
       QTabPanels,
       QTabPanel,
       QSeparator
