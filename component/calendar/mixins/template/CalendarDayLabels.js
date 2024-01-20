@@ -53,10 +53,9 @@ export default {
         return this.isCurrentDate(thisDay)
       }
     },
+    // TODO: refactor this 2024.01.19 k rogers
     handleDayClick: function (dateObject) {
-      if (this.fullComponentRef) {
-        this.fullMoveToDay(dateObject)
-      }
+      debug('handleDayClick', dateObject)
     }
   },
   mounted () {
