@@ -69,18 +69,6 @@ export default {
         )
       }
       return routeParams
-    },
-    /**
-     * Constructs RouteParams object for route
-     *
-     * @param {number} year
-     * @param {number} month
-     * @param {number} day
-     */
-    RouteParams: function (year, month, day) {
-      this.year = year
-      this.month = month
-      this.day = day
     }
   },
   mounted () {

@@ -83,15 +83,6 @@ export default {
         }
       }
     },
-    fullMoveToDay: function (dateObject) {
-      if (this.fullComponentRef) {
-        this.$root.$emit(
-          this.fullComponentRef + ':moveToSingleDay', {
-            dateObject: dateObject
-          }
-        )
-      }
-    },
     getEventColor: function (eventObject, colorName) {
       if (dashHas(eventObject, colorName)) {
         return eventObject[colorName]
@@ -398,8 +389,19 @@ export default {
         return true
       }
       throw TypeError('Invalid date object type')
+    },
+    /**
+     * Constructs RouteParams object for route
+     *
+     * @param {number} year
+     * @param {number} month
+     * @param {number} day
+     */
+    RouteParams: function (year, month, day) {
+      this.year = year
+      this.month = month
+      this.day = day
     }
-
   },
   mounted () {}
 }
