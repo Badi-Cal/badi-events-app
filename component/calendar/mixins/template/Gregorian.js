@@ -1,15 +1,10 @@
 /**
- * @fileoverview Sets properties for the Grerogian template child calendar
+ * @fileoverview Sets properties specific to Calendar.vue
  */
 
 const debug = require('debug')('calendar:Gregorian')
 
 export default {
-  data () {
-    return {
-      workingDate: this.makeDT(this.startDate)
-    }
-  },
   mounted () {
     debug('Component mounted')
   }

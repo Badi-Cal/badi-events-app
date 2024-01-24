@@ -5,17 +5,16 @@
       <calendar-header-nav
         time-period-unit="days"
         :time-period-amount="navDays"
-        :move-time-period-emit="eventRef + ':navMovePeriod'"
-        :calendar-locale="calendarLocale"
+        :working-date="startDate"
       >
-        {{ toDateFormat(workingDate, 'DATE_FULL') }}
+        {{ toDateFormat(startDate, 'DATE_FULL') }}
       </calendar-header-nav>
     </template>
     <template v-else>
       <calendar-header-nav
         time-period-unit="days"
         :time-period-amount="navDays"
-        :move-time-period-emit="eventRef + ':navMovePeriod'"
+        :working-date="startDate"
       >
         {{ getHeaderLabel() }}
       </calendar-header-nav>
@@ -25,7 +24,7 @@
       <calendar-day-labels
         :number-of-days="numDays"
         :show-dates="true"
-        :start-date="workingDate"
+        :start-date="startDate"
         :force-start-of-week="forceStartOfWeek"
         :full-component-ref="fullComponentRef"
         :calendar-locale="calendarLocale"
@@ -54,7 +53,7 @@
 
       <calendar-multi-day-content
         :week-date-array="weekDateArray"
-        :working-date="workingDate"
+        :working-date="startDate"
         :num-days="numDays"
         :nav-days="navDays"
         :parsed="parsed"
@@ -90,8 +89,7 @@
     CalendarAllDayEvents,
     CalendarMultiDayContent
   } from '@daykeep/calendar-core'
-  import { CalendarDayLabels } from 'templates/common'
-  import CalendarHeaderNav from './CalendarHeaderNav'
+  import { CalendarDayLabels, CalendarHeaderNav } from 'templates/common'
   import CalendarEventDetail from './CalendarEventDetail'
   import {
     // mixins

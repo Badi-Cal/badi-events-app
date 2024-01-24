@@ -298,6 +298,10 @@ This is the structure of a Quasar project with all modes installed.
 └── README.md                # readme for your website/App
 ```
 
+## Auto Deploy
+
+The Github action `ci.yml` deploys the app on merges. It requires there to be the appropriate target IP addresses in the Settings -> Secrets and Variables -> Actions -> HOSTS as a space separated list.
+
 ## License
 
  [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)

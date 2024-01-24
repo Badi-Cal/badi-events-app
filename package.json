@@ -1,6 +1,6 @@
 {
   "name": "@badi-events/app",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "productName": "Badí events calendar",
   "description": "Events calendar app for the Badí calendar",
   "keywords": [

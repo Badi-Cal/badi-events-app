@@ -9,7 +9,6 @@ export default {
       default: () => { return DateTime.local() }
     }
   },
-  methods: { },
   mounted () {
     debug('Component mounted')
   }

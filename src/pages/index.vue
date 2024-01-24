@@ -6,46 +6,16 @@
       enter-active-class="animated fadeInLeft"
       leave-active-class="animated fadeOutLeft"
     >
-
-      <q-tab-panels v-model="tab" animated>
-
-        <q-tab-panel name="gregorian">
-          <q-card>
-            <q-card-section>
-              <daykeep-calendar
-                :parsed-events="parsed"
-                calendar-locale="en-US"
-                calendar-timezone="America/New_York"
-                NOevent-ref="MYCALENDAR"
-                :allow-editing="true"
-                agenda-style="block"
-                :render-html="true"
-                :start-date="new Date()"
-              />
-            </q-card-section>
-          </q-card>
-        </q-tab-panel>
-
-        <q-tab-panel name="badi">
-          <q-card>
-            <q-card-section>
-              <badi-calendar
-                :parsed-events="parsed"
-                calendar-locale="en-US"
-                calendar-timezone="America/New_York"
-                NOevent-ref="MYCALENDAR"
-                :allow-editing="true"
-                agenda-style="block"
-                :render-html="true"
-                :start-date="new Date()"
-              />
-            </q-card-section>
-          </q-card>
-        </q-tab-panel>
-
-        </q-tab-panels>
-      </transition>
-      </div>
+      <router-view
+        :parsed-events="parsed"
+        :view="view"
+        :year="year"
+        :month="month"
+        :day="day"
+      >
+      </router-view>
+     </transition>
+     </div>
   </q-page>
 </template>
 
@@ -53,16 +23,8 @@
   const debug = require('debug')('calendar:index')
 
   import {
-    QPage,
-    QCard,
-    QCardSection,
-    QTabPanel,
-    QTabPanels
+    QPage
   } from 'quasar'
-  import {
-    DaykeepCalendar,
-    BadiCalendar
-  } from '../../component/quasar'
   import {
     api
   } from 'boot/axios'
@@ -71,13 +33,7 @@
   export default {
     name: 'PageIndex',
     components: {
-      QPage,
-      QCard,
-      QCardSection,
-      QTabPanel,
-      QTabPanels,
-      DaykeepCalendar,
-      BadiCalendar
+      QPage
     },
     mixins: [ EventMixin, CalendarMixin, CalendarEventMixin ],
     data () {
@@ -87,17 +43,23 @@
           byAllDayStartDate: {},
           byStartDate: {},
           byId: {}
-        },
-        showCards: ['fullCalendar']
+        }
       }
     },
     props: {
-      tab: {
-        type: String,
-        default: 'gregorian'
+      view: {
+        type: String
+      },
+      year: {
+        type: Number
+      },
+      month: {
+        type: Number
+      },
+      day: {
+        type: Number
       }
     },
-    computed: {},
     methods: {
       loadData () {
         api.get('/eventitems.json')

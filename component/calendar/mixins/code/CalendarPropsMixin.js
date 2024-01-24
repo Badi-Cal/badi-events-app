@@ -16,9 +16,10 @@ export default {
         }
       }
     },
+    // TODO: deprecate this 2024-01-17 k.rogers
     eventRef: {
       type: String,
-      default: () => { return 'cal-' + Math.random().toString(36).substring(2, 15) }
+      default: 'cal-eventRef'
     },
     preventEventDetail: {
       type: Boolean,
@@ -45,11 +46,6 @@ export default {
       default: 7
     },
     fullComponentRef: String
-  },
-  methods: {
-    doUpdate: () => {
-      // this should be overridden
-    }
   },
   mounted () {}
 }

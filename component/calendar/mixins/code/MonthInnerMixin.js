@@ -28,16 +28,13 @@ export default {
     }
   },
   methods: {
+    // TODO: refactor this 2024.01.19 k. rogers
     handleDayClick: function (dateObject) {
       // event item clicked; prevent "day" event
       if (this.eventClicked) {
         this.eventClicked = false
         return
       }
-      if (this.fullComponentRef) {
-        this.fullMoveToDay(dateObject)
-      }
-      this.handleNavMove({ absolute: dateObject })
       this.triggerDayClick(dateObject, this.eventRef)
     },
     handleCalendarEventClick: function () {

@@ -45,7 +45,6 @@ export default {
   },
   data () {
     return {
-      workingDate: this.startDate,
       weekDateArray: [],
       parsed: this.getDefaultParsed(),
       thisNavRef: this.createNewNavEventName(),
@@ -93,11 +92,10 @@ export default {
         return dateReturn
       }
       else {
-        return this.makeDT(this.workingDate).toFormat('MMMM yyyy')
+        return this.startDate.toFormat('MMMM yyyy')
       }
     },
     doUpdate: function () {
-      this.mountSetDate()
       this.weekDateArray = this.buildWeekDateArray(this.numDays)
       let payload = this.getMultiDayDisplayDates(this.weekDateArray)
       this.triggerDisplayChange(
@@ -203,9 +201,6 @@ export default {
     )
   },
   watch: {
-    startDate: function (newVal, oldVal) {
-      this.handleStartChange()
-    },
     eventArray: 'getPassedInEventArray',
     parsedEvents: 'getPassedInParsedEvents'
   }

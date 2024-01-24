@@ -12,9 +12,6 @@ import { getFirstDayOfWeek, getFirstWeekDay } from '../../../../utils/startofwee
 export default {
   computed: {},
   methods: {
-    handleStartChange: function (val, oldVal) {
-      this.doUpdate()
-    },
     /**
      * Converts a JavaScript Date object to a Luxon DateTime
      * object
@@ -86,15 +83,6 @@ export default {
         }
       }
     },
-    fullMoveToDay: function (dateObject) {
-      if (this.fullComponentRef) {
-        this.$root.$emit(
-          this.fullComponentRef + ':moveToSingleDay', {
-            dateObject: dateObject
-          }
-        )
-      }
-    },
     getEventColor: function (eventObject, colorName) {
       if (dashHas(eventObject, colorName)) {
         return eventObject[colorName]
@@ -118,7 +106,7 @@ export default {
      * Return formatted date string for BadiDate or DateTime object.
      * @see https://moment.github.io/luxon/#/formatting?id=presets
      *
-     * @param {BadiDate||DateTime} dateObject
+     * @param {BadiDate|DateTime} dateObject
      * @param {string} format A preset formatting string
      * @returns {string}
      */
@@ -332,13 +320,6 @@ export default {
         return this.makeDT(thisDateObject).weekNumber
       }
     },
-    mountSetDate: function () {
-      let newDate = this.makeDT(this.startDate)
-      this.$emit(
-        'set-working-date-' + this.eventRef,
-        newDate
-      )
-    },
     decimalAdjust: function (type, value, exp) {
       // from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor
       // If the exp is undefined or zero...
@@ -408,8 +389,19 @@ export default {
         return true
       }
       throw TypeError('Invalid date object type')
+    },
+    /**
+     * Constructs RouteParams object for route
+     *
+     * @param {number} year
+     * @param {number} month
+     * @param {number} day
+     */
+    RouteParams: function (year, month, day) {
+      this.year = year
+      this.month = month
+      this.day = day
     }
-
   },
   mounted () {}
 }

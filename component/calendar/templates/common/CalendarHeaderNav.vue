@@ -2,19 +2,19 @@
   <div class="calendar-header flex-col-auto flex-row flex-justify-between flex-items-center">
     <div class="calendar-header-left flex-col-auto">
       <q-btn
-        @click="doMoveTimePeriod(timePeriodUnit, -timePeriodAmount)"
+        @click="doMoveTimePeriod(-1, $event)"
         icon="chevron_left"
         color="primary"
         round
         flat
       />
     </div>
-    <div class="calendar-header-label">
+    <div class="calendar-header-label" data-cy="calendar-header">
       <slot/>
     </div>
     <div class="calendar-header-right flex-col-auto">
       <q-btn
-        @click="doMoveTimePeriod(timePeriodUnit, timePeriodAmount)"
+        @click="doMoveTimePeriod(1, $event)"
         icon="chevron_right"
         color="primary"
         round
@@ -25,12 +25,12 @@
 </template>
 
 <script>
-  import { CalendarHeaderNavTemplateMixin } from 'mixins'
+  import { CalendarMixin, CalendarHeaderNavTemplateMixin } from 'mixins'
   import { QBtn } from 'quasar'
 
   export default {
     name: 'CalendarHeaderNav',
-    mixins: [ CalendarHeaderNavTemplateMixin ],
+    mixins: [ CalendarMixin, CalendarHeaderNavTemplateMixin ],
     components: {
       QBtn
     }

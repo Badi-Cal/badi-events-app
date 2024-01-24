@@ -1,11 +1,11 @@
 import { shallowMount, mount } from '@vue/test-utils'
 import Vue from 'vue'
-import BadiCalendar from 'src/pages/Badi.vue'
+import GregorianCalendar from 'src/pages/Gregorian.vue'
 import Quasar from '../utils'
 
-import BadiDate from '../../../utils/badidate'
+import { DateTime } from 'luxon'
 
-describe('BadiCalendar', () => {
+describe('Calendar', () => {
   // set up Quasar and Vue
   Quasar()
   const LocalVue = Vue.extend()
@@ -14,7 +14,7 @@ describe('BadiCalendar', () => {
     let wrapper
 
     beforeEach(() => {
-      wrapper = mount(BadiCalendar, {
+      wrapper = mount(GregorianCalendar, {
         LocalVue,
         stubs: ['router-link']
       })
@@ -26,7 +26,7 @@ describe('BadiCalendar', () => {
     })
 
     it('should be a Vue instance', () => {
-      const instance = wrapper.findComponent(BadiCalendar)
+      const instance = wrapper.findComponent(GregorianCalendar)
       expect(instance.exists()).toBe(true)
     })
   })
@@ -34,12 +34,12 @@ describe('BadiCalendar', () => {
   describe('component data object', () => {
     let wrapper
     beforeEach(() => {
-      wrapper = shallowMount(BadiCalendar, {
+      wrapper = shallowMount(GregorianCalendar, {
         LocalVue,
         propsData: {
-          year: new BadiDate().year,
-          month: new BadiDate().month,
-          day: new BadiDate().day
+          year: DateTime.local().year,
+          month: DateTime.local().month,
+          day: DateTime.local().day
         }
       })
     })
@@ -48,10 +48,11 @@ describe('BadiCalendar', () => {
       wrapper.destroy()
     })
 
-    it('should create correct Badi date', () => {
+    it('should create correct working date', () => {
       const vm = wrapper.vm
-      const testBadiDate = new BadiDate()
-      expect(vm.startDateBadi).toStrictEqual(testBadiDate)
+
+      const testDate = DateTime.now()
+      expect(vm.startDateGregorian.toLocaleString()).toBe(testDate.toLocaleString())
     })
   })
 })

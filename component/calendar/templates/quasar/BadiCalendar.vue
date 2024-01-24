@@ -1,13 +1,12 @@
 <template>
   <div class="calendar-badi">
     <q-tabs
-      v-model="currentTab"
       class="text-primary calendar-tabs"
       ref="fullCalendarTabs"
       align="left"
     >
       <q-tab
-        name="tab-month"
+        @click="doChangeCalPeriod('month')"
         icon="view_module"
         :label="tabLabels.month"
       />
@@ -16,14 +15,14 @@
     <q-separator />
 
     <q-tab-panels
-      v-model="currentTab"
+      v-model="calendarTab"
       class="calendar-tab-panels"
       animated
     >
       <q-tab-panel name="tab-month" class="calendar-tab-panel-month">
         <badi-month
           :ref="'month-' + thisRefName"
-          :start-date="workingDate"
+          :start-date="startDate"
           :parsed-events="parsedEvents"
           :event-ref="eventRef"
           :full-component-ref="eventRef"
@@ -42,9 +41,9 @@
     CalendarMixin,
     CalendarEventMixin,
     CalendarPropsMixin,
-    CalendarTemplateMixin,
     CalendarBadiMixin,
-    BadiTemplateMixin
+    BadiTemplateMixin,
+    CalendarTemplateMixin
   } from 'mixins'
   import BadiMonth from './BadiMonth'
   import {
@@ -61,8 +60,8 @@
       CalendarMixin,
       CalendarEventMixin,
       CalendarPropsMixin,
-      CalendarTemplateMixin,
       CalendarBadiMixin,
+      CalendarTemplateMixin,
       BadiTemplateMixin
     ],
     components: {
